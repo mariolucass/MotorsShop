@@ -2,7 +2,7 @@
   "name": "frontend-fullstack-m6",
   "version": "0.1.0",
   "private": true,
-"dependencies": {
+  "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@hookform/resolvers": "^3.0.0",
@@ -15,6 +15,7 @@
     "react-hook-form": "^7.43.7",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.1",
     "styled-components": "^5.3.9",
     "zod": "^3.21.4"
