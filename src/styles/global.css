@@ -1,5 +1,3 @@
-@import "./reset.css";
-
 :root {
   --brand1: #4529e6;
   --brand2: #5126ea;
@@ -41,62 +39,195 @@
 }
 
 .heading1-700 {
-  color: var(--grey1);
-  font-size: 44px;
+  font-size: 2.75rem;
   font-weight: 700;
 }
 .heading2-600 {
-  color: var(--grey1);
-  font-size: 35px;
+  font-size: 2.188rem;
   font-weight: 600;
 }
 .heading3-600 {
-  color: var(--grey1);
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 600;
 }
 .heading3-500 {
-  color: var(--grey1);
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 500;
 }
 .heading4-600 {
-  color: var(--grey1);
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 600;
 }
 .heading4-500 {
-  color: var(--grey1);
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 500;
 }
 .heading5-600 {
-  color: var(--grey1);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 .heading5-500 {
-  color: var(--grey1);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
 }
 .heading6-600 {
-  color: var(--grey1);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 .heading6-500 {
-  color: var(--grey1);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
 }
 .heading7-600 {
-  color: var(--grey1);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
 }
 .heading7-500 {
-  color: var(--grey1);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
+}
+
+.container--Main {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.ocult {
+  display: none;
+}
+
+.advertBody {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--brand2) 50%, var(--brand4) 50%);
+}
+
+.advertImg {
+  width: 90%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-1 {
+  transition: 1s;
+}
+
+.direction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+@media (min-width: 400px) {
+  .advertImg {
+    height: 80%;
+
+    object-fit: contain;
+  }
+
+  .box-1 {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 540px) {
+  .advertImg {
+    height: 100px;
+
+    object-fit: contain;
+  }
+
+  .box-1 {
+    width: 100% !important;
+  }
+
+  .box-2 {
+    width: 100% !important;
+    height: 300px !important;
+  }
+
+  .box-2 img {
+    width: 100% !important;
+  }
+
+  .direction {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .division-1 {
+    width: 50%;
+  }
+
+  .division-2 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 700px) {
+  .advertImg {
+    width: 80%;
+    height: 100%;
+
+    object-fit: contain;
+  }
+
+  .box-2 img {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .advertImg {
+    width: 80%;
+    height: 100%;
+
+    object-fit: contain;
+  }
+
+  .box-2 {
+    min-height: 400px;
+    height: 100% !important;
+  }
+
+  .box-2 img {
+    width: 100% !important;
+  }
+
+  .division-1 {
+    width: 60%;
+  }
+
+  .division-2 {
+    width: 30%;
+  }
+
+  .direction {
+    gap: 3%;
+  }
 }
