@@ -1,8 +1,10 @@
 import React from "react";
+import { NavBar } from "../components/navbar";
 
 export const Home = () => {
-  return <section>
-
-    
-  </section>;
+  return (
+    <>
+      <NavBar></NavBar>
+    </>
+  )
 };
