@@ -1,12 +1,11 @@
-import "./styles/global.css";
-import { RoutesMain } from "./routes";
+import PageRoutes from "./Routes";
+import CssBaseline from "@mui/material/CssBaseline";
 
-const App = () => {
+export const App = () => {
   return (
-    <div className="App">
-      <RoutesMain/>
+    <div>
+      <CssBaseline />
+      <PageRoutes />
     </div>
-  )
+  );
 };
-
-export default App;
