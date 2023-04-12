@@ -33,6 +33,8 @@ const StyledMenu = styled.section`
     padding: 20px;
 
     position: absolute;
+    top: -50px;
+    transition: 1s;
 
     display: flex;
     align-items: center;
@@ -42,7 +44,10 @@ const StyledMenu = styled.section`
   }
 
   div p {
+    width: 90%;
     color: var(--grey10);
+    transition: 1s;
+    text-align: center;
   }
 
   @media (min-width: 350px) {
@@ -56,17 +61,32 @@ const StyledMenu = styled.section`
       width: 100%;
       height: 70%;
     }
+
+    div {
+      position: absolute;
+      top: 0px;
+    }
   }
   @media (min-width: 700px) {
     img {
       width: 100%;
       height: 80%;
     }
+
+    div {
+      position: absolute;
+      top: 0px;
+    }
   }
   @media (min-width: 900px) {
     img {
       width: 100%;
       height: 90%;
+    }
+
+    div {
+      position: absolute;
+      top: 0px;
     }
   }
 `;

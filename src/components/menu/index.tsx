@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StyledMenu from "./style";
 
 const Menu = () => {
+  const [widthSize, setWidthSize] = useState(window.innerWidth);
+
+  const setSize = () => {
+    setWidthSize(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", setSize);
+
+    return () => {
+      window.removeEventListener("resize", setSize);
+    };
+  }, [widthSize]);
+
   return (
     <StyledMenu>
       <section></section>
@@ -10,9 +24,27 @@ const Menu = () => {
         alt=""
       />
       <div>
-        <p className="heading2-600">Motors Shop</p>
-        <p className="heading2-600">
-          A melhor playaforma de anúncios de carros do país
+        <p
+          className={
+            widthSize < 400
+              ? "heading6-600"
+              : widthSize > 400 && widthSize < 700
+              ? "heading5-600"
+              : "heading2-600"
+          }
+        >
+          Motors Shop
+        </p>
+        <p
+          className={
+            widthSize < 400
+              ? "heading6-600"
+              : widthSize > 400 && widthSize < 700
+              ? "heading5-600"
+              : "heading2-600"
+          }
+        >
+          A melhor plataforma de anúncios de carros do país
         </p>
       </div>
     </StyledMenu>
