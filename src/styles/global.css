@@ -1,5 +1,14 @@
 @import "./reset.css";
 
+@font-face {
+  font-family: Lexend;
+  src: url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap') format("truetype");
+}
+
+body {
+  font-family: Lexend, sans-serif;
+}
+
 :root {
   --brand1: #4529e6;
   --brand2: #5126ea;
