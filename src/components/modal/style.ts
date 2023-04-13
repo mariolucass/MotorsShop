@@ -6,8 +6,11 @@ export const Box = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
-  background: pink;
-  border: 2px solid #000;
-  box-shadow: 24px;
-  padding: 4px;
+  border-radius: 2px;
+  padding: 10px;
+  background: var(--whitefixed);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

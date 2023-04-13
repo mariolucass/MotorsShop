@@ -5,14 +5,14 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import { Box } from './style';
 
-export const ModalGeneral = () => {
+export const ModalGeneral = ({content, buttonText}: any) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return (
         <>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button onClick={handleOpen} >{buttonText}</Button>
 
             <Modal
             aria-labelledby="transition-modal-title"
@@ -28,7 +28,7 @@ export const ModalGeneral = () => {
             }}>
                 <Fade in={open}>
                     <Box>
-                        <span>aaaaaa</span>
+                        {content}
                     </Box>
                 </Fade>
             </Modal>

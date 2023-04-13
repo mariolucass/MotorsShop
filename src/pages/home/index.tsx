@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../../components/menu";
 import Adverts from "../../components/adverts";
+import { ModalGeneral } from "../../components/modal";
 
 const Home = () => {
   const [widthSize, setWidthSize] = useState(window.innerWidth);
@@ -22,7 +23,6 @@ const Home = () => {
       <Menu />
       <main className="container--Main">
         <div className={widthSize < 700 ? "ocult" : ""}>filter</div>
-
         <Adverts />
       </main>
     </section>
