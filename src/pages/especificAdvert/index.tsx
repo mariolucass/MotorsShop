@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Stack } from "@mui/material";
 import StyledBox from "../../components/box";
 import Box from "@mui/material/Box";
@@ -9,11 +9,24 @@ import ImageList from "@mui/material/ImageList";
 import { Header } from "../../components/header";
 
 const AdvertPage = () => {
+  const [widthSize, setWidthSize] = useState(window.innerWidth);
+
+  const setSize = () => {
+    setWidthSize(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", setSize);
+    return () => {
+      window.removeEventListener("resize", setSize);
+    };
+  }, [widthSize]);
+
   return (
     <>
-      <Header />
-
       <div className="advertBody">
+        <Header widthSize={widthSize} />
+
         <Container>
           <main className="direction">
             <div className="flecColumn division-1">

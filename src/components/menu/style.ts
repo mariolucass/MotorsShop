@@ -2,21 +2,26 @@ import styled from "styled-components";
 
 const StyledMenu = styled.section`
   width: 100%;
-  height: 80vh;
+  height: 70vh;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   img {
     width: 100%;
-    height: 175px;
+    max-height: 70vh;
     object-fit: contain;
     transition: 1s;
+
+    position: absolute;
+    z-index: -1;
   }
 
   section {
     width: 100%;
-    height: 80vh;
+    height: 60vh;
 
     background: linear-gradient(
       0deg,
@@ -32,7 +37,6 @@ const StyledMenu = styled.section`
     height: 60%;
     padding: 20px;
 
-    position: absolute;
     top: -50px;
     transition: 1s;
 
@@ -41,6 +45,8 @@ const StyledMenu = styled.section`
     flex-direction: column;
     justify-content: center;
     gap: 16px;
+
+    z-index: 9999;
   }
 
   div p {
@@ -58,35 +64,17 @@ const StyledMenu = styled.section`
   }
   @media (min-width: 440px) {
     img {
-      width: 100%;
-      height: 70%;
-    }
-
-    div {
-      position: absolute;
-      top: 0px;
+      width: 80%;
     }
   }
   @media (min-width: 700px) {
     img {
-      width: 100%;
-      height: 80%;
-    }
-
-    div {
-      position: absolute;
-      top: 0px;
+      width: 70%;
     }
   }
   @media (min-width: 900px) {
     img {
-      width: 100%;
-      height: 90%;
-    }
-
-    div {
-      position: absolute;
-      top: 0px;
+      width: 60%;
     }
   }
 `;

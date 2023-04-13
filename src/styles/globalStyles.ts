@@ -109,6 +109,7 @@ body {
     ::-webkit-scrollbar {
     width: 4px;
     height: 4px;
+    background-color: transparent;
     }
 
     ::-webkit-scrollbar-thumb {
@@ -117,7 +118,7 @@ body {
     }
 
     ::-webkit-scrollbar-track {
-    background: transparent;
+      background-color: transparent;
     }
 } 
    

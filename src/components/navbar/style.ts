@@ -1,24 +1,5 @@
 import styled from "styled-components";
 
-interface IContainerProps {
-  isClosed: boolean;
-}
-
-export const Container = styled.section<IContainerProps>`
-  display: ${(props) => (props.isClosed ? "none" : "flex")};
-  flex-direction: column;
-  z-index: 9999;
-  min-width: 454px;
-  background-color: var(--whitefixed);
-  padding: 0 15px 15px 15px;
-  font-family: "Inter";
-  margin-left: 19px;
-
-  @media screen and (min-width: 720px) {
-    width: 23%;
-  }
-`;
-
 export const TitleNavBar = styled.div`
   display: flex;
   justify-content: space-between;
@@ -47,7 +28,7 @@ export const ListElements = styled.ul`
   }
 `;
 
-export const Box = styled.div`
+export const MyBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;

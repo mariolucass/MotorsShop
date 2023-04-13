@@ -6,9 +6,10 @@ import { MenuHeader } from "../menuHeader";
 import { useState } from "react";
 interface IProps {
   isHome?: boolean;
+  widthSize: number;
 }
 
-export const Header = ({ isHome }: IProps) => {
+export const Header = ({ isHome, widthSize }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const RenderProfileView = () => (
@@ -17,7 +18,10 @@ export const Header = ({ isHome }: IProps) => {
         <img src={Logo} alt="Logo" />
       </Link>
 
-      <div className="div__user" onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={widthSize < 700 ? "ocult" : "div__user"}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <Avatar src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg " />
         <span>Samuel Leão</span>
 
@@ -32,7 +36,7 @@ export const Header = ({ isHome }: IProps) => {
         <img src={Logo} alt="Logo" />
       </Link>
 
-      <div className="div__buttons">
+      <div className={widthSize < 700 ? "ocult" : "div__buttons"}>
         <Link to={"/login"}>Fazer Login</Link>
         <Link to={"/register"}>Registrar</Link>
       </div>

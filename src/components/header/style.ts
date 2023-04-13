@@ -2,13 +2,11 @@ import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
   font-family: "Inter";
-  position: absolute;
   top: 0px;
   width: 100%;
   height: 80px;
   display: flex;
   background-color: #ffffff;
-  z-index: 9999;
 
   justify-content: space-between;
   align-items: center;

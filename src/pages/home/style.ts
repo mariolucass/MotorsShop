@@ -12,4 +12,5 @@ export const MainStyled = styled.main`
 export const AdvertsMenu = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: row;
 `;
