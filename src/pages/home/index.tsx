@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { AdvertsMenu, MainStyled } from "./style";
+import { useEffect, useState } from "react";
 import Menu from "../../components/menu";
 import Adverts from "../../components/adverts";
+import { Footer } from "../../components/footer";
+import { Header } from "../../components/header";
+import { NavBar } from "../../components/navbar";
 
 const Home = () => {
   const [widthSize, setWidthSize] = useState(window.innerWidth);
@@ -11,21 +15,28 @@ const Home = () => {
 
   useEffect(() => {
     window.addEventListener("resize", setSize);
-
     return () => {
       window.removeEventListener("resize", setSize);
     };
   }, [widthSize]);
 
   return (
-    <section>
-      <Menu />
-      <main className="container--Main">
-        <div className={widthSize < 700 ? "ocult" : ""}>filter</div>
+    <>
+      <Header isHome={true} />
 
-        <Adverts />
-      </main>
-    </section>
+      <MainStyled className="container--Main">
+        <section>
+          <Menu />
+
+          <AdvertsMenu>
+            <NavBar widthSize={widthSize} />
+            <Adverts />
+          </AdvertsMenu>
+        </section>
+      </MainStyled>
+
+      {/* <Footer /> */}
+    </>
   );
 };
 
