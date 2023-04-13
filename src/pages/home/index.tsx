@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../../components/menu";
 import Adverts from "../../components/adverts";
+import { NavBar } from "../../components/navbar";
 
 const Home = () => {
   const [widthSize, setWidthSize] = useState(window.innerWidth);
@@ -21,7 +22,7 @@ const Home = () => {
     <section>
       <Menu />
       <main className="container--Main">
-        <div className={widthSize < 700 ? "ocult" : ""}>filter</div>
+        <NavBar />
 
         <Adverts />
       </main>
