@@ -1,12 +1,11 @@
-import "./styles/global.css";
-import { RoutesMain } from "./routes";
+import Router from "../src/routes";
+import CssBaseline from "@mui/material/CssBaseline";
+import { GlobalStyles } from "./styles/globalStyles";
 
-const App = () => {
-  return (
-    <div className="App">
-      <RoutesMain/>
-    </div>
-  )
-};
-
-export default App;
+export const App = () => (
+  <>
+    <CssBaseline />
+    <GlobalStyles />
+    <Router />
+  </>
+);
