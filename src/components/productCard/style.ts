@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ProductCardStyled = styled.div`
-  width: 320px;
+  width: 20%;
   height: 350px;
 
   display: flex;
@@ -28,6 +28,7 @@ export const ProductCardStyled = styled.div`
   }
 
   .product__title {
+    margin: 0;
     font-family: "Lexend";
     font-style: normal;
     font-weight: 600;
@@ -51,6 +52,7 @@ export const ProductCardStyled = styled.div`
   }
 
   .product__description {
+    margin: 0;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -77,11 +79,14 @@ export const ProductCardStyled = styled.div`
       gap: 12px;
 
       span {
-        width: 51px;
+        width: 57px;
         height: 32px;
 
         background-color: #edeafd;
         border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         font-style: normal;
         color: #4529e6;
