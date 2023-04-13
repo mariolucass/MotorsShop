@@ -1,5 +1,9 @@
+
 import { Footer } from "./components/footer";
 import { IProduct, ProductCard } from "./components/productCard";
+import PageRoutes from "./Routes";
+import CssBaseline from "@mui/material/CssBaseline";
+
 const listMockedCars: IProduct[] = [
   {
     img: "https://www.autoracing.com.br/wp-content/uploads/2022/12/S22_4012.jpg",
@@ -29,16 +33,15 @@ const listMockedCars: IProduct[] = [
   // },
 ];
 
-const App = () => {
+export const App = () => {
   const list = listMockedCars.map((element) => {
     return <ProductCard element={element} key={element.title} />;
   });
+
   return (
-    <div className="App">
-      {list}
-      {/* <Footer /> */}
+    <div>
+      <CssBaseline />
+      <PageRoutes />
     </div>
   );
 };
-
-export default App;
