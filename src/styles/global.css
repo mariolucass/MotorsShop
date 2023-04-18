@@ -106,7 +106,7 @@ body {
 }
 
 .ocult {
-  display: none;
+  display: none !important;
 }
 
 .advertBody {
@@ -161,6 +161,11 @@ body {
 
 .perfil img {
   width: 100%;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  background-color: var(--grey5) !important;
+  padding: 12.5px 12px !important;
 }
 
 @media (min-width: 400px) {

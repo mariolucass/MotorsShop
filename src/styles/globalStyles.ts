@@ -42,62 +42,50 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 .heading1-700 {
-  color: var(--grey1);
   font-size: 44px;
   font-weight: 700;
 }
 .heading2-600 {
-  color: var(--grey1);
   font-size: 35px;
   font-weight: 600;
 }
 .heading3-600 {
-  color: var(--grey1);
   font-size: 32px;
   font-weight: 600;
 }
 .heading3-500 {
-  color: var(--grey1);
   font-size: 32px;
   font-weight: 500;
 }
 .heading4-600 {
-  color: var(--grey1);
   font-size: 28px;
   font-weight: 600;
 }
 .heading4-500 {
-  color: var(--grey1);
   font-size: 28px;
   font-weight: 500;
 }
 .heading5-600 {
-  color: var(--grey1);
   font-size: 24px;
   font-weight: 600;
 }
 .heading5-500 {
-  color: var(--grey1);
   font-size: 24px;
   font-weight: 500;
 }
 .heading6-600 {
-  color: var(--grey1);
   font-size: 20px;
   font-weight: 600;
 }
 .heading6-500 {
-  color: var(--grey1);
   font-size: 20px;
   font-weight: 500;
 }
 .heading7-600 {
-  color: var(--grey1);
   font-size: 16px;
   font-weight: 600;
 }
 .heading7-500 {
-  color: var(--grey1);
   font-size: 16px;
   font-weight: 500;
 }

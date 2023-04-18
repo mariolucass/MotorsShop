@@ -1,109 +1,27 @@
-import { useState } from "react";
-import {
-  TitleNavBar,
-  TitlesFilter,
-  ListElements,
-  MyBox,
-  Input,
-  Button,
-} from "./style";
-import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
-// import { AiOutlineClose } from "react-icons/ai";
+import { ano, combustivel, cores, marcas, modelos } from "../../data";
+import FilterBox from "./filterBox/FilterBox";
+import FilterBoxInput from "./filterBox/FilterBoxInput";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
-interface IProps {
-  widthSize: number;
-}
-
-export const NavBar = ({ widthSize }: IProps) => {
-  const [isClosed, setIsClosed] = useState<boolean>(false);
+export const NavBar = () => {
+  const matches700 = useMediaQuery(`(max-width:700px)`);
 
   return (
     <Box
-      className={widthSize < 700 ? "ocult" : ""}
+      className={matches700 ? "ocult" : "navbar"}
       sx={{
         width: "20%",
         m: 2,
       }}
     >
-      {/* <TitleNavBar>
-          <span>Filtro</span>
-          <AiOutlineClose
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setIsClosed(!isClosed);
-            }}
-          />
-        </TitleNavBar> */}
-      <TitlesFilter>Marca</TitlesFilter>
-      <ListElements>
-        <li>General Motos</li>
-        <li>Fiat</li>
-        <li>Ford</li>
-        <li>Honda</li>
-        <li>Toyota</li>
-        <li>Volswagen</li>
-      </ListElements>
-      <TitlesFilter>Modelo</TitlesFilter>
-      <ListElements>
-        <li>Civic</li>
-        <li>Corolla</li>
-        <li>Cruze</li>
-        <li>Fit</li>
-        <li>Gol</li>
-        <li>Ka</li>
-        <li>Onix</li>
-        <li>Pulse</li>
-      </ListElements>
-      <TitlesFilter>Cor</TitlesFilter>
-      <ListElements>
-        <li>Azul</li>
-        <li>Branca</li>
-        <li>Cinza</li>
-        <li>Prata</li>
-        <li>Preta</li>
-        <li>Verde</li>
-      </ListElements>
-      <TitlesFilter>Ano</TitlesFilter>
-      <ListElements>
-        <li>2021</li>
-        <li>2018</li>
-        <li>2015</li>
-        <li>2013</li>
-        <li>2022</li>
-        <li>2012</li>
-        <li>2010</li>
-      </ListElements>
-      <TitlesFilter>Combustível</TitlesFilter>
-      <ListElements>
-        <li>Diesel</li>
-        <li>Etanol</li>
-        <li>Gasolina</li>
-        <li>Flex</li>
-      </ListElements>
-      <TitlesFilter>Km</TitlesFilter>
-      <ListElements>
-        <MyBox>
-          <Input type="text" placeholder="Mínima" />
-          <Input type="text" placeholder="Máxima" />
-        </MyBox>
-      </ListElements>
-      <TitlesFilter>Preço</TitlesFilter>
-      <ListElements>
-        <MyBox>
-          <Input type="text" placeholder="Mínimo" />
-          <Input type="text" placeholder="Máximo" />
-        </MyBox>
-      </ListElements>
-      <MyBox>
-        <Button
-          onClick={() => {
-            setIsClosed(!isClosed);
-          }}
-        >
-          Ver anúncios
-        </Button>
-      </MyBox>
+      <FilterBox title="Marca" options={marcas} />
+      <FilterBox title="Modelo" options={modelos} />
+      <FilterBox title="Cor" options={cores} />
+      <FilterBox title="Ano" options={ano} />
+      <FilterBox title="Combustivel" options={combustivel} />
+      <FilterBoxInput title="Km" />
+      <FilterBoxInput title="Preço" />
     </Box>
   );
 };
