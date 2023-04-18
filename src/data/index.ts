@@ -147,3 +147,29 @@ export const listMockedCars: IProduct[] = [
     },
   },
 ];
+
+export const marcas = [
+  "General Motos",
+  "Fiat",
+  "Ford",
+  "Honda",
+  "Porsche",
+  "Volswagen",
+];
+
+export const modelos = [
+  "Civic",
+  "Corolla",
+  "Cruze",
+  "Fit",
+  "Gol",
+  "Ka",
+  "Onix",
+  "Porsche 718",
+];
+
+export const cores = ["Azul", "Branca", "Cinza", "Prata", "Preeto", "Verde"];
+
+export const ano = ["2022", "2021", "2018", "2015", "2013", "2012", "2010"];
+
+export const combustivel = ["Diesel", "Etanol", "Gasolina", "Flex"];

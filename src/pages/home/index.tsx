@@ -5,6 +5,7 @@ import Adverts from "../../components/adverts";
 import { Header } from "../../components/header";
 import { NavBar } from "../../components/navbar";
 import { Footer } from "../../components/footer";
+import { Container } from "@mui/material";
 
 const Home = () => {
   const [widthSize, setWidthSize] = useState(window.innerWidth);
@@ -25,13 +26,13 @@ const Home = () => {
       <Header isHome={true} widthSize={widthSize} />
 
       <Menu />
-      <MainStyled className="container--Main">
+      <Container>
         <AdvertsMenu>
-          <NavBar widthSize={widthSize} />
+          <NavBar />
           <Adverts />
         </AdvertsMenu>
-      </MainStyled>
-      {/* <Footer /> */}
+      </Container>
+      <Footer />
     </>
   );
 };

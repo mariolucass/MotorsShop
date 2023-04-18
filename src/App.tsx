@@ -1,11 +1,12 @@
 import Router from "../src/routes";
-import CssBaseline from "@mui/material/CssBaseline";
 import { GlobalStyles } from "./styles/globalStyles";
+import ContextProvider from "./context";
 
-export const App = () => (
-  <>
-    <CssBaseline />
-    <GlobalStyles />
-    <Router />
-  </>
-);
+export const App = () => {
+  return (
+    <ContextProvider>
+      <GlobalStyles />
+      <Router />
+    </ContextProvider>
+  );
+};

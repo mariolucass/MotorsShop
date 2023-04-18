@@ -13,4 +13,6 @@ export const AdvertsMenu = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  gap: 50px;
 `;
