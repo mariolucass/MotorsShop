@@ -1,5 +1,9 @@
-import { ProductCardStyled } from "./style";
+import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import { Typography, useMediaQuery } from "@mui/material";
+import Stack from "@mui/material/Stack";
 
 export interface IProduct {
   title: string;
@@ -25,35 +29,69 @@ export const ProductCard = ({ element }: IPropsProductCard) => {
     currency: "BRL",
   });
 
+  const matches500 = useMediaQuery("(min-width:500px)");
+  const matches700 = useMediaQuery("(min-width:700px)");
+  const matches1200 = useMediaQuery("(min-width:1200px)");
+
+  const cardSize = () => {
+    if (matches1200) {
+      return { width: "30%", maxWidth: 312 };
+    }
+
+    if (matches700) {
+      return { width: "45%" };
+    }
+
+    if (matches500) {
+      return { width: "60%" };
+    }
+
+    return { width: "80%" };
+  };
+
   return (
-    <ProductCardStyled>
-      <div className="product__div__img">
-        <img src={element.img} alt={element.title} />
-      </div>
+    <Card variant="outlined" sx={cardSize}>
+      <CardMedia
+        component={"img"}
+        height={"175"}
+        image={element.img}
+        alt={element.title}
+      />
+      {/* <img src={element.img} alt={element.title} /> */}
 
-      <div>
-        <h3 className="product__title">{element.title}</h3>
-      </div>
+      <CardContent sx={{ gap: 2, display: "flex", flexDirection: "column" }}>
+        <Typography component="div" variant="h6" gutterBottom>
+          {element.title}
+        </Typography>
 
-      <div>
-        <p className="product__description">{element.description}</p>
-      </div>
+        <Typography variant="body2">{element.description}</Typography>
 
-      <div className="product__user">
-        <Avatar alt={element.user.name} src={element.user.img} />
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Avatar alt={element.user.name} src={element.user.img} />
 
-        <span>{element.user.name}</span>
-      </div>
+          <span>{element.user.name}</span>
+        </Stack>
 
-      <div className="product_infos">
-        <div className="product__tags">
-          <span>{element.mileage} KM</span>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
+        >
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+          >
+            <span>{element.mileage} KM</span>
 
-          <span>{element.manufacturing_year}</span>
-        </div>
+            <span>{element.manufacturing_year}</span>
+          </Stack>
 
-        <span className="product__price">{priceFormatted}</span>
-      </div>
-    </ProductCardStyled>
+          <span className="product__price">{priceFormatted}</span>
+        </Stack>
+      </CardContent>
+    </Card>
   );
 };
