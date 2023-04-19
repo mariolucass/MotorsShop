@@ -3,14 +3,15 @@ import Logo from "../../assets/logoColored.svg";
 import { HeaderStyled } from "./style";
 import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { MidiaContext } from "../../context";
 interface IProps {
   isHome?: boolean;
-  widthSize: number;
 }
 
-export const Header = ({ isHome, widthSize }: IProps) => {
+export const Header = ({ isHome }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { matches700 } = useContext(MidiaContext);
 
   const RenderProfileView = () => (
     <HeaderStyled>
@@ -19,7 +20,7 @@ export const Header = ({ isHome, widthSize }: IProps) => {
       </Link>
 
       <div
-        className={widthSize < 700 ? "ocult" : "div__user"}
+        className={matches700 ? "ocult" : "div__user"}
         onClick={() => setIsOpen(!isOpen)}
       >
         <Avatar src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg " />
@@ -36,7 +37,7 @@ export const Header = ({ isHome, widthSize }: IProps) => {
         <img src={Logo} alt="Logo" />
       </Link>
 
-      <div className={widthSize < 700 ? "ocult" : "div__buttons"}>
+      <div className={matches700 ? "ocult" : "div__buttons"}>
         <Link to={"/login"}>Fazer Login</Link>
         <Link to={"/register"}>Registrar</Link>
       </div>

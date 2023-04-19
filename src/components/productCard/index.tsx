@@ -2,9 +2,11 @@ import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import { Typography, useMediaQuery } from "@mui/material";
+import { Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import StyledChip from "../chip";
+import { useContext } from "react";
+import { MidiaContext } from "../../context";
 
 export interface IProduct {
   title: string;
@@ -30,9 +32,7 @@ export const ProductCard = ({ element }: IPropsProductCard) => {
     currency: "BRL",
   });
 
-  const matches500 = useMediaQuery("(min-width:500px)");
-  const matches700 = useMediaQuery("(min-width:700px)");
-  const matches1200 = useMediaQuery("(min-width:1200px)");
+  const { matches500, matches700, matches1200 } = useContext(MidiaContext);
 
   const cardSize = () => {
     if (matches1200) {
@@ -79,7 +79,7 @@ export const ProductCard = ({ element }: IPropsProductCard) => {
         <Typography
           className="card--description"
           variant="body2"
-          sx={{ height: 100, overflowX: "auto" }}
+          sx={{ overflowX: "auto" }}
         >
           {element.description}
         </Typography>

@@ -1,6 +1,7 @@
 import { Box, Stack } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { StyledOptions } from "./style";
+import { MidiaContext } from "../../../context";
+import { useContext } from "react";
 
 interface iProps {
   title: string;
@@ -8,7 +9,8 @@ interface iProps {
 }
 
 const FilterBox = ({ title, options }: iProps) => {
-  const matches900 = useMediaQuery(`(min-width:900px)`);
+  const { matches900 } = useContext(MidiaContext);
+
   return (
     <Box>
       <h6 className={matches900 ? "heading4-600" : "heading6-600"}>{title}</h6>

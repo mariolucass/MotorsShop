@@ -2,14 +2,15 @@ import Box from "@mui/material/Box";
 import { ano, combustivel, cores, marcas, modelos } from "../../data";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { MidiaContext } from "../../context";
+import { useContext } from "react";
 
 export const NavBar = () => {
-  const matches700 = useMediaQuery(`(max-width:700px)`);
+  const { matches700 } = useContext(MidiaContext);
 
   return (
     <Box
-      className={matches700 ? "ocult" : "navbar"}
+      className={matches700 ? "navbar" : "ocult"}
       sx={
         matches700
           ? {
