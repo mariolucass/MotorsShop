@@ -1,5 +1,4 @@
-import { AdvertsMenu, MainStyled } from "./style";
-import { useEffect, useState } from "react";
+import { AdvertsMenu } from "./style";
 import Menu from "../../components/menu";
 import Adverts from "../../components/adverts";
 import { Header } from "../../components/header";
@@ -8,22 +7,9 @@ import { Footer } from "../../components/footer";
 import { Container } from "@mui/material";
 
 const Home = () => {
-  const [widthSize, setWidthSize] = useState(window.innerWidth);
-
-  const setSize = () => {
-    setWidthSize(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", setSize);
-    return () => {
-      window.removeEventListener("resize", setSize);
-    };
-  }, [widthSize]);
-
   return (
     <>
-      <Header isHome={true} widthSize={widthSize} />
+      <Header isHome={true} />
 
       <Menu />
       <Container className="container">
