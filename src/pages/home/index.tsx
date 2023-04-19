@@ -26,7 +26,7 @@ const Home = () => {
       <Header isHome={true} widthSize={widthSize} />
 
       <Menu />
-      <Container>
+      <Container className="container">
         <AdvertsMenu>
           <NavBar />
           <Adverts />
