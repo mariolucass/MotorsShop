@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import StyledMenu from "./style";
+import { MidiaContext } from "../../context";
 
 const Menu = () => {
-  const [widthSize, setWidthSize] = useState(window.innerWidth);
-
-  const setSize = () => {
-    setWidthSize(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", setSize);
-
-    return () => {
-      window.removeEventListener("resize", setSize);
-    };
-  }, [widthSize]);
+  const { matches500, matches700 } = useContext(MidiaContext);
 
   return (
     <StyledMenu>
@@ -26,22 +15,22 @@ const Menu = () => {
       <div>
         <p
           className={
-            widthSize < 400
-              ? "heading6-600"
-              : widthSize > 400 && widthSize < 700
+            matches500
+              ? "heading2-600"
+              : matches700
               ? "heading5-600"
-              : "heading2-600"
+              : "heading6-600"
           }
         >
           Motors Shop
         </p>
         <p
           className={
-            widthSize < 400
-              ? "heading6-600"
-              : widthSize > 400 && widthSize < 700
+            matches500
+              ? "heading2-600"
+              : matches700
               ? "heading5-600"
-              : "heading2-600"
+              : "heading6-600"
           }
         >
           A melhor plataforma de anúncios de carros do país
