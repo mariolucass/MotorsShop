@@ -14,5 +14,16 @@ export const AdvertsMenu = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  gap: 50px;
+
+  @media (min-width: 700px) {
+    gap: 10px;
+  }
+
+  @media (min-width: 900px) {
+    gap: 25px;
+  }
+
+  @media (min-width: 1200px) {
+    gap: 50px;
+  }
 `;

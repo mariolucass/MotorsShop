@@ -4,6 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import { Typography, useMediaQuery } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import StyledChip from "../chip";
 
 export interface IProduct {
   title: string;
@@ -57,19 +58,36 @@ export const ProductCard = ({ element }: IPropsProductCard) => {
         image={element.img}
         alt={element.title}
       />
-      {/* <img src={element.img} alt={element.title} /> */}
 
-      <CardContent sx={{ gap: 2, display: "flex", flexDirection: "column" }}>
-        <Typography component="div" variant="h6" gutterBottom>
+      <CardContent
+        sx={{
+          gap: 2,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography
+          component="div"
+          variant="h6"
+          gutterBottom
+          className="card--title"
+        >
           {element.title}
         </Typography>
 
-        <Typography variant="body2">{element.description}</Typography>
+        <Typography
+          className="card--description"
+          variant="body2"
+          sx={{ height: 100, overflowX: "auto" }}
+        >
+          {element.description}
+        </Typography>
 
         <Stack direction="row" alignItems="center" spacing={2}>
           <Avatar alt={element.user.name} src={element.user.img} />
 
-          <span>{element.user.name}</span>
+          <span className="card--user">{element.user.name}</span>
         </Stack>
 
         <Stack
@@ -82,14 +100,14 @@ export const ProductCard = ({ element }: IPropsProductCard) => {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            spacing={2}
+            spacing={0.5}
           >
-            <span>{element.mileage} KM</span>
+            <StyledChip label={`${element.mileage} KM`} />
 
-            <span>{element.manufacturing_year}</span>
+            <StyledChip label={element.manufacturing_year} />
           </Stack>
 
-          <span className="product__price">{priceFormatted}</span>
+          <span className="card--price">{priceFormatted}</span>
         </Stack>
       </CardContent>
     </Card>

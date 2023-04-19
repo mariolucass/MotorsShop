@@ -99,12 +99,6 @@ body {
   font-weight: 500;
 }
 
-.container--Main {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-}
-
 .ocult {
   display: none !important;
 }
@@ -168,6 +162,44 @@ body {
   padding: 12.5px 12px !important;
 }
 
+.card--title {
+  color: var(--grey0) !important;
+  font-weight: 600 !important;
+}
+
+.card--description {
+  color: var(--grey2);
+  font-weight: 400 !important;
+}
+
+.card--description::-webkit-scrollbar {
+  width: 4px;
+  width: 4px;
+}
+.card--description::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: var(--brand4);
+}
+.card--description::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--brand1);
+}
+
+.card--user {
+  color: var(--grey2);
+  font-weight: 500;
+}
+
+.card--price {
+  color: var(--grey0) !important;
+  font-weight: 500;
+}
+
+.chip {
+  color: var(--brand1) !important;
+  background-color: var(--brand4) !important;
+}
+
 @media (min-width: 400px) {
   .advertImg {
     height: 80%;
@@ -221,6 +253,10 @@ body {
 }
 
 @media (min-width: 700px) {
+  .container {
+    padding: 0 !important;
+  }
+
   .advertImg {
     width: 80%;
     height: 100%;
@@ -234,6 +270,11 @@ body {
 }
 
 @media (min-width: 900px) {
+  .container {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
   .advertImg {
     width: 80%;
     height: 100%;
@@ -269,5 +310,11 @@ body {
 
   .perfil img {
     width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1300px !important;
   }
 }
