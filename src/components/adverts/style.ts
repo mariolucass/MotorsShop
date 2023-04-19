@@ -12,5 +12,6 @@ export const ListStyled = styled.ul`
   @media (min-width: 700px) {
     height: 100%;
     flex-direction: row;
+    margin-bottom: 20px;
   }
 `;

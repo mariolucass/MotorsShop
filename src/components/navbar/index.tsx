@@ -10,10 +10,17 @@ export const NavBar = () => {
   return (
     <Box
       className={matches700 ? "ocult" : "navbar"}
-      sx={{
-        width: "20%",
-        m: 2,
-      }}
+      sx={
+        matches700
+          ? {
+              width: "20%",
+              m: 2,
+            }
+          : {
+              width: "30%",
+              m: 2,
+            }
+      }
     >
       <FilterBox title="Marca" options={marcas} />
       <FilterBox title="Modelo" options={modelos} />
