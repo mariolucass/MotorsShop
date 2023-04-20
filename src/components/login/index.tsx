@@ -1,5 +1,6 @@
-import { Container, Box, Title, Form, Button, Register } from "../../pages/login/style"
+import { Container, Box, Title, Form } from "./style"
 import { Link } from "react-router-dom"
+import Button from '@mui/material/Button';
 
 export const Login = () => {
     return (
@@ -11,15 +12,11 @@ export const Login = () => {
                     <input type="text" id="name" placeholder="Digitar usuário"/>
                     <label htmlFor="password">Senha</label>
                     <input type="text" id="password" placeholder="Digitar senha"/>
-                    <Link to={"/"}>
-                        <span id="forgot_password">Esqueci minha senha</span>
-                    </Link>
-                    <Button type="submit">Entrar</Button>
+                    <Link to={"/"} id="forgot_password"> Esqueci minha senha </Link>
+                    <Button variant="contained" type="submit" id="login"> Entrar </Button>
                 </Form>
-                <span>Ainda não possui conta?</span>
-                <Link to={"/register"}>
-                    <Register>Cadastrar</Register>
-                </Link>
+                <span id="do_not_account">Ainda não possui conta?</span>
+                <Link to={"/register"} id="register"> Cadastrar </Link>
             </Box>
         </Container>
     )
