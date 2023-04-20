@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import StyledChip from "../chip";
 import { useContext } from "react";
@@ -24,9 +24,10 @@ export interface IProduct {
 
 interface IPropsProductCard {
   element: IProduct;
+  isProfile?: boolean;
 }
 
-export const ProductCard = ({ element }: IPropsProductCard) => {
+export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
   const priceFormatted = element.price.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -84,11 +85,15 @@ export const ProductCard = ({ element }: IPropsProductCard) => {
           {element.description}
         </Typography>
 
-        <Stack direction="row" alignItems="center" spacing={2}>
-          <Avatar alt={element.user.name} src={element.user.img} />
+        <>
+          {!isProfile && (
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Avatar alt={element.user.name} src={element.user.img} />
 
-          <span className="card--user">{element.user.name}</span>
-        </Stack>
+              <span className="card--user">{element.user.name}</span>
+            </Stack>
+          )}
+        </>
 
         <Stack
           direction="row"
@@ -109,6 +114,32 @@ export const ProductCard = ({ element }: IPropsProductCard) => {
 
           <span className="card--price">{priceFormatted}</span>
         </Stack>
+
+        <>
+          {isProfile && (
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={1.5}
+            >
+              <Button
+                variant="outlined"
+                color="secondary"
+                sx={{ fontWeight: 600, textTransform: "unset", fontSize: 12 }}
+              >
+                Editar
+              </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                sx={{ fontWeight: 600, textTransform: "unset", fontSize: 12 }}
+              >
+                Ver detalhes
+              </Button>
+            </Stack>
+          )}
+        </>
       </CardContent>
     </Card>
   );
