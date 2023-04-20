@@ -1,8 +1,8 @@
 import useMediaQuery from "@mui/material/useMediaQuery";
-import React, { createContext } from "react";
+import { ReactNode, createContext, useContext } from "react";
 
 interface iProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 interface iContextProvider {
@@ -12,21 +12,23 @@ interface iContextProvider {
   matches1200: boolean;
 }
 
-export const MidiaContext = createContext({} as iContextProvider);
+const MediaContext = createContext({} as iContextProvider);
 
-const MediaContextProvider = ({ children }: iProps) => {
+export const useMediaContext = () => {
+  return useContext(MediaContext);
+};
+
+export const MediaProvider = ({ children }: iProps) => {
   const matches500 = useMediaQuery("(min-width:500px)");
   const matches700 = useMediaQuery("(min-width:700px)");
   const matches900 = useMediaQuery("(min-width:900px)");
   const matches1200 = useMediaQuery("(min-width:1200px)");
 
   return (
-    <MidiaContext.Provider
+    <MediaContext.Provider
       value={{ matches500, matches700, matches900, matches1200 }}
     >
       {children}
-    </MidiaContext.Provider>
+    </MediaContext.Provider>
   );
 };
-
-export default MediaContextProvider;

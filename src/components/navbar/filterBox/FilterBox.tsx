@@ -1,7 +1,6 @@
 import { Box, Stack } from "@mui/material";
 import { StyledOptions } from "./style";
-import { MidiaContext } from "../../../context";
-import { useContext } from "react";
+import { useMediaContext } from "../../../context";
 
 interface iProps {
   title: string;
@@ -9,7 +8,7 @@ interface iProps {
 }
 
 const FilterBox = ({ title, options }: iProps) => {
-  const { matches900 } = useContext(MidiaContext);
+  const { matches900 } = useMediaContext();
 
   return (
     <Box>

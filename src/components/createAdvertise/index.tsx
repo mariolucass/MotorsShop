@@ -7,6 +7,7 @@ import { ButtonDiv, DivStyled, FormStyled, InputSplitDiv } from "./style";
 import { useEffect, useState } from "react";
 import { apiFipe, apiServerSideToken } from "../../services";
 import { toast } from "react-toastify";
+import { useModalContext } from "../../context";
 
 interface IRegisterAnnouncement {
   brand: string;
@@ -33,6 +34,7 @@ const FormSchemaRegister = z.object({
 });
 
 export const CreateAdvertise = () => {
+  const { handleClose } = useModalContext();
   const {
     register,
     handleSubmit,
@@ -217,7 +219,9 @@ export const CreateAdvertise = () => {
         />
 
         <ButtonDiv>
-          <Button className="buttonForms">Cancelar</Button>
+          <Button className="buttonForms" onClick={handleClose}>
+            Cancelar
+          </Button>
           <Button className="buttonForms" type="submit">
             Criar anúncio
           </Button>

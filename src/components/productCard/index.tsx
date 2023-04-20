@@ -4,9 +4,8 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import { Button, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import StyledChip from "../chip";
-import { useContext } from "react";
-import { MidiaContext } from "../../context";
+import { useMediaContext } from "../../context/MediaContext";
+import { StyledChip } from "../chip";
 
 export interface IProduct {
   title: string;
@@ -33,7 +32,7 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
     currency: "BRL",
   });
 
-  const { matches500, matches700, matches1200 } = useContext(MidiaContext);
+  const { matches500, matches700, matches1200 } = useMediaContext();
 
   const cardSize = () => {
     if (matches1200) {

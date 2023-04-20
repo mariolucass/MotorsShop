@@ -1,4 +1,3 @@
-import React from "react";
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material";
 import globalTheme from "../../styles/global";
@@ -8,7 +7,7 @@ interface iBox {
   Class?: string;
 }
 
-const StyledBox = ({ children, Class }: iBox) => {
+export const StyledBox = ({ children, Class }: iBox) => {
   return (
     <ThemeProvider theme={globalTheme}>
       <Box
@@ -29,5 +28,3 @@ const StyledBox = ({ children, Class }: iBox) => {
     </ThemeProvider>
   );
 };
-
-export default StyledBox;
