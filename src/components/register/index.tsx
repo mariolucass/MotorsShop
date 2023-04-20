@@ -32,13 +32,16 @@ export const Register = () => {
     const [toggle, setToggle] = useState("")
     const {register, handleSubmit, formState: {errors}} = useForm<IRegisterUseForm>({ resolver: zodResolver(registerSchema)})
 
-    const registerUser = (data: IRegister) => {
-    console.log("Infos de registro:", {type_account: toggle, ...data})
-    }
-
     const handleToggle = ( event: React.MouseEvent<HTMLElement>, value: string) => {
         setToggle(value)
+        console.log(value)
     };
+
+    const registerUser = (data: IRegister) => {
+        console.log(toggle)
+        console.log("Infos de registro:", {type_account: toggle, ...data})
+    }
+
 
     return (
         <Container>
@@ -121,26 +124,26 @@ export const Register = () => {
                     <Division>
                         <ToggleButtonGroup
                         color="primary"
-                        value={register("type_account")}
+                        value={toggle}
                         exclusive
                         onChange={handleToggle}
                         aria-label="Platform"
                         id="toggle"
                         >
                             <ToggleButton value="buyer" 
-                        name="type_account">Comprador</ToggleButton>
+                        {...register("type_account")}>Comprador</ToggleButton>
                             <ToggleButton value="advertiser" 
-                        name="type_account">Anunciante</ToggleButton>
+                        {...register("type_account")}>Anunciante</ToggleButton>
                         </ToggleButtonGroup>
                     </Division>
 
                     <label htmlFor="password">Senha</label>
-                    <input type="password" id="password" placeholder="Digitar senha"/>
+                    <input type="password" id="password" placeholder="Digitar senha" {...register("password")}/>
                     {errors.password && 
                     <Alert severity="error" id="alert">{errors.password!.message}</Alert>}
 
                     <label htmlFor="confirm_password">Confirmar senha</label>
-                    <input type="password" id="confirm_password" placeholder="Digitar senha"/>
+                    <input type="password" id="confirm_password" placeholder="Digitar senha" {...register("confirm_password")}/>
                     {errors.confirm_password && 
                     <Alert severity="error" id="alert">{errors.confirm_password!.message}</Alert>}
 
