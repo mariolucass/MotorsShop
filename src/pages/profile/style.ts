@@ -11,7 +11,7 @@ export const StyledHero = styled.div`
     width: 100%;
     max-width: 900px;
     background-color: var(--grey10);
-    padding: 20px 20px;
+    padding: 30px;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@ export const StyledHero = styled.div`
     & > div {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
       & > div {
         display: flex;
         gap: 10px;
@@ -45,13 +45,12 @@ export const StyledHero = styled.div`
     }
     & > p {
       font-weight: 400;
-      font-size: 16px;
-      line-height: 28px;
+      font-size: 12px;
+      line-height: 20px;
       color: var(--grey2);
     }
     & > div:last-child {
-      width: 160px;
-      height: 48px;
+      width: 120px;
     }
   }
 `;

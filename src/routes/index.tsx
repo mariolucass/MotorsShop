@@ -10,8 +10,8 @@ const Router = () => {
       <Route path="/login" element={<LoginPage />} />
       {/* <Route path="/register" element={} /> */}
       <Route path="/" element={<Home />} />
-      <Route path="/advert/" element={<AdvertPage />} />
-      <Route path="/profile/" element={<Profile />} />
+      <Route path="/advert" element={<AdvertPage />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="/*" element={<Navigate to={"/"} />} />
     </Routes>
   );

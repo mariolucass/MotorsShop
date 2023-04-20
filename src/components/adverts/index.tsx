@@ -7,19 +7,17 @@ export interface iAdvertsProps {
 }
 
 const Adverts = ({ isProfile }: iAdvertsProps) => {
-  if (isProfile) {
-    const list = listMockedCars.map((element, index) => {
-      return <ProductCard element={element} key={element.title + index} />;
-    });
-
-    return <ListStyled isProfile>{list}</ListStyled>;
-  }
-
   const list = listMockedCars.map((element, index) => {
-    return <ProductCard element={element} key={element.title + index} />;
+    return (
+      <ProductCard
+        isProfile={isProfile}
+        element={element}
+        key={element.title + index}
+      />
+    );
   });
 
-  return <ListStyled>{list}</ListStyled>;
+  return <ListStyled isProfile={isProfile}>{list}</ListStyled>;
 };
 
 export default Adverts;
