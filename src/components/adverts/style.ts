@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { iAdvertsProps } from ".";
 
-export const ListStyled = styled.ul`
+export const ListStyled = styled.ul<iAdvertsProps>`
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
@@ -8,6 +9,14 @@ export const ListStyled = styled.ul`
   width: 100%;
   height: 560px;
   overflow-x: auto;
+
+  ${({ isProfile }) => {
+    if (isProfile) {
+      return css`
+        justify-content: center;
+      `;
+    }
+  }}
 
   @media (min-width: 700px) {
     height: 100%;
