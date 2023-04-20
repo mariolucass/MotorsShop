@@ -5,7 +5,7 @@ export const Box = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  width: 520px;
   border-radius: 2px;
   padding: 10px;
   background: var(--whitefixed);
@@ -13,4 +13,9 @@ export const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+  border-radius: 8px;
+
+  @media (max-width: 1024px) {
+    max-width: 100vw;
+  }
+`;
