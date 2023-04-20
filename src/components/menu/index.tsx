@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
 import StyledMenu from "./style";
-import { MidiaContext } from "../../context";
+import { useMediaContext } from "../../context/MediaContext";
 
-const Menu = () => {
-  const { matches500, matches700 } = useContext(MidiaContext);
+export const Menu = () => {
+  const { matches500, matches700 } = useMediaContext();
 
   return (
     <StyledMenu>
@@ -39,5 +38,3 @@ const Menu = () => {
     </StyledMenu>
   );
 };
-
-export default Menu;

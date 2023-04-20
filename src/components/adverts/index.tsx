@@ -6,7 +6,7 @@ export interface iAdvertsProps {
   isProfile?: boolean;
 }
 
-const Adverts = ({ isProfile }: iAdvertsProps) => {
+export const Adverts = ({ isProfile }: iAdvertsProps) => {
   const list = listMockedCars.map((element, index) => {
     return (
       <ProductCard
@@ -19,5 +19,3 @@ const Adverts = ({ isProfile }: iAdvertsProps) => {
 
   return <ListStyled isProfile={isProfile}>{list}</ListStyled>;
 };
-
-export default Adverts;

@@ -3,15 +3,16 @@ import Logo from "../../assets/logoColored.svg";
 import { HeaderStyled } from "./style";
 import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
-import { useContext, useState } from "react";
-import { MidiaContext } from "../../context";
+import { useState } from "react";
+import { useMediaContext } from "../../context";
+
 interface IProps {
   isHome?: boolean;
 }
 
 export const Header = ({ isHome }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { matches700 } = useContext(MidiaContext);
+  const { matches700 } = useMediaContext();
 
   const RenderProfileView = () => (
     <HeaderStyled>
