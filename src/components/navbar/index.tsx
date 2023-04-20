@@ -2,11 +2,10 @@ import Box from "@mui/material/Box";
 import { ano, combustivel, cores, marcas, modelos } from "../../data";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
-import { MidiaContext } from "../../context";
-import { useContext } from "react";
+import { useMediaContext } from "../../context/MediaContext";
 
 export const NavBar = () => {
-  const { matches700 } = useContext(MidiaContext);
+  const { matches700 } = useMediaContext();
 
   return (
     <Box

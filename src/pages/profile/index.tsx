@@ -1,14 +1,21 @@
-import Adverts from "../../components/adverts";
-import { Header } from "../../components/header";
-import { Footer } from "../../components/footer";
-import { StyledHero } from "./style";
 import { Avatar, Button, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Adverts,
+  CreateAdvertise,
+  Footer,
+  Header,
+  ModalGeneral,
+} from "../../components";
+import { StyledHero } from "./style";
+import { useModalContext } from "../../context";
 
 const theme = createTheme({
   palette: { primary: { main: "#4529e6" }, secondary: { main: "#212529" } },
 });
 
 const Profile = () => {
+  const { handleOpen } = useModalContext();
+
   return (
     <ThemeProvider theme={theme}>
       <div className="advertBody">
@@ -33,6 +40,7 @@ const Profile = () => {
             </p>
             <div>
               <Button
+                onClick={handleOpen}
                 variant="outlined"
                 sx={{ fontWeight: 600, textTransform: "unset", fontSize: 12 }}
               >
@@ -46,6 +54,9 @@ const Profile = () => {
 
         <Footer />
       </div>
+      <ModalGeneral>
+        <CreateAdvertise />
+      </ModalGeneral>
     </ThemeProvider>
   );
 };

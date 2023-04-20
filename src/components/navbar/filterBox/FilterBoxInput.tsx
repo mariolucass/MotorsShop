@@ -1,13 +1,12 @@
 import { Box, OutlinedInput, Stack } from "@mui/material";
-import { useContext } from "react";
-import { MidiaContext } from "../../../context";
+import { useMediaContext } from "../../../context";
 
 interface iPropsInput {
   title: string;
 }
 
 const FilterBoxInput = ({ title }: iPropsInput) => {
-  const { matches700, matches900 } = useContext(MidiaContext);
+  const { matches700, matches900 } = useMediaContext();
 
   return (
     <Box>
