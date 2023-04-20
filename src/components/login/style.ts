@@ -11,8 +11,7 @@ export const Container = styled.section`
 `
 
 export const Box = styled.div`
-    width: 343px;
-    height: 542px;
+    
 
     display: flex;
     flex-direction: column;
@@ -80,6 +79,10 @@ export const Box = styled.div`
         line-height: 17px;
         text-decoration: none;
         color: var(--grey2);
+    }
+
+    #alert {
+        margin-bottom: 10px;
     }
 
 `
