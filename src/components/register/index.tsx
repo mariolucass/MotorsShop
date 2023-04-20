@@ -1,13 +1,22 @@
-import { Box, Container, Form, Title } from "./style"
+import { Box, Container, Form, Title, SubTitle, Division } from "./style"
 import Button from '@mui/material/Button';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { useState } from "react";
 
 export const Register = () => {
+    const [toggle, setToggle] = useState("")
+
+    const handleChange = ( event: React.MouseEvent<HTMLElement>, value: string) => {
+        setToggle(value)
+    };
+
     return (
         <Container>
             <Box>
                 <Title>Cadastro</Title>
                 <Form>
-                    <span>Informações Pessoais</span>
+                    <SubTitle>Informações Pessoais</SubTitle>
                     <label htmlFor="name">Nome</label>
                     <input type="text" id="name" placeholder="Ex: Samuel Leão"/>
 
@@ -26,11 +35,11 @@ export const Register = () => {
                     <label htmlFor="description">Descrição</label>
                     <textarea id="description" placeholder="Digitar descrição"></textarea>
 
-                    <span>Informações de endereço</span>
+                    <SubTitle>Informações de endereço</SubTitle>
                     <label htmlFor="cep">CEP</label>
                     <input type="text" id="cep" placeholder="00000.000"/>
 
-                    <div>
+                    <Division>
                         <div>
                         <label htmlFor="state">Estado</label>
                         <input type="text" id="state" placeholder="Digitar Estado"/>
@@ -40,12 +49,12 @@ export const Register = () => {
                         <label htmlFor="city">Cidade</label>
                         <input type="text" id="city" placeholder="Digitar Cidade"/>
                         </div> 
-                    </div>
+                    </Division>
 
                     <label htmlFor="street">Rua</label>
                     <input type="text" id="street" placeholder="Digitar Rua"/>
 
-                    <div>
+                    <Division>
                         <div>
                         <label htmlFor="number">Número</label>
                         <input type="text" id="street" placeholder="Digitar número"/>
@@ -55,13 +64,23 @@ export const Register = () => {
                         <label htmlFor="complement">Complemento</label>
                         <input type="text" id="complement" placeholder="Ex: apart 307"/>
                         </div>
-                    </div>
+                    </Division>
 
 
-                    <span>Tipo de conta</span>
-                    <div>
-
-                    </div>
+                    <SubTitle >Tipo de conta</SubTitle>
+                    <Division>
+                        <ToggleButtonGroup
+                        color="primary"
+                        value={toggle}
+                        exclusive
+                        onChange={handleChange}
+                        aria-label="Platform"
+                        id="toggle"
+                        >
+                            <ToggleButton value="buyer" >Comprador</ToggleButton>
+                            <ToggleButton value="advertiser">Anunciante</ToggleButton>
+                        </ToggleButtonGroup>
+                    </Division>
 
                     <label htmlFor="password">Senha</label>
                     <input type="text" id="password" placeholder="Digitar senha"/>
