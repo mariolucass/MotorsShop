@@ -11,3 +11,4 @@ export * from "./menuHeader";
 export * from "./modal";
 export * from "./navbar";
 export * from "./productCard";
+export * from "./register";
