@@ -1,5 +1,6 @@
 import { MediaProvider } from "./MediaContext";
 import { ModalProvider } from "./ModalContext";
+import { UserProvider } from "./UserContext";
 
 type iProvidersProps = {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ type iProvidersProps = {
 const Providers = ({ children }: iProvidersProps) => {
   return (
     <MediaProvider>
-      <ModalProvider>{children}</ModalProvider>
+      <UserProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </UserProvider>
     </MediaProvider>
   );
 };
@@ -16,3 +19,4 @@ const Providers = ({ children }: iProvidersProps) => {
 export default Providers;
 export { useMediaContext } from "./MediaContext";
 export { useModalContext } from "./ModalContext";
+export { useUserContext } from "./UserContext";
