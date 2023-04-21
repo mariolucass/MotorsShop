@@ -5,7 +5,7 @@ import { Adverts, Footer, Header, Menu, NavBar } from "../../components";
 const Home = () => {
   return (
     <>
-      <Header isHome={true} />
+      <Header />
 
       <Menu />
       <Container className="container">

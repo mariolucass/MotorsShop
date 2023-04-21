@@ -1,13 +1,11 @@
-import { Footer } from "../../components/footer"
-import { Header } from "../../components/header"
-import { Register } from "../../components/register"
+import { Footer, Header, Register } from "../../components";
 
 export const RegisterPage = () => {
-    return (
-        <>
-            <Header isHome={true}></Header>
-            <Register></Register>
-            <Footer></Footer>
-        </>
-    )
-}
+  return (
+    <>
+      <Header />
+      <Register />
+      <Footer />
+    </>
+  );
+};
