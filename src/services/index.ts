@@ -2,7 +2,7 @@ import axios from "axios";
 
 const token = localStorage.getItem("tokenContactsApp");
 const fipeURL = "https://kenzie-kars.herokuapp.com/cars";
-const serverUrl = "http://127.0.0.1:8000/";
+const serverUrl = "https://back-end-full-stack-m6.vercel.app/";
 
 export const apiFipe = axios.create({
   baseURL: fipeURL,
