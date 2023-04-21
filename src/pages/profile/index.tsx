@@ -7,7 +7,7 @@ import {
   ModalGeneral,
 } from "../../components";
 import { StyledHero } from "./style";
-import { useModalContext } from "../../context";
+import { useModalContext, useUserContext } from "../../context";
 
 const theme = createTheme({
   palette: { primary: { main: "#4529e6" }, secondary: { main: "#212529" } },
@@ -15,6 +15,7 @@ const theme = createTheme({
 
 const Profile = () => {
   const { handleOpen } = useModalContext();
+  const { userData } = useUserContext();
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,7 +30,7 @@ const Profile = () => {
                 src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg "
               />
               <div>
-                <span>Samuel Leão</span>
+                <span>{userData?.name}</span>
                 <div>Anunciante</div>
               </div>
             </div>

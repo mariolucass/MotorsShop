@@ -4,7 +4,7 @@ import { HeaderStyled } from "./style";
 import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
 import { useState } from "react";
-import { useMediaContext } from "../../context";
+import { useMediaContext, useUserContext } from "../../context";
 
 interface IProps {
   isHome?: boolean;
@@ -13,6 +13,7 @@ interface IProps {
 export const Header = ({ isHome }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { matches700 } = useMediaContext();
+  const { userData } = useUserContext();
 
   const RenderProfileView = () => (
     <HeaderStyled>
@@ -25,7 +26,7 @@ export const Header = ({ isHome }: IProps) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <Avatar src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg " />
-        <span>Samuel Leão</span>
+        <span>{userData?.name}</span>
 
         <MenuHeader isOpen={isOpen} />
       </div>
