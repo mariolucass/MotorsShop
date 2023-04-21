@@ -1,6 +1,8 @@
 import { useAnimate, motion, stagger } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ListMenuStyled } from "./style";
+import { useUserContext } from "../../context";
+import { useNavigate } from "react-router-dom";
 
 const staggerMenuItems = stagger(0.1, { startDelay: 0.15 });
 
@@ -55,7 +57,9 @@ const animateShownLi = {
 };
 
 export const MenuHeader = ({ isOpen }: IProps) => {
+  const { logoutUser } = useUserContext();
   const scope = useMenuAnimation(isOpen);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -73,10 +77,18 @@ export const MenuHeader = ({ isOpen }: IProps) => {
           <motion.li animate={isOpen ? animateShownLi : animateHiddenLi}>
             Editar endereco
           </motion.li>
-          <motion.li animate={isOpen ? animateShownLi : animateHiddenLi}>
+          <motion.li
+            onClick={() => {
+              navigate("/profile");
+            }}
+            animate={isOpen ? animateShownLi : animateHiddenLi}
+          >
             Meus Anúncios
           </motion.li>
-          <motion.li animate={isOpen ? animateShownLi : animateHiddenLi}>
+          <motion.li
+            onClick={logoutUser}
+            animate={isOpen ? animateShownLi : animateHiddenLi}
+          >
             Sair
           </motion.li>
         </ListMenuStyled>
