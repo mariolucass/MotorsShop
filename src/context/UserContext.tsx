@@ -10,16 +10,6 @@ import { iLogin } from "../components";
 import { apiServerSide } from "../services";
 import { iRegister } from "../components/register";
 
-interface iProps {
-  children: ReactNode;
-}
-
-interface iContextProvider {
-  userData: iUser | null;
-  loginUser: (formData: iLogin) => Promise<void>;
-  registerUser: (formData: iRegister) => Promise<void>;
-}
-
 interface iUser {
   id: string;
   name: string;
@@ -41,6 +31,17 @@ interface iUser {
   };
 }
 
+interface iProps {
+  children: ReactNode;
+}
+
+interface iContextProvider {
+  userData: iUser | null;
+  loginUser: (formData: iLogin) => Promise<void>;
+  registerUser: (formData: iRegister) => Promise<void>;
+  logoutUser: () => void;
+}
+
 const UserContext = createContext({} as iContextProvider);
 
 export const useUserContext = () => {
@@ -55,6 +56,30 @@ export const UserProvider = ({ children }: iProps) => {
     autoLoginUser();
   }, []);
 
+  const registerUser = async (formData: iRegister) => {
+    try {
+      await apiServerSide.post("/users", formData);
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loginUser = async (formData: iLogin) => {
+    try {
+      const { data } = await apiServerSide.post("/login", formData);
+      const { token } = data;
+
+      apiServerSide.defaults.headers.authorization = `Bearer ${token}`;
+      localStorage.setItem("@MotorsShop:token", token);
+
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const autoLoginUser = async () => {
     const token = localStorage.getItem("@MotorsShop:token");
     if (token) {
@@ -68,32 +93,16 @@ export const UserProvider = ({ children }: iProps) => {
     }
   };
 
-  const loginUser = async (formData: iLogin) => {
-    try {
-      const { data } = await apiServerSide.post("/login", formData);
-      const { token } = data;
-
-      apiServerSide.defaults.headers.authorization = `Bearer ${token}`;
-      localStorage.setItem("@MotorsShop:token", token);
-
-      navigate("/profile");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const registerUser = async (formData: iRegister) => {
-    try {
-      await apiServerSide.post("/users", formData);
-
-      navigate("/login");
-    } catch (error) {
-      console.error(error);
-    }
+  const logoutUser = () => {
+    localStorage.removeItem("@MotorsShop:token");
+    setUserData(null);
+    navigate("/home");
   };
 
   return (
-    <UserContext.Provider value={{ userData, loginUser, registerUser }}>
+    <UserContext.Provider
+      value={{ userData, registerUser, loginUser, logoutUser }}
+    >
       {children}
     </UserContext.Provider>
   );
