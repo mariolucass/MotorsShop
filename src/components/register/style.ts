@@ -144,6 +144,43 @@ export const Form = styled.form`
             color: var(--grey3);
         }
     }
+    
+    .division_types {
+        margin: 20px 0 30px;
+    }
+
+    .radio {
+        position: relative;
+        
+        input {
+            position: absolute;
+            opacity: 0;
+            user-select: none;
+        }
+
+        span {
+            padding: 12px 28px;
+            border: 1.5px solid var(--grey4);
+            border-radius: 4px;
+            color: var(--grey0);
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+        
+            cursor: pointer;
+
+            width: 50%;
+        }
+
+        input:checked ~ span {
+            background: var(--brand1);
+            border: 1.5px solid var(--brand1);
+            color: var(--whitefixed);
+            transition: 0.3s;
+        }
+    }
+
 `
 
 export const Division = styled.div`

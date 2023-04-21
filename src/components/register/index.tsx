@@ -1,8 +1,6 @@
 import { Box, Container, Form, Title, SubTitle, Division } from "./style"
 import Button from '@mui/material/Button';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { useState } from "react";import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import Alert from '@mui/material/Alert';
 import { z } from "zod";
@@ -21,7 +19,7 @@ interface IRegister {
     street: string
     number: string
     complement: string
-    type_account?: string
+    type_account: string
     password: string
     confirm_password: string
 }
@@ -29,24 +27,16 @@ interface IRegister {
 type IRegisterUseForm = z.infer<typeof registerSchema>
 
 export const Register = () => {
-    const [toggle, setToggle] = useState("")
     const {register, handleSubmit, formState: {errors}} = useForm<IRegisterUseForm>({ resolver: zodResolver(registerSchema)})
-
-    const handleToggle = ( event: React.MouseEvent<HTMLElement>, value: string) => {
-        setToggle(value)
-        console.log(value)
-    };
-
+    
     const registerUser = (data: IRegister) => {
-        console.log(toggle)
-        console.log("Infos de registro:", {type_account: toggle, ...data})
+        console.log(data)
     }
-
-
+    
     return (
         <Container>
             <Box>
-                <Title>Cadastro</Title>
+                <Title id="titulo">Cadastro</Title>
                 <Form onSubmit={handleSubmit(registerUser)}>
                     <SubTitle>Informações Pessoais</SubTitle>
                     <label htmlFor="name">Nome</label>
@@ -121,20 +111,15 @@ export const Register = () => {
                     <Alert severity="error" id="alert">{errors.complement!.message}</Alert>}
 
                     <SubTitle >Tipo de conta</SubTitle>
-                    <Division>
-                        <ToggleButtonGroup
-                        color="primary"
-                        value={toggle}
-                        exclusive
-                        onChange={handleToggle}
-                        aria-label="Platform"
-                        id="toggle"
-                        >
-                            <ToggleButton value="buyer" 
-                        {...register("type_account")}>Comprador</ToggleButton>
-                            <ToggleButton value="advertiser" 
-                        {...register("type_account")}>Anunciante</ToggleButton>
-                        </ToggleButtonGroup>
+                    <Division className="division_types">
+                        <label className="radio">
+                            <input type="radio" value={"buyer"} {...register("type_account")} checked />
+                            <span>Comprador</span>
+                        </label>
+                        <label className="radio"> 
+                            <input type="radio" value={"advertiser"} {...register("type_account")} />
+                            <span>Anunciante</span>
+                        </label>
                     </Division>
 
                     <label htmlFor="password">Senha</label>
