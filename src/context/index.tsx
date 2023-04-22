@@ -1,13 +1,22 @@
-import React, { createContext } from "react";
+import { MediaProvider } from "./MediaContext";
+import { ModalProvider } from "./ModalContext";
+import { UserProvider } from "./UserContext";
 
-export interface iProps {
+type iProvidersProps = {
   children: React.ReactNode;
-}
-
-export const myContext = createContext({});
-
-const ContextProvider = ({ children }: iProps) => {
-  return <myContext.Provider value={{}}>{children}</myContext.Provider>;
 };
 
-export default ContextProvider;
+const Providers = ({ children }: iProvidersProps) => {
+  return (
+    <MediaProvider>
+      <UserProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </UserProvider>
+    </MediaProvider>
+  );
+};
+
+export default Providers;
+export { useMediaContext } from "./MediaContext";
+export { useModalContext } from "./ModalContext";
+export { useUserContext } from "./UserContext";

@@ -1,31 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Container, Stack } from "@mui/material";
-import StyledBox from "../../components/box";
-import Box from "@mui/material/Box";
-import { ThemeProvider } from "@mui/material";
+import {
+  Box,
+  Container,
+  ImageList,
+  ImageListItem,
+  Stack,
+  ThemeProvider,
+} from "@mui/material";
+import { Header, StyledBox } from "../../components";
 import globalTheme from "../../styles/global";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageList from "@mui/material/ImageList";
-import { Header } from "../../components/header";
 
 const AdvertPage = () => {
-  const [widthSize, setWidthSize] = useState(window.innerWidth);
-
-  const setSize = () => {
-    setWidthSize(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", setSize);
-    return () => {
-      window.removeEventListener("resize", setSize);
-    };
-  }, [widthSize]);
-
   return (
     <>
       <div className="advertBody">
-        <Header widthSize={widthSize} />
+        <Header />
 
         <Container>
           <main className="direction">

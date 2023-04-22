@@ -1,29 +1,11 @@
-import { AdvertsMenu, MainStyled } from "./style";
-import { useEffect, useState } from "react";
-import Menu from "../../components/menu";
-import Adverts from "../../components/adverts";
-import { Header } from "../../components/header";
-import { NavBar } from "../../components/navbar";
-import { Footer } from "../../components/footer";
 import { Container } from "@mui/material";
+import { AdvertsMenu } from "./style";
+import { Adverts, Footer, Header, Menu, NavBar } from "../../components";
 
 const Home = () => {
-  const [widthSize, setWidthSize] = useState(window.innerWidth);
-
-  const setSize = () => {
-    setWidthSize(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", setSize);
-    return () => {
-      window.removeEventListener("resize", setSize);
-    };
-  }, [widthSize]);
-
   return (
     <>
-      <Header isHome={true} widthSize={widthSize} />
+      <Header />
 
       <Menu />
       <Container className="container">

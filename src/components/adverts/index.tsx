@@ -2,12 +2,20 @@ import { ProductCard } from "../productCard";
 import { ListStyled } from "./style";
 import { listMockedCars } from "../../data";
 
-const Adverts = () => {
+export interface iAdvertsProps {
+  isProfile?: boolean;
+}
+
+export const Adverts = ({ isProfile }: iAdvertsProps) => {
   const list = listMockedCars.map((element, index) => {
-    return <ProductCard element={element} key={element.title + index} />;
+    return (
+      <ProductCard
+        isProfile={isProfile}
+        element={element}
+        key={element.title + index}
+      />
+    );
   });
 
-  return <ListStyled>{list}</ListStyled>;
+  return <ListStyled isProfile={isProfile}>{list}</ListStyled>;
 };
-
-export default Adverts;
