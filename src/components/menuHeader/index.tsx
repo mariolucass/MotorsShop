@@ -57,7 +57,7 @@ const animateShownLi = {
 };
 
 export const MenuHeader = ({ isOpen }: IProps) => {
-  const { logoutUser } = useUserContext();
+  const { userData, logoutUser } = useUserContext();
   const scope = useMenuAnimation(isOpen);
   const navigate = useNavigate();
 
@@ -77,14 +77,18 @@ export const MenuHeader = ({ isOpen }: IProps) => {
           <motion.li animate={isOpen ? animateShownLi : animateHiddenLi}>
             Editar endereco
           </motion.li>
-          <motion.li
-            onClick={() => {
-              navigate("/profile");
-            }}
-            animate={isOpen ? animateShownLi : animateHiddenLi}
-          >
-            Meus Anúncios
-          </motion.li>
+          <>
+            {userData?.role === "SELLER" && (
+              <motion.li
+                onClick={() => {
+                  navigate("/profile");
+                }}
+                animate={isOpen ? animateShownLi : animateHiddenLi}
+              >
+                Meus Anúncios
+              </motion.li>
+            )}
+          </>
           <motion.li
             onClick={logoutUser}
             animate={isOpen ? animateShownLi : animateHiddenLi}

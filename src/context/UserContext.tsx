@@ -6,30 +6,14 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { iLogin } from "../components";
-import { apiServerSide } from "../services";
-import { iRegister } from "../components/register";
-
-interface iUser {
-  id: string;
-  name: string;
-  email: string;
-  cpf: string;
-  phone: string;
-  birthdate: string;
-  description: string;
-  role: "BUYER" | "SELLER" | "ADMIN";
-  created_at: Date;
-  address: {
-    id: string;
-    zip_code: string;
-    state: string;
-    city: string;
-    street: string;
-    number: string;
-    complement?: string;
-  };
-}
+import { iLogin, iRegister } from "../components";
+import {
+  getUserProfile,
+  iAnnouncement,
+  iUser,
+  postUser,
+  postUserCreate,
+} from "../services";
 
 interface iProps {
   children: ReactNode;
@@ -37,8 +21,11 @@ interface iProps {
 
 interface iContextProvider {
   userData: iUser | null;
-  loginUser: (formData: iLogin) => Promise<void>;
+  announcementsData: iAnnouncement[] | null;
+  loading: boolean;
   registerUser: (formData: iRegister) => Promise<void>;
+  loginUser: (formData: iLogin) => Promise<void>;
+  autoLoginUser: () => Promise<void>;
   logoutUser: () => void;
 }
 
@@ -49,8 +36,11 @@ export const useUserContext = () => {
 };
 
 export const UserProvider = ({ children }: iProps) => {
-  const [userData, setUserData] = useState<iUser | null>(null);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState<iUser | null>(null);
+  const [announcementsData, setAnnouncementsData] =
+    useState<Array<iAnnouncement> | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     autoLoginUser();
@@ -58,8 +48,7 @@ export const UserProvider = ({ children }: iProps) => {
 
   const registerUser = async (formData: iRegister) => {
     try {
-      await apiServerSide.post("/users", formData);
-
+      await postUserCreate(formData);
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -68,13 +57,9 @@ export const UserProvider = ({ children }: iProps) => {
 
   const loginUser = async (formData: iLogin) => {
     try {
-      const { data } = await apiServerSide.post("/login", formData);
-      const { token } = data;
-
-      apiServerSide.defaults.headers.authorization = `Bearer ${token}`;
+      const { token } = await postUser(formData);
       localStorage.setItem("@MotorsShop:token", token);
-
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -84,11 +69,14 @@ export const UserProvider = ({ children }: iProps) => {
     const token = localStorage.getItem("@MotorsShop:token");
     if (token) {
       try {
-        apiServerSide.defaults.headers.authorization = `Bearer ${token}`;
-        const { data } = await apiServerSide.get("/users/profile");
-        setUserData(data);
+        setLoading(true);
+        const response = await getUserProfile(token);
+        setUserData(response);
+        setAnnouncementsData(response.announcement);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -96,12 +84,21 @@ export const UserProvider = ({ children }: iProps) => {
   const logoutUser = () => {
     localStorage.removeItem("@MotorsShop:token");
     setUserData(null);
-    navigate("/home");
+    setAnnouncementsData(null);
+    navigate("/");
   };
 
   return (
     <UserContext.Provider
-      value={{ userData, registerUser, loginUser, logoutUser }}
+      value={{
+        userData,
+        announcementsData,
+        loading,
+        registerUser,
+        loginUser,
+        autoLoginUser,
+        logoutUser,
+      }}
     >
       {children}
     </UserContext.Provider>

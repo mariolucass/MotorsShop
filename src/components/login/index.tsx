@@ -9,7 +9,7 @@ import { z } from "zod";
 import { useUserContext } from "../../context";
 
 export interface iLogin {
-  name: string;
+  email: string;
   password: string;
 }
 
@@ -28,16 +28,16 @@ export const Login = () => {
       <Box>
         <Title>Login</Title>
         <Form onSubmit={handleSubmit(loginUser)}>
-          <label htmlFor="name">Usuário</label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
-            id="name"
-            placeholder="Digitar usuário"
-            {...register("name")}
+            id="email"
+            placeholder="Digitar email"
+            {...register("email")}
           />
-          {errors.name && (
+          {errors.email && (
             <Alert severity="error" id="alert">
-              {errors.name!.message}
+              {errors.email!.message}
             </Alert>
           )}
 
