@@ -9,7 +9,7 @@ export const NavBar = () => {
 
   return (
     <Box
-      className={matches700 ? "navbar" : "ocult"}
+      className={matches700 ? "ocult" : "navbar"}
       sx={
         matches700
           ? {

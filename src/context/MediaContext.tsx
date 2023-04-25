@@ -19,10 +19,10 @@ export const useMediaContext = () => {
 };
 
 export const MediaProvider = ({ children }: iProps) => {
-  const matches500 = useMediaQuery("(min-width:500px)");
-  const matches700 = useMediaQuery("(min-width:700px)");
-  const matches900 = useMediaQuery("(min-width:900px)");
-  const matches1200 = useMediaQuery("(min-width:1200px)");
+  const matches500 = useMediaQuery("(max-width:500px)");
+  const matches700 = useMediaQuery("(max-width:700px)");
+  const matches900 = useMediaQuery("(max-width:900px)");
+  const matches1200 = useMediaQuery("(max-width:1200px)");
 
   return (
     <MediaContext.Provider

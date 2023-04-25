@@ -12,7 +12,7 @@ const FilterBox = ({ title, options }: iProps) => {
 
   return (
     <Box>
-      <h6 className={matches900 ? "heading4-600" : "heading6-600"}>{title}</h6>
+      <h6 className={matches900 ? "heading6-600" : "heading4-600"}>{title}</h6>
       <Stack
         sx={{
           m: 1,
@@ -23,7 +23,7 @@ const FilterBox = ({ title, options }: iProps) => {
       >
         {options.map((value, i) => (
           <StyledOptions
-            className={matches900 ? "heading6-600" : "heading7-600"}
+            className={matches900 ? "heading7-600" : "heading6-600"}
             key={i}
           >
             {value}
