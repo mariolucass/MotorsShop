@@ -1,6 +1,10 @@
 import Box from "@mui/material/Box";
 import React from "react";
 import { StyledImg } from "./style";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import ImageList from "@mui/material/ImageList";
+import { ImageListItem } from "@mui/material";
 
 interface iProps {
   src: string;
@@ -14,13 +18,48 @@ const AdvertImage = ({ src }: iProps) => {
         src={src}
         sx={{
           objectFit: "contain",
-          width: "60%",
+          width: "70%",
           height: "100%",
-          maxWidth: 692,
+          padding: 2,
         }}
       />
     </StyledImg>
   );
 };
 
-export default AdvertImage;
+const AdvertImageList = ({ src }: iProps) => {
+  return (
+    <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
+      <Stack
+        direction="column"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        spacing={4}
+      >
+        <Typography className="card--title">Fotos</Typography>
+        <ImageList sx={{ width: "100%" }}>
+          <ImageListItem>
+            <img src={src} alt="" />
+          </ImageListItem>
+          <ImageListItem>
+            <img src={src} alt="" />
+          </ImageListItem>
+          <ImageListItem>
+            <img src={src} alt="" />
+          </ImageListItem>
+          <ImageListItem>
+            <img src={src} alt="" />
+          </ImageListItem>
+          <ImageListItem>
+            <img src={src} alt="" />
+          </ImageListItem>
+          <ImageListItem>
+            <img src={src} alt="" />
+          </ImageListItem>
+        </ImageList>
+      </Stack>
+    </Box>
+  );
+};
+
+export { AdvertImage, AdvertImageList };

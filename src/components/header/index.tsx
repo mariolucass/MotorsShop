@@ -21,7 +21,7 @@ export const Header = ({ isHome }: IProps) => {
       </Link>
 
       <div
-        className={matches700 ? "div__user" : "ocult"}
+        className={matches700 ? "ocult" : "div__user"}
         onClick={() => setIsOpen(!isOpen)}
       >
         <Avatar src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg " />
@@ -38,7 +38,7 @@ export const Header = ({ isHome }: IProps) => {
         <img src={Logo} alt="Logo" />
       </Link>
 
-      <div className={matches700 ? "div__buttons" : "ocult"}>
+      <div className={matches700 ? "ocult" : "div__buttons"}>
         <Link to={"/login"}>Fazer Login</Link>
         <Link to={"/register"}>Registrar</Link>
       </div>

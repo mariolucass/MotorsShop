@@ -36,6 +36,7 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
 
   const cardSize = () => {
     if (matches1200) {
+      console.log(matches1200);
       return { width: "30%", maxWidth: 312 };
     }
 
@@ -47,7 +48,7 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
       return { width: "60%" };
     }
 
-    return { width: "80%" };
+    return { width: "30%" };
   };
 
   return (

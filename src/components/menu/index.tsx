@@ -15,10 +15,10 @@ export const Menu = () => {
         <p
           className={
             matches500
-              ? "heading2-600"
+              ? "heading6-600"
               : matches700
               ? "heading5-600"
-              : "heading6-600"
+              : "heading2-600"
           }
         >
           Motors Shop
@@ -26,10 +26,10 @@ export const Menu = () => {
         <p
           className={
             matches500
-              ? "heading2-600"
+              ? "heading6-600"
               : matches700
               ? "heading5-600"
-              : "heading6-600"
+              : "heading2-600"
           }
         >
           A melhor plataforma de anúncios de carros do país
