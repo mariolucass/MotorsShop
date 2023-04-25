@@ -1,5 +1,6 @@
 .buttonBrand {
   background-color: var(--brand1) !important;
+  color: var(--whitefixed) !important;
 }
 .buttonBrand:hover {
   background-color: var(--brand2) !important;
@@ -11,6 +12,7 @@
 
 .buttonGrey-1 {
   background-color: var(--grey0) !important;
+  color: var(--whitefixed) !important;
 }
 .buttonGrey-1:hover {
   background-color: var(--grey1) !important;
@@ -48,7 +50,7 @@
   color: var(--brand1) !important;
 }
 .buttonOutline:hover {
-  color: var(--brand4) !important;
+  background-color: var(--brand4) !important;
 }
 .buttonOutline:disabled {
   opacity: 100% !important;
@@ -60,7 +62,7 @@
   color: var(--alert1) !important;
 }
 .buttonAlert:hover {
-  color: var(--alert2) !important;
+  background-color: var(--alert2) !important;
 }
 .buttonAlert:disabled {
   opacity: 100% !important;
@@ -72,7 +74,7 @@
   color: var(--sucess1) !important;
 }
 .buttonSucess:hover {
-  color: var(--sucess2) !important;
+  background-color: var(--sucess2) !important;
 }
 .buttonSucess:disabled {
   opacity: 100% !important;

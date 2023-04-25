@@ -3,6 +3,7 @@ import { ano, combustivel, cores, marcas, modelos } from "../../data";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
 import { useMediaContext } from "../../context/MediaContext";
+import Button from "@mui/material/Button";
 
 export const NavBar = () => {
   const { matches700 } = useMediaContext();
@@ -29,6 +30,9 @@ export const NavBar = () => {
       <FilterBox title="Combustivel" options={combustivel} />
       <FilterBoxInput title="Km" />
       <FilterBoxInput title="Preço" />
+      <Button className="buttonSucess" variant="outlined">
+        Limpar Filtro
+      </Button>
     </Box>
   );
 };
