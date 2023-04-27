@@ -1,0 +1,81 @@
+.buttonBrand {
+  background-color: var(--brand1) !important;
+  color: var(--whitefixed) !important;
+}
+.buttonBrand:hover {
+  background-color: var(--brand2) !important;
+}
+.buttonBrand:disabled {
+  background-color: var(--brand4) !important;
+  color: var(--brand1) !important;
+}
+
+.buttonGrey-1 {
+  background-color: var(--grey0) !important;
+  color: var(--whitefixed) !important;
+}
+.buttonGrey-1:hover {
+  background-color: var(--grey1) !important;
+}
+
+.buttonGrey-2 {
+  background-color: var(--grey6) !important;
+  color: var(--grey2) !important;
+}
+.buttonGrey-2:hover {
+  background-color: var(--grey5) !important;
+  color: var(--grey2) !important;
+}
+.buttonGrey-2:disabled {
+  background-color: var(--grey5) !important;
+  color: var(--whitefixed) !important;
+}
+
+.buttonGrey-3 {
+  background-color: transparent !important;
+  border-color: var(--grey0) !important;
+  color: var(--grey1) !important;
+}
+.buttonGrey-3:hover {
+  background-color: var(--grey0) !important;
+  color: var(--grey10) !important;
+}
+.buttonGrey-3:disabled {
+  opacity: 100% !important;
+}
+
+.buttonOutline {
+  background-color: transparent !important;
+  border-color: var(--brand1) !important;
+  color: var(--brand1) !important;
+}
+.buttonOutline:hover {
+  background-color: var(--brand4) !important;
+}
+.buttonOutline:disabled {
+  opacity: 100% !important;
+}
+
+.buttonAlert {
+  background-color: var(--alert3) !important;
+  border-color: var(--alert3) !important;
+  color: var(--alert1) !important;
+}
+.buttonAlert:hover {
+  background-color: var(--alert2) !important;
+}
+.buttonAlert:disabled {
+  opacity: 100% !important;
+}
+
+.buttonSucess {
+  background-color: var(--sucess3) !important;
+  border-color: var(--sucess3) !important;
+  color: var(--sucess1) !important;
+}
+.buttonSucess:hover {
+  background-color: var(--sucess2) !important;
+}
+.buttonSucess:disabled {
+  opacity: 100% !important;
+}

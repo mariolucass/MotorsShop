@@ -3,25 +3,67 @@ import { ano, combustivel, cores, marcas, modelos } from "../../data";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
 import { useMediaContext } from "../../context/MediaContext";
+import Button from "@mui/material/Button";
+import { useFilterContext } from "../../context/FilterContext";
+import { Stack, Typography } from "@mui/material";
+import { GrFormClose } from "react-icons/gr";
 
 export const NavBar = () => {
   const { matches700 } = useMediaContext();
+  const { setShowFilter, showFilter } = useFilterContext();
+
+  const size = () => {
+    if (matches700 && showFilter) {
+      return {
+        width: "100%",
+        m: 0,
+        position: "absolute",
+        zIndex: 100,
+        backgroundColor: "white",
+        p: 2,
+      };
+    }
+
+    if (matches700) {
+      return {
+        width: "20%",
+        m: 2,
+      };
+    }
+
+    return {
+      width: "30%",
+      m: 2,
+    };
+  };
 
   return (
     <Box
-      className={matches700 ? "navbar" : "ocult"}
-      sx={
-        matches700
-          ? {
-              width: "20%",
-              m: 2,
-            }
-          : {
-              width: "30%",
-              m: 2,
-            }
-      }
+      className={matches700 && showFilter === false ? "ocult" : "navbar"}
+      sx={size}
     >
+      {showFilter ? (
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
+          sx={{ width: "100%", mb: 2 }}
+        >
+          <Typography variant="h6" fontWeight={700}>
+            Filtro
+          </Typography>
+          <Button
+            onClick={() => {
+              setShowFilter(!showFilter);
+            }}
+          >
+            <GrFormClose className="close" />
+          </Button>
+        </Stack>
+      ) : (
+        false
+      )}
       <FilterBox title="Marca" options={marcas} />
       <FilterBox title="Modelo" options={modelos} />
       <FilterBox title="Cor" options={cores} />
@@ -29,6 +71,9 @@ export const NavBar = () => {
       <FilterBox title="Combustivel" options={combustivel} />
       <FilterBoxInput title="Km" />
       <FilterBoxInput title="Preço" />
+      <Button className="buttonBrand" variant="outlined" sx={{ width: "100%" }}>
+        Limpar Filtro
+      </Button>
     </Box>
   );
 };

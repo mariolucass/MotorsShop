@@ -1,4 +1,5 @@
 @import "./reset.css";
+@import "./buttons.css";
 
 @font-face {
   font-family: Lexend;
@@ -178,19 +179,6 @@ body {
   -webkit-box-orient: vertical;
 }
 
-/* .card--description::-webkit-scrollbar {
-  width: 4px;
-  width: 4px;
-}
-.card--description::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background-color: var(--brand4);
-}
-.card--description::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: var(--brand1);
-} */
-
 .card--user {
   color: var(--grey2);
   font-weight: 500;
@@ -204,6 +192,20 @@ body {
 .chip {
   color: var(--brand1) !important;
   background-color: var(--brand4) !important;
+}
+
+.AdvertCard {
+  background-color: var(--whitefixed);
+}
+
+.Advertdesc {
+  color: var(--grey2);
+  font-weight: 400 !important;
+}
+
+.close {
+  width: 60%;
+  height: 100%;
 }
 
 @media (min-width: 400px) {
