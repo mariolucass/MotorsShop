@@ -162,12 +162,17 @@ export const listMockedCars: IProduct[] = [
 ];
 
 export const marcas = [
-  "General Motos",
-  "Fiat",
-  "Ford",
-  "Honda",
-  "Porsche",
-  "Volswagen",
+  "chevrolet",
+  "citroën",
+  "fiat",
+  "ford",
+  "honda",
+  "hyundai",
+  "nissan",
+  "peugeot",
+  "renault",
+  "toyota",
+  "volkswagen",
 ];
 
 export const modelos = [

@@ -32,20 +32,24 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
     currency: "BRL",
   });
 
-  const { matches500, matches700, matches1200 } = useMediaContext();
+  const { matches500, matches700, matches1200, matches900 } = useMediaContext();
 
   const cardSize = () => {
-    if (matches1200) {
-      console.log(matches1200);
-      return { width: "30%", maxWidth: 312 };
+    console.log(matches900);
+    if (matches500) {
+      return { width: "85%" };
     }
 
     if (matches700) {
-      return { width: "45%" };
+      return { width: "40%" };
     }
 
-    if (matches500) {
-      return { width: "60%" };
+    if (matches900) {
+      return { width: "40%" };
+    }
+
+    if (matches1200) {
+      return { width: "30%", maxWidth: 312 };
     }
 
     return { width: "30%" };
@@ -96,10 +100,11 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
         </>
 
         <Stack
-          direction="row"
+          direction={matches1200 ? "column" : "row"}
           justifyContent="space-between"
-          alignItems="center"
+          alignItems={matches1200 ? "flex-start" : "center"}
           spacing={2}
+          sx={{ width: "100%" }}
         >
           <Stack
             direction="row"

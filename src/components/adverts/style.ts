@@ -7,7 +7,7 @@ export const ListStyled = styled.ul<iAdvertsProps>`
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
-  height: 560px;
+  height: 480px;
   overflow-x: auto;
 
   ${({ isProfile }) => {
