@@ -11,6 +11,10 @@ export const Header = () => {
   const { matches700 } = useMediaContext();
   const { userData } = useUserContext();
 
+  const username = userData ? userData!.name.split(" ") : "User";
+  const headerUsername =
+    username.length > 1 ? username[0] + " " + username[1] : username[0];
+
   return (
     <HeaderStyled>
       <Link to={"/home"}>
@@ -23,7 +27,7 @@ export const Header = () => {
             onClick={() => setIsOpen(!isOpen)}
           >
             <Avatar src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg " />
-            <span>{userData?.name}</span>
+            <span>{headerUsername}</span>
 
             <MenuHeader isOpen={isOpen} />
           </div>

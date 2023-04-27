@@ -1,4 +1,3 @@
-import { Input } from "./index";
 import styled from "styled-components";
 
 interface Props {
@@ -6,12 +5,14 @@ interface Props {
 }
 
 export const ContainerStyled = styled.div<Props>`
-  height: 100px;
+  height: 5em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   gap: 10px;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
 
   @keyframes tremer {
     0% {
@@ -71,7 +72,7 @@ export const InputStyled = styled.input`
   font-size: 16px;
   line-height: 0px;
 
-  color: var(--grey3);
+  color: var(--grey1);
 
   position: relative;
 

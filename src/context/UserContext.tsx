@@ -1,12 +1,7 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
 import { useNavigate } from "react-router-dom";
-import { iLogin, iRegister } from "../components";
+import { ILogin, IRegister } from "../interfaces";
+import { IChildren } from "../interfaces/global.interfaces";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   getUserProfile,
   iAnnouncement,
@@ -15,16 +10,12 @@ import {
   postUserCreate,
 } from "../services";
 
-interface iProps {
-  children: ReactNode;
-}
-
 interface iContextProvider {
   userData: iUser | null;
   announcementsData: iAnnouncement[] | null;
   loading: boolean;
-  registerUser: (formData: iRegister) => Promise<void>;
-  loginUser: (formData: iLogin) => Promise<void>;
+  registerUser: (formData: IRegister) => Promise<void>;
+  loginUser: (formData: ILogin) => Promise<void>;
   autoLoginUser: () => Promise<void>;
   logoutUser: () => void;
 }
@@ -35,7 +26,7 @@ export const useUserContext = () => {
   return useContext(UserContext);
 };
 
-export const UserProvider = ({ children }: iProps) => {
+export const UserProvider = ({ children }: IChildren) => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState<iUser | null>(null);
   const [announcementsData, setAnnouncementsData] =
@@ -46,7 +37,7 @@ export const UserProvider = ({ children }: iProps) => {
     autoLoginUser();
   }, []);
 
-  const registerUser = async (formData: iRegister) => {
+  const registerUser = async (formData: IRegister) => {
     try {
       await postUserCreate(formData);
       navigate("/login");
@@ -55,10 +46,14 @@ export const UserProvider = ({ children }: iProps) => {
     }
   };
 
-  const loginUser = async (formData: iLogin) => {
+  const loginUser = async (formData: ILogin) => {
     try {
       const { token } = await postUser(formData);
       localStorage.setItem("@MotorsShop:token", token);
+      const response = await getUserProfile(token);
+      setUserData(response);
+      setAnnouncementsData(response.announcement);
+
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -85,7 +80,7 @@ export const UserProvider = ({ children }: iProps) => {
     localStorage.removeItem("@MotorsShop:token");
     setUserData(null);
     setAnnouncementsData(null);
-    navigate("/");
+    navigate("/login");
   };
 
   return (

@@ -1,20 +1,15 @@
+import { IChildren } from "../interfaces/global.interfaces";
 import { MediaProvider } from "./MediaContext";
 import { ModalProvider } from "./ModalContext";
 import { UserProvider } from "./UserContext";
 
-type iProvidersProps = {
-  children: React.ReactNode;
-};
-
-const Providers = ({ children }: iProvidersProps) => {
-  return (
-    <MediaProvider>
-      <UserProvider>
-        <ModalProvider>{children}</ModalProvider>
-      </UserProvider>
-    </MediaProvider>
-  );
-};
+const Providers = ({ children }: IChildren) => (
+  <MediaProvider>
+    <UserProvider>
+      <ModalProvider>{children}</ModalProvider>
+    </UserProvider>
+  </MediaProvider>
+);
 
 export default Providers;
 export { useMediaContext } from "./MediaContext";

@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material";
-import globalTheme from "../../styles/global";
+import globalTheme from "../../libs/mui";
 
 interface iBox {
   children: React.ReactElement;

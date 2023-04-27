@@ -1,11 +1,11 @@
 import { InputHTMLAttributes } from "react";
 import { ContainerStyled, LabelStyled, InputStyled } from "./style";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 
 export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
-  error: any;
+  error?: any;
   width: string;
   placeholder: string;
   register: UseFormRegister<any>;
@@ -28,11 +28,10 @@ export const Input = ({
     <ContainerStyled width={width}>
       <LabelStyled>{label}</LabelStyled>
       <InputStyled
-        value={value !== undefined ? value : ""}
         {...register(name)}
         placeholder={placeholder}
         className={error && "errorInput"}
-        readOnly
+        value={value !== undefined ? value : ""}
       />
     </ContainerStyled>
   ) : (
