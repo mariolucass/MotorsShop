@@ -1,8 +1,5 @@
-import { ReactNode, createContext, useContext, useState } from "react";
-
-interface iProps {
-  children: ReactNode;
-}
+import { createContext, useContext, useState } from "react";
+import { IChildren } from "../interfaces/global.interfaces";
 
 interface iContextProvider {
   open: boolean;
@@ -16,7 +13,7 @@ export const useModalContext = () => {
   return useContext(ModalContext);
 };
 
-export const ModalProvider = ({ children }: iProps) => {
+export const ModalProvider = ({ children }: IChildren) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

@@ -1,37 +1,29 @@
-import { useForm } from "react-hook-form";
 import { Input } from "../inputs";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@mui/material";
-import { ButtonDiv, DivStyled, FormStyled, InputSplitDiv } from "./style";
-import { useEffect, useState } from "react";
-import { apiFipe, apiServerSideToken } from "../../services";
+import { brands } from "../../data";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { useModalContext } from "../../context";
-
-interface IRegisterAnnouncement {
-  brand: string;
-  model: string;
-  manufacture_year: number;
-  fuel: string;
-  mileage: number;
-  color: string;
-  price: string;
-  price_fipe: number;
-  description: string;
-}
-
-const FormSchemaRegister = z.object({
-  brand: z.string().nonempty(),
-  model: z.string().nonempty(),
-  manufacture_year: z.string().nonempty(),
-  fuel: z.string().nonempty(),
-  mileage: z.string().nonempty(),
-  color: z.string().nonempty(),
-  price: z.string().nonempty(),
-  price_fipe: z.string().nonempty(),
-  description: z.string().nonempty(),
-});
+import { zodResolver } from "@hookform/resolvers/zod";
+import { apiFipe, apiServerSide } from "../../services";
+import { Autocomplete, Button, TextField } from "@mui/material";
+import { createAnnouncementSchema } from "../../schemas/announcementSchema";
+import {
+  ICreateAnnouncement,
+  IModelApi,
+} from "../../interfaces/announcements.interfaces";
+import {
+  capitalizeString,
+  convertToNumber,
+  monetizeString,
+} from "../../utils/utils";
+import {
+  AutoCompleteDiv,
+  ButtonDiv,
+  DivStyled,
+  FormStyled,
+  InputSplitDiv,
+} from "./style";
 
 export const CreateAdvertise = () => {
   const { handleClose } = useModalContext();
@@ -39,71 +31,95 @@ export const CreateAdvertise = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRegisterAnnouncement>({
-    resolver: zodResolver(FormSchemaRegister),
+  } = useForm<ICreateAnnouncement>({
+    resolver: zodResolver(createAnnouncementSchema),
   });
 
   const [brand, setBrand] = useState("");
-  const [name, setName] = useState("");
+  const [model, setModel] = useState("");
+  const [models, setModels] = useState<IModelApi[]>([]);
+
   const [year, setYear] = useState("");
-  const [fuel, setFuel] = useState(0);
+  const [fuel, setFuel] = useState("");
   const [price, setPrice] = useState("");
+
   const [valueFipe, setValueFipe] = useState("");
 
   useEffect(() => {
-    const getValueFipe = async () => {
-      if (brand && name && year && fuel) {
+    if (brand.length) {
+      const getModels = async () => {
         try {
-          const response = await apiFipe.get("/unique", {
-            params: { brand: brand, name: name, year: year, fuel: fuel },
-          });
+          const response = await apiFipe.get("/", { params: { brand: brand } });
 
-          setValueFipe(
-            response.data.value.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })
-          );
+          setModels(response.data);
+        } catch (error) {}
+      };
+      getModels();
+    }
+  }, [brand]);
 
-          console.log(response.data.value);
-        } catch (error) {
-          toast.error("Não encontrado o filtro correspondente");
+  useEffect(() => {
+    if (model.length) {
+      const getYearAndFuel = async () => {
+        const modelFind = models.find((elem) => elem.name === model);
+
+        if (modelFind) {
+          setYear(modelFind.year);
+
+          const valueMonetized = monetizeString(modelFind.value);
+          setValueFipe(valueMonetized);
+
+          const fuelTypes = ["Flex", "Hibrido", "Eletrico"];
+          const fuelType = fuelTypes[modelFind.fuel - 1];
+          setFuel(fuelType);
         }
-      }
-    };
+      };
+      getYearAndFuel();
+    }
+  }, [model]);
 
-    getValueFipe();
-  }, [brand, name, year, fuel]);
-
-  const submitAnnouncement = (data: any) => {
-    const convertToNumber = (price: string) => {
-      const numericString = price.replace(/[^0-9]/g, "");
-      const numericValue = parseFloat(numericString);
-      return numericValue;
-    };
-
+  const submitAnnouncement = async (data: any) => {
+    data.brand = capitalizeString(brand);
+    data.model = capitalizeString(model);
     data.price_fipe = convertToNumber(valueFipe);
     data.price = convertToNumber(data.price);
+    data.manufacture_year = year;
+    data.fuel = fuel;
     data.mileage = +data.mileage;
-    data.manufacture_year = +data.manufacture_year;
+
+    data.listImage = [
+      "https://http2.mlstatic.com/D_NQ_NP_723740-MLB53985481539_022023-O.jpg",
+    ];
+
+    console.log(data);
 
     try {
-      apiServerSideToken.post("/announcements", data);
+      const response = await apiServerSide.post("/announcements", data);
+      console.log(response);
+
+      toast.success(
+        "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
+      );
     } catch (error) {
       console.log(error);
+
+      toast.error(
+        "Infelizmente não foi possivel cadastrar o anúncio, se possivel tente mais tarde."
+      );
     }
   };
 
-  const handlePriceChange = (event: any) => {
-    const numberValue = parseFloat(event.target.value.replace(/,/g, ""));
-    if (!isNaN(numberValue)) {
-      setPrice(
-        numberValue.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        })
-      );
-    }
+  const brandsToSelect = brands.map((elem) => capitalizeString(elem));
+  const modelsToSelect = models.map((elem: IModelApi) =>
+    capitalizeString(elem.name)
+  );
+
+  const handleBrandChange = (event: any) => {
+    setBrand(event.target.textContent.toLowerCase());
+  };
+
+  const handleModelChange = (event: any) => {
+    setModel(event.target.textContent.toLowerCase());
   };
 
   return (
@@ -111,63 +127,60 @@ export const CreateAdvertise = () => {
       <FormStyled onSubmit={handleSubmit(submitAnnouncement)}>
         <h1>Criar anúncio </h1>
         <h3>Informações do veículo </h3>
+        <AutoCompleteDiv>
+          <label htmlFor="brandSelect"> Marca</label>
 
-        <Input
-          name={"brand"}
-          register={register}
-          error={errors.brand}
-          label={"Marca"}
-          placeholder={"Mercedes Benz"}
-          width={"100"}
-          handlerChange={(event) => setBrand(event?.target.value)}
-        />
-
-        <Input
-          name={"model"}
-          register={register}
-          error={errors.model}
-          label={"Modelo"}
-          placeholder={"A 200 CGI ADVANCE SEDAN"}
-          width={"100"}
-          handlerChange={(event) => setName(event?.target.value)}
-        />
-
+          <Autocomplete
+            id="brandSelect"
+            className="autoComplete"
+            options={brandsToSelect}
+            onChange={handleBrandChange}
+            renderInput={(params) => (
+              <TextField {...params} placeholder="Mercedes Benz" />
+            )}
+          />
+        </AutoCompleteDiv>
+        <AutoCompleteDiv>
+          <label htmlFor="modelSelect"> Modelo</label>
+          <Autocomplete
+            id="modelSelect"
+            className="autoComplete"
+            options={modelsToSelect}
+            onChange={handleModelChange}
+            renderInput={(params) => (
+              <TextField {...params} placeholder="A 200 CGI ADVANCE SEDAN" />
+            )}
+          />
+        </AutoCompleteDiv>
         <InputSplitDiv>
           <Input
             name={"manufacture_year"}
             type="number"
             register={register}
-            error={errors.manufacture_year}
             label={"Ano"}
             placeholder={"2018"}
+            value={year}
             width={"50"}
-            handlerChange={(event) => setYear(event?.target.value)}
+            isFipe={true}
           />
 
           <Input
             name={"fuel"}
             register={register}
-            error={errors.fuel}
             label={"Combustível"}
+            value={fuel}
             placeholder={"Gasolina / Etanol"}
             width={"50"}
-            handlerChange={(event) => {
-              if (event?.target.value === "Gasolina") {
-                setFuel(1);
-              } else if (event?.target.value === "Etanol") {
-                setFuel(2);
-              }
-            }}
+            isFipe={true}
           />
         </InputSplitDiv>
-
         <InputSplitDiv>
           <Input
             name={"mileage"}
             register={register}
             error={errors.mileage}
             label={"Quilometragem"}
-            placeholder={"30000"}
+            placeholder={"30.000"}
             width={"50"}
           />
 
@@ -180,44 +193,66 @@ export const CreateAdvertise = () => {
             width={"50"}
           />
         </InputSplitDiv>
-
         <InputSplitDiv>
           <Input
             type="number"
             name={"price_fipe"}
             register={register}
-            error={errors.price_fipe}
-            label={"Preco tabela FIPE"}
+            label={"Preço tabela FIPE"}
             placeholder={"R$ 40.000,00"}
             width={"50"}
             value={valueFipe}
             isFipe={true}
           />
-
           <Input
             type="number"
             name={"price"}
             register={register}
             error={errors.price}
-            label={"Preco"}
+            label={"Preço"}
             value={price}
             handlerChange={(event) => setPrice(event.target.value)}
             placeholder={"R$ 50.000,00"}
             width={"50"}
           />
         </InputSplitDiv>
-
         <Input
           name={"description"}
           register={register}
           error={errors.description}
-          label={"Descricão"}
+          label={"Descrição"}
           placeholder={
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
           }
           width={"100"}
         />
-
+        <Input
+          name={"imageCover"}
+          register={register}
+          error={errors.description}
+          label={"Imagem da capa"}
+          placeholder={" https://image.com"}
+          width={"100"}
+        />
+        <Input
+          name={"image1"}
+          register={register}
+          error={errors.description}
+          label={"1° Imagem da galeria"}
+          placeholder={" https://image.com"}
+          width={"100"}
+        />
+        <Input
+          name={"image2"}
+          register={register}
+          error={errors.description}
+          label={"2° Imagem da galeria"}
+          placeholder={" https://image.com"}
+          width={"100"}
+        />
+        <Button className="buttonImage">
+          Adicionar campo para imagem da galeria
+        </Button>
         <ButtonDiv>
           <Button className="buttonForms" onClick={handleClose}>
             Cancelar

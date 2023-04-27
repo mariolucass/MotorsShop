@@ -1,4 +1,10 @@
-import { Avatar, Button, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Container,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import {
   Adverts,
   CreateAdvertise,
@@ -47,7 +53,9 @@ const Profile = () => {
           </section>
         </StyledHero>
 
-        <Adverts isProfile />
+        <Container>
+          <Adverts isProfile />
+        </Container>
 
         <Footer />
       </div>

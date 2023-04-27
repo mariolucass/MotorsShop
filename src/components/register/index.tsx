@@ -3,31 +3,9 @@ import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Alert from "@mui/material/Alert";
-import { z } from "zod";
 import { registerSchema } from "../../schemas/registerSchema";
 import { useUserContext } from "../../context";
-
-export interface iRegister {
-  name: string;
-  email: string;
-  password: string;
-  confirm_password: string;
-  cpf: string;
-  phone: string;
-  birthdate: string;
-  description: string;
-  role: "BUYER" | "SELLER";
-  address: {
-    zip_code: string;
-    state: string;
-    city: string;
-    street: string;
-    number: string;
-    complement?: string;
-  };
-}
-
-type iRegisterUseForm = z.infer<typeof registerSchema>;
+import { IRegisterUseForm } from "../../interfaces";
 
 export const Register = () => {
   const { registerUser } = useUserContext();
@@ -35,7 +13,7 @@ export const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iRegisterUseForm>({ resolver: zodResolver(registerSchema) });
+  } = useForm<IRegisterUseForm>({ resolver: zodResolver(registerSchema) });
 
   return (
     <Container>

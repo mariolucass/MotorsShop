@@ -5,15 +5,8 @@ import { loginSchema } from "../../schemas/loginSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Alert from "@mui/material/Alert";
-import { z } from "zod";
 import { useUserContext } from "../../context";
-
-export interface iLogin {
-  email: string;
-  password: string;
-}
-
-type iLoginUseForm = z.infer<typeof loginSchema>;
+import { ILoginUseForm } from "../../interfaces";
 
 export const Login = () => {
   const { loginUser } = useUserContext();
@@ -21,7 +14,7 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iLoginUseForm>({ resolver: zodResolver(loginSchema) });
+  } = useForm<ILoginUseForm>({ resolver: zodResolver(loginSchema) });
 
   return (
     <Container>
@@ -54,20 +47,17 @@ export const Login = () => {
             </Alert>
           )}
 
-          <Link to={"/"} id="forgot_password">
-            {" "}
-            Esqueci minha senha{" "}
+          <Link to={"/login/indentify/recover"} id="forgot_password">
+            Esqueci minha senha
           </Link>
 
           <Button variant="contained" type="submit" id="login">
-            {" "}
-            Entrar{" "}
+            Entrar
           </Button>
         </Form>
         <span id="do_not_account">Ainda não possui conta?</span>
         <Link to={"/register"} id="register">
-          {" "}
-          Cadastrar{" "}
+          Cadastrar
         </Link>
       </Box>
     </Container>
