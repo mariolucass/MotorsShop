@@ -1,6 +1,7 @@
 import { MediaProvider } from "./MediaContext";
 import { ModalProvider } from "./ModalContext";
 import { UserProvider } from "./UserContext";
+import { FilterProvider } from "./FilterContext";
 
 type iProvidersProps = {
   children: React.ReactNode;
@@ -8,11 +9,13 @@ type iProvidersProps = {
 
 const Providers = ({ children }: iProvidersProps) => {
   return (
-    <MediaProvider>
-      <UserProvider>
-        <ModalProvider>{children}</ModalProvider>
-      </UserProvider>
-    </MediaProvider>
+    <FilterProvider>
+      <MediaProvider>
+        <UserProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </UserProvider>
+      </MediaProvider>
+    </FilterProvider>
   );
 };
 
@@ -20,3 +23,4 @@ export default Providers;
 export { useMediaContext } from "./MediaContext";
 export { useModalContext } from "./ModalContext";
 export { useUserContext } from "./UserContext";
+export { useFilterContext } from "./FilterContext";
