@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
 import Logo from "../../assets/logoColored.svg";
 import { useMediaContext, useUserContext } from "../../context";
+import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
+import { ModalUpdateAddress } from "../modal/modalUpdateAddress";
 
 export const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const { matches700 } = useMediaContext();
   const { userData } = useUserContext();
 
@@ -16,6 +18,10 @@ export const Header = () => {
     username.length > 1 ? username[0] + " " + username[1] : username[0];
 
   return (
+    <>
+    
+    <ModalUpdateDeleteUser/>
+    <ModalUpdateAddress/>
     <HeaderStyled>
       <Link to={"/home"}>
         <img src={Logo} alt="Logo" />
@@ -24,12 +30,12 @@ export const Header = () => {
         {userData ? (
           <div
             className={matches700 ? "ocult" : "div__user"}
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpenMenu(!isOpenMenu)}
           >
             <Avatar src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg " />
             <span>{headerUsername}</span>
 
-            <MenuHeader isOpen={isOpen} />
+            <MenuHeader isOpen={isOpenMenu} />
           </div>
         ) : (
           <div className={matches700 ? "ocult" : "div__buttons"}>
@@ -39,5 +45,6 @@ export const Header = () => {
         )}
       </>
     </HeaderStyled>
+    </>
   );
 };

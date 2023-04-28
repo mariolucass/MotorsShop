@@ -18,6 +18,7 @@ interface iContextProvider {
   loginUser: (formData: ILogin) => Promise<void>;
   autoLoginUser: () => Promise<void>;
   logoutUser: () => void;
+  userProfile: () => void
 }
 
 const UserContext = createContext({} as iContextProvider);
@@ -83,6 +84,21 @@ export const UserProvider = ({ children }: IChildren) => {
     navigate("/login");
   };
 
+  const userProfile = async () => {
+    const token = localStorage.getItem("@MotorsShop:token");
+    if (token) {
+      try {
+        setLoading(true);
+        const response = await getUserProfile(token);
+        setUserData(response);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -93,6 +109,7 @@ export const UserProvider = ({ children }: IChildren) => {
         loginUser,
         autoLoginUser,
         logoutUser,
+        userProfile
       }}
     >
       {children}

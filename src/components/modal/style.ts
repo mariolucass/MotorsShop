@@ -17,6 +17,8 @@ export const Box = styled.div`
   overflow-y: auto;
   height: 75vh;
 
+  z-index: 9999;
+
   @media (max-width: 1024px) {
     max-width: 100vw;
   }

@@ -1,16 +1,21 @@
 import { motion } from "framer-motion";
 import { ListMenuStyled } from "./style";
+import { useModalContext, useUserContext } from "../../context";
+import { useNavigate } from "react-router-dom";
+import * as framer from "../../libs/framer";
+import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
 import * as framer from "../../libs/framer";
 import { useUserContext } from "../../context";
-import { useNavigate } from "react-router-dom";
 interface IProps {
   isOpen: boolean;
 }
 export const MenuHeader = ({ isOpen }: IProps) => {
   const { userData, logoutUser } = useUserContext();
   const navigate = useNavigate();
+  const {handleOpen, handleOpenAddress} = useModalContext()
 
   return (
+    <>
     <motion.nav className="menu">
       <ListMenuStyled
         animate={isOpen ? framer.animateShownUl : framer.animateHiddenUl}
@@ -20,14 +25,14 @@ export const MenuHeader = ({ isOpen }: IProps) => {
         }}
       >
         <motion.li
-          animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
+          animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi} onClick={()=> {handleOpen()}}
         >
           Editar Perfil
         </motion.li>
 
         <motion.li
           animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
-        >
+         onClick={() => {handleOpenAddress()}}>
           Editar endereco
         </motion.li>
 
@@ -48,5 +53,6 @@ export const MenuHeader = ({ isOpen }: IProps) => {
         </motion.li>
       </ListMenuStyled>
     </motion.nav>
+    </>
   );
 };
