@@ -3,9 +3,11 @@ import { useMediaContext } from "../../../context";
 
 interface iPropsInput {
   title: string;
+  max: React.Dispatch<React.SetStateAction<string | undefined>>;
+  min: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-const FilterBoxInput = ({ title }: iPropsInput) => {
+const FilterBoxInput = ({ title, max, min }: iPropsInput) => {
   const { matches700, matches900 } = useMediaContext();
 
   return (
@@ -19,9 +21,17 @@ const FilterBoxInput = ({ title }: iPropsInput) => {
           m: 2,
         }}
       >
-        <OutlinedInput placeholder="Minimo" id="Minimo" />
+        <OutlinedInput
+          placeholder="Minimo"
+          id="Minimo"
+          onChange={(event) => min(event.target.value)}
+        />
 
-        <OutlinedInput placeholder="Maximo" id="max" />
+        <OutlinedInput
+          placeholder="Maximo"
+          id="max"
+          onChange={(event) => max(event.target.value)}
+        />
       </Stack>
     </Box>
   );

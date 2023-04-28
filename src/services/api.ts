@@ -4,6 +4,7 @@ const token = localStorage.getItem("@MotorsShop:token");
 const fipeURL = "https://kenzie-kars.herokuapp.com/cars";
 const serverUrl = "https://back-end-full-stack-m6.vercel.app/";
 const localServer = "http://127.0.0.1:4002/";
+const localHost = "http://localhost:4002";
 
 export const apiFipe = axios.create({
   baseURL: fipeURL,
@@ -33,3 +34,4 @@ export const apiServerSideToken = axios.create({
 });
 
 export const apiUsingNow = localApi;
+

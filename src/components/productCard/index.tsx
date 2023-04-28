@@ -8,7 +8,11 @@ import CardContent from "@mui/material/CardContent";
 import { IPropsProductCard } from "../../interfaces";
 import { useMediaContext } from "../../context/MediaContext";
 
-export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
+export const ProductCard = ({
+  element,
+  isProfile,
+  onClick,
+}: IPropsProductCard) => {
   const priceFormatted = element.price.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -18,26 +22,26 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
 
   const cardSize = () => {
     if (matches500) {
-      return { width: "85%" };
+      return { width: "85%", cursor: "pointer" };
     }
 
     if (matches700) {
-      return { width: "40%" };
+      return { width: "40%", cursor: "pointer" };
     }
 
     if (matches900) {
-      return { width: "40%" };
+      return { width: "40%", cursor: "pointer" };
     }
 
     if (matches1200) {
-      return { width: "30%", maxWidth: 312 };
+      return { width: "30%", maxWidth: 312, cursor: "pointer" };
     }
 
-    return { width: "30%" };
+    return { width: "30%", cursor: "pointer" };
   };
 
   return (
-    <Card variant="outlined" sx={cardSize}>
+    <Card variant="outlined" sx={cardSize} onClick={onClick}>
       <CardMedia
         component={"img"}
         height={"175"}
@@ -95,7 +99,7 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
           >
             <StyledChip label={`${element.mileage} KM`} />
 
-            <StyledChip label={element.manufacturing_year} />
+            <StyledChip label={element.manufacture_year} />
           </Stack>
 
           <span className="card--price">{priceFormatted}</span>
