@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { iAdvertsProps } from ".";
+import { IAdvertsProps } from "../../interfaces";
 
-export const ListStyled = styled.ul<iAdvertsProps>`
+export const ListStyled = styled.ul<IAdvertsProps>`
   display: flex;
   gap: 30px;
   flex-wrap: wrap;

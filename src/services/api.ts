@@ -33,13 +33,5 @@ export const apiServerSideToken = axios.create({
   headers: { Authorization: `Bearer ${token}` },
 });
 
-export const apiLocalHost = axios.create({
-  baseURL: localHost,
-  timeout: 5000,
-});
+export const apiUsingNow = localApi;
 
-export const apiLocalHostToken = axios.create({
-  baseURL: localHost,
-  timeout: 5000,
-  headers: { Authorization: `Bearer ${token}` },
-});

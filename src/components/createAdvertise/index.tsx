@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useModalContext } from "../../context";
+import { postAnnouncement } from "../../services";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { apiFipe, apiServerSide } from "../../services";
+import { getModelsByBrandFipe } from "../../services/apiFipe";
 import { Autocomplete, Button, TextField } from "@mui/material";
-import { createAnnouncementSchema } from "../../schemas/announcementSchema";
 import { ICreateAnnouncement, IModelApi } from "../../interfaces";
+import { createAnnouncementSchema } from "../../schemas/announcementSchema";
 import {
   capitalizeString,
   convertToNumber,
@@ -35,23 +36,14 @@ export const CreateAdvertise = () => {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [models, setModels] = useState<IModelApi[]>([]);
-
   const [year, setYear] = useState("");
   const [fuel, setFuel] = useState("");
   const [price, setPrice] = useState("");
-
   const [valueFipe, setValueFipe] = useState("");
 
   useEffect(() => {
     if (brand.length) {
-      const getModels = async () => {
-        try {
-          const response = await apiFipe.get("/", { params: { brand: brand } });
-
-          setModels(response.data);
-        } catch (error) {}
-      };
-      getModels();
+      (async () => setModels(await getModelsByBrandFipe(brand)))();
     }
   }, [brand]);
 
@@ -62,10 +54,8 @@ export const CreateAdvertise = () => {
 
         if (modelFind) {
           setYear(modelFind.year);
-
           const valueMonetized = monetizeString(modelFind.value);
           setValueFipe(valueMonetized);
-
           const fuelTypes = ["Flex", "Hibrido", "Eletrico"];
           const fuelType = fuelTypes[modelFind.fuel - 1];
           setFuel(fuelType);
@@ -84,23 +74,15 @@ export const CreateAdvertise = () => {
     data.manufacture_year = year;
     data.fuel = fuel;
     data.mileage = +data.mileage;
-
-    data.listImage = [
-      "https://http2.mlstatic.com/D_NQ_NP_723740-MLB53985481539_022023-O.jpg",
-    ];
-
-    console.log(data);
+    data.listImage = [];
 
     try {
-      const response = await apiServerSide.post("/announcements", data);
-      console.log(response);
+      await postAnnouncement(data);
 
       toast.success(
         "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
       );
     } catch (error) {
-      console.log(error);
-
       toast.error(
         "Infelizmente não foi possivel cadastrar o anúncio, se possivel tente mais tarde."
       );

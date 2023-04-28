@@ -41,7 +41,11 @@ export const DivStyled = styled.div`
     padding: 12px 20px;
     background: #edeafd;
     border: 1.5px solid #edeafd;
-    color: #4529e6;
+    color: var(--brand1);
+
+    @media (max-width: 1024px) {
+      font-size: 10px;
+    }
   }
 `;
 
@@ -69,7 +73,7 @@ export const ButtonDiv = styled.div`
 
   button:last-child {
     padding: 12px 28px;
-    background-color: var(--brand3);
+    background-color: var(--brand2);
     color: var(--brand4);
   }
 
