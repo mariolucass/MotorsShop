@@ -24,13 +24,13 @@ const FilterBoxInput = ({ title, max, min }: iPropsInput) => {
         <OutlinedInput
           placeholder="Minimo"
           id="Minimo"
-          onChange={(event) => min(event.target.value)}
+          onChange={(event) => min(event.target.value.toString())}
         />
 
         <OutlinedInput
           placeholder="Maximo"
           id="max"
-          onChange={(event) => max(event.target.value)}
+          onChange={(event) => max(event.target.value.toString())}
         />
       </Stack>
     </Box>

@@ -13,12 +13,17 @@ export interface IModelApi {
 }
 
 export interface IProduct {
-  title: string;
-  img: string;
-  description: string;
-  price: number;
+  id: string;
+  brand: string;
+  model: string;
+  manufacture_year: string;
+  fuel: string;
   mileage: number;
-  manufacturing_year: number;
+  color: string;
+  price_fipe: string;
+  price: string;
+  description: string;
+  listImage: Array<string>;
 
   user: {
     img: string;

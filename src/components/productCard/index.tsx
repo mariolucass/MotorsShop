@@ -7,16 +7,17 @@ import { Button, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import { IPropsProductCard } from "../../interfaces";
 import { useMediaContext } from "../../context/MediaContext";
+import { monetizeString } from "../../utils/utils";
 
 export const ProductCard = ({
   element,
   isProfile,
   onClick,
 }: IPropsProductCard) => {
-  const priceFormatted = element.price.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
+  // const priceFormatted = element.price.toLocaleString("pt-BR", {
+  //   style: "currency",
+  //   currency: "BRL",
+  // });
 
   const { matches500, matches700, matches1200, matches900 } = useMediaContext();
 
@@ -45,8 +46,10 @@ export const ProductCard = ({
       <CardMedia
         component={"img"}
         height={"175"}
-        image={element.img}
-        alt={element.title}
+        image={
+          "https://s7d1.scene7.com/is/image/hyundai/compare-vehicle-1225x619?wid=276&hei=156&fmt=webp-alpha"
+        }
+        alt={element.model}
       />
 
       <CardContent
@@ -63,7 +66,7 @@ export const ProductCard = ({
           gutterBottom
           className="card--title"
         >
-          {element.title}
+          {element.model}
         </Typography>
 
         <Typography
@@ -102,7 +105,7 @@ export const ProductCard = ({
             <StyledChip label={element.manufacture_year} />
           </Stack>
 
-          <span className="card--price">{priceFormatted}</span>
+          <span className="card--price">{monetizeString(+element.price)}</span>
         </Stack>
 
         <>
