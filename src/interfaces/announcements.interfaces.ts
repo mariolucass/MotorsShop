@@ -13,6 +13,7 @@ export interface IModelApi {
 }
 
 export interface IProduct {
+  manufacture_year: string | number;
   title: string;
   img: string;
   description: string;

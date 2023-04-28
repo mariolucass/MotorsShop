@@ -8,6 +8,20 @@ import CardContent from "@mui/material/CardContent";
 import { IPropsProductCard } from "../../interfaces";
 import { useMediaContext } from "../../context/MediaContext";
 
+export interface IProduct {
+  title: string;
+  img: string;
+  description: string;
+  price: number;
+  mileage: number;
+  manufacture_year: number;
+
+  user: {
+    img: string;
+    name: string;
+  };
+}
+
 export const ProductCard = ({
   element,
   isProfile,
