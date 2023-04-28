@@ -12,15 +12,6 @@ export const NavBar = () => {
   const { matches700 } = useMediaContext();
   const {
     showFilter,
-    Marca,
-    Ano,
-    Combustivel,
-    Cor,
-    Modelo,
-    MaxKm,
-    MinKm,
-    MaxPrice,
-    MinPrice,
     setShowFilter,
     setMarca,
     setAno,

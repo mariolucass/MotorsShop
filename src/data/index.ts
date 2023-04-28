@@ -172,7 +172,7 @@ export const modelos = [
   "Porsche 718",
 ];
 
-export const cores = ["Azul", "Branca", "Cinza", "Prata", "Preeto", "Verde"];
+export const cores = ["Azul", "Branco", "Cinza", "Prata", "Preto", "Verde"];
 
 export const ano = ["2022", "2021", "2018", "2015", "2013", "2012", "2010"];
 
