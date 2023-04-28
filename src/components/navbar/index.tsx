@@ -10,7 +10,28 @@ import { GrFormClose } from "react-icons/gr";
 
 export const NavBar = () => {
   const { matches700 } = useMediaContext();
-  const { setShowFilter, showFilter } = useFilterContext();
+  const {
+    showFilter,
+    Marca,
+    Ano,
+    Combustivel,
+    Cor,
+    Modelo,
+    MaxKm,
+    MinKm,
+    MaxPrice,
+    MinPrice,
+    setShowFilter,
+    setMarca,
+    setAno,
+    setCombustivel,
+    setCor,
+    setModelo,
+    setMaxKm,
+    setMaxPrice,
+    setMinKm,
+    setMinPrice,
+  } = useFilterContext();
 
   const size = () => {
     if (matches700 && showFilter) {
@@ -64,13 +85,17 @@ export const NavBar = () => {
       ) : (
         false
       )}
-      <FilterBox title="Marca" options={marcas} />
-      <FilterBox title="Modelo" options={modelos} />
-      <FilterBox title="Cor" options={cores} />
-      <FilterBox title="Ano" options={ano} />
-      <FilterBox title="Combustivel" options={combustivel} />
-      <FilterBoxInput title="Km" />
-      <FilterBoxInput title="Preço" />
+      <FilterBox title="Marca" options={marcas} to={setMarca} />
+      <FilterBox title="Modelo" options={modelos} to={setModelo} />
+      <FilterBox title="Cor" options={cores} to={setCor} />
+      <FilterBox title="Ano" options={ano} to={setAno} />
+      <FilterBox
+        title="Combustivel"
+        options={combustivel}
+        to={setCombustivel}
+      />
+      <FilterBoxInput title="Km" max={setMaxKm} min={setMinKm} />
+      <FilterBoxInput title="Preço" max={setMaxPrice} min={setMinPrice} />
       <Button className="buttonBrand" variant="outlined" sx={{ width: "100%" }}>
         Limpar Filtro
       </Button>

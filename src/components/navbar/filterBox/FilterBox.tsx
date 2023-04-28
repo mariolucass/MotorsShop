@@ -1,13 +1,14 @@
-import { Box, Stack } from "@mui/material";
+import { Box, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material";
 import { StyledOptions } from "./style";
-import { useMediaContext } from "../../../context";
+import { useFilterContext, useMediaContext } from "../../../context";
 
 interface iProps {
   title: string;
   options: Array<string>;
+  to?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-const FilterBox = ({ title, options }: iProps) => {
+const FilterBox = ({ title, options, to }: iProps) => {
   const { matches900 } = useMediaContext();
 
   return (
@@ -21,14 +22,19 @@ const FilterBox = ({ title, options }: iProps) => {
         }}
         spacing={1}
       >
-        {options.map((value, i) => (
-          <StyledOptions
-            className={matches900 ? "heading7-600" : "heading6-600"}
-            key={i}
-          >
-            {value}
-          </StyledOptions>
-        ))}
+        <RadioGroup>
+          {options.map((value, i) => (
+            <FormControlLabel
+              value={value}
+              control={<Radio />}
+              label={value}
+              onClick={() => {
+                to!(value);
+              }}
+              key={i}
+            />
+          ))}
+        </RadioGroup>
       </Stack>
     </Box>
   );

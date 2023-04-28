@@ -29,4 +29,5 @@ export interface IProduct {
 export interface IPropsProductCard {
   element: IProduct;
   isProfile?: boolean;
+  onClick: () => void;
 }
