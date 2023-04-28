@@ -1,63 +1,55 @@
+import { StyledChip } from "../chip";
 import Card from "@mui/material/Card";
+import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
 import { Button, Typography } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import CardContent from "@mui/material/CardContent";
+import { IPropsProductCard } from "../../interfaces";
 import { useMediaContext } from "../../context/MediaContext";
-import { StyledChip } from "../chip";
+import { monetizeString } from "../../utils/utils";
 
-export interface IProduct {
-  title: string;
-  img: string;
-  description: string;
-  price: number;
-  mileage: number;
-  manufacturing_year: number;
+export const ProductCard = ({
+  element,
+  isProfile,
+  onClick,
+}: IPropsProductCard) => {
+  // const priceFormatted = element.price.toLocaleString("pt-BR", {
+  //   style: "currency",
+  //   currency: "BRL",
+  // });
 
-  user: {
-    img: string;
-    name: string;
-  };
-}
-
-interface IPropsProductCard {
-  element: IProduct;
-  isProfile?: boolean;
-}
-
-export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
-  const priceFormatted = element.price.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-
-  const { matches500, matches700, matches1200 } = useMediaContext();
+  const { matches500, matches700, matches1200, matches900 } = useMediaContext();
 
   const cardSize = () => {
-    if (matches1200) {
-      console.log(matches1200);
-      return { width: "30%", maxWidth: 312 };
+    if (matches500) {
+      return { width: "85%", cursor: "pointer" };
     }
 
     if (matches700) {
-      return { width: "45%" };
+      return { width: "40%", cursor: "pointer" };
     }
 
-    if (matches500) {
-      return { width: "60%" };
+    if (matches900) {
+      return { width: "40%", cursor: "pointer" };
     }
 
-    return { width: "30%" };
+    if (matches1200) {
+      return { width: "30%", maxWidth: 312, cursor: "pointer" };
+    }
+
+    return { width: "30%", cursor: "pointer" };
   };
 
   return (
-    <Card variant="outlined" sx={cardSize}>
+    <Card variant="outlined" sx={cardSize} onClick={onClick}>
       <CardMedia
         component={"img"}
         height={"175"}
-        image={element.img}
-        alt={element.title}
+        image={
+          "https://s7d1.scene7.com/is/image/hyundai/compare-vehicle-1225x619?wid=276&hei=156&fmt=webp-alpha"
+        }
+        alt={element.model}
       />
 
       <CardContent
@@ -74,7 +66,7 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
           gutterBottom
           className="card--title"
         >
-          {element.title}
+          {element.model}
         </Typography>
 
         <Typography
@@ -96,10 +88,11 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
         </>
 
         <Stack
-          direction="row"
+          direction={matches1200 ? "column" : "row"}
           justifyContent="space-between"
-          alignItems="center"
+          alignItems={matches1200 ? "flex-start" : "center"}
           spacing={2}
+          sx={{ width: "100%" }}
         >
           <Stack
             direction="row"
@@ -109,10 +102,10 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
           >
             <StyledChip label={`${element.mileage} KM`} />
 
-            <StyledChip label={element.manufacturing_year} />
+            <StyledChip label={element.manufacture_year} />
           </Stack>
 
-          <span className="card--price">{priceFormatted}</span>
+          <span className="card--price">{monetizeString(+element.price)}</span>
         </Stack>
 
         <>

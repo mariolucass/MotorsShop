@@ -1,13 +1,9 @@
-import { ReactNode } from "react";
-import { Backdrop, Fade, Modal } from "@mui/material";
 import { Box } from "./style";
+import { IChildren } from "../../interfaces";
 import { useModalContext } from "../../context";
+import { Backdrop, Fade, Modal } from "@mui/material";
 
-interface iModalGeneralProps {
-  children: ReactNode;
-}
-
-export const ModalGeneral = ({ children }: iModalGeneralProps) => {
+export const ModalGeneral = ({ children }: IChildren) => {
   const { open, handleClose } = useModalContext();
 
   return (

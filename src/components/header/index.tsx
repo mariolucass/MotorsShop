@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { Avatar } from "@mui/material";
-import Logo from "../../assets/logoColored.svg";
 import { HeaderStyled } from "./style";
 import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
-import { useState } from "react";
+import Logo from "../../assets/logoColored.svg";
 import { useMediaContext, useUserContext } from "../../context";
 import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
 import { ModalUpdateAddress } from "../modal/modalUpdateAddress";

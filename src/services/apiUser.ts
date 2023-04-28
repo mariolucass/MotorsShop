@@ -1,5 +1,6 @@
 import { FieldValues } from "react-hook-form";
-import { apiServerSide, localApiToken } from "./api";
+import { apiServerSide, localApiToken, apiUsingNow } from "./api";
+
 import { iAnnouncement } from "./apiAnnouncement";
 
 export interface iUser {
@@ -29,12 +30,12 @@ export interface ipostUser {
 }
 
 export async function postUser(data: FieldValues): Promise<ipostUser> {
-  const { data: response } = await localApiToken.post<ipostUser>("login", data);
+  const { data: response } = await apiUsingNow.post<ipostUser>("login", data);
   return response;
 }
 
 export async function postUserCreate(data: FieldValues): Promise<iUser> {
-  const { data: response } = await localApiToken.post<iUser>("users", data);
+  const { data: response } = await apiUsingNow.post<iUser>("users", data);
   return response;
 }
 
@@ -48,7 +49,7 @@ export async function deleteUser(id: string): Promise<void> {
 }
 
 export async function getUserProfile(token: string): Promise<iUser> {
-  localApiToken.defaults.headers.authorization = `Bearer ${token}`;
-  const { data: response } = await localApiToken.get<iUser>("users/profile");
+  apiUsingNow.defaults.headers.authorization = `Bearer ${token}`;
+  const { data: response } = await apiUsingNow.get<iUser>("users/profile");
   return response;
 }

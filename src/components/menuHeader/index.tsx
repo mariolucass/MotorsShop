@@ -4,10 +4,11 @@ import { useModalContext, useUserContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import * as framer from "../../libs/framer";
 import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
+import * as framer from "../../libs/framer";
+import { useUserContext } from "../../context";
 interface IProps {
   isOpen: boolean;
 }
-
 export const MenuHeader = ({ isOpen }: IProps) => {
   const { userData, logoutUser } = useUserContext();
   const navigate = useNavigate();
