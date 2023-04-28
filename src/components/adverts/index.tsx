@@ -3,6 +3,7 @@ import { listMockedCars } from "../../data";
 import { useEffect, useState } from "react";
 import { apiLocalHostToken } from "../../services";
 import { useNavigate } from "react-router-dom";
+import { ProductCard } from "../productCard";
 
 export interface iAdvertsProps {
   isProfile?: boolean;
