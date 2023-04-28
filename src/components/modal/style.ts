@@ -16,6 +16,8 @@ export const Box = styled.div`
   border-radius: 8px;
   overflow-y: auto;
 
+  z-index: 9999;
+
   @media (max-width: 1024px) {
     max-width: 100vw;
     margin-top: calc(40vh - 120px);

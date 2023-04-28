@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form";
-import { apiServerSide, apiServerSideToken } from "./api";
+import { apiServerSide, apiServerSideToken, localApi, localApiToken } from "./api";
 
 export interface iAnnouncement {
   id: string;
@@ -17,7 +17,7 @@ export interface iAnnouncement {
 export async function postAnnouncement(
   data: FieldValues
 ): Promise<iAnnouncement> {
-  const { data: response } = await apiServerSideToken.post<iAnnouncement>(
+  const { data: response } = await localApiToken.post<iAnnouncement>(
     "announcements",
     data
   );
@@ -25,7 +25,7 @@ export async function postAnnouncement(
 }
 
 export async function getAnnouncement(): Promise<iAnnouncement[]> {
-  const { data: response } = await apiServerSide.get<iAnnouncement[]>(
+  const { data: response } = await localApi.get<iAnnouncement[]>(
     "announcements"
   );
   return response;
