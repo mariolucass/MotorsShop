@@ -1,5 +1,5 @@
 import { ListStyled } from "./style";
-import { listMockedCars } from "../../data";
+// import {} from "../../data";
 import { useEffect, useState } from "react";
 import { localApi } from "../../services";
 import { useNavigate } from "react-router-dom";
@@ -98,7 +98,7 @@ export const Adverts = ({ isProfile }: iAdvertsProps) => {
     } catch (error) {
       console.log(error);
     }
-  }, [countQueryArray]);
+  }, [mileageMaxQuery]);
 
   const list = AdvertsData.map((element, index) => {
     return (

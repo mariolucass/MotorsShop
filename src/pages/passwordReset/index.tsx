@@ -22,10 +22,10 @@ export const EmailForPasswordReset = () => {
 
   const handleReset = async (data: IEmailForReset) => {
     try {
-      await localApi.post("/resetpassword", data);
-
+      const response = await localApi.post("/resetpassword", data);
       toast.success("Email enviado com sucesso.");
     } catch (error) {
+      console.log(error);
       toast.error("A conta não foi encontrada, tente novamente.");
     }
   };
