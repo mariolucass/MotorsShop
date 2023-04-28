@@ -47,7 +47,7 @@ export const Login = () => {
             </Alert>
           )}
 
-          <Link to={"/login/indentify/recover"} id="forgot_password">
+          <Link to={"/resetpassword"} id="forgot_password">
             Esqueci minha senha
           </Link>
 

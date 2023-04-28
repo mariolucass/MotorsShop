@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import { ListMenuStyled } from "./style";
+import * as framer from "../../libs/framer";
 import { useUserContext } from "../../context";
 import { useNavigate } from "react-router-dom";
-import * as framer from "../../libs/framer";
 interface IProps {
   isOpen: boolean;
 }
-
 export const MenuHeader = ({ isOpen }: IProps) => {
   const { userData, logoutUser } = useUserContext();
   const navigate = useNavigate();

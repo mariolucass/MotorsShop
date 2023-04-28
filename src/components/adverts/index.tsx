@@ -1,12 +1,9 @@
-import { ProductCard } from "../productCard";
 import { ListStyled } from "./style";
 import { listMockedCars } from "../../data";
+import { ProductCard } from "../productCard";
+import { IAdvertsProps } from "../../interfaces";
 
-export interface iAdvertsProps {
-  isProfile?: boolean;
-}
-
-export const Adverts = ({ isProfile }: iAdvertsProps) => {
+export const Adverts = ({ isProfile }: IAdvertsProps) => {
   const list = listMockedCars.map((element, index) => {
     return (
       <ProductCard

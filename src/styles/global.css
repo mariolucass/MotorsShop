@@ -203,6 +203,11 @@ body {
   font-weight: 400 !important;
 }
 
+.close {
+  width: 60%;
+  height: 100%;
+}
+
 @media (min-width: 400px) {
   .advertImg {
     height: 80%;

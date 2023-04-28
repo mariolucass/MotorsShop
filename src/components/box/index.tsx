@@ -1,13 +1,9 @@
 import Box from "@mui/material/Box";
-import { ThemeProvider } from "@mui/material";
+import { IBox } from "../../interfaces";
 import globalTheme from "../../libs/mui";
+import { ThemeProvider } from "@mui/material";
 
-interface iBox {
-  children: React.ReactElement;
-  Class?: string;
-}
-
-export const StyledBox = ({ children, Class }: iBox) => {
+export const StyledBox = ({ children, Class }: IBox) => {
   return (
     <ThemeProvider theme={globalTheme}>
       <Box
