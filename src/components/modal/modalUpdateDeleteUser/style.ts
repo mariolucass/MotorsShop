@@ -80,7 +80,7 @@ export const Form = styled.form`
 export const DivisionTypes = styled.section`
         display: flex;
         justify-content: space-between;
-        margin: 16px 0;
+        margin: 16px 0 24px;
 
         div {
             display: flex;

@@ -21,10 +21,11 @@ interface IUserUpdate {
 export const ModalUpdateDeleteUser = () => {
     const {userProfile, userData} = useUserContext()
     const {register, handleSubmit} = useForm()
+    const {handleClose} = useModalContext()
+    
     const onSubmit = (data: IUserUpdate ) => {
         console.log(data)
     }
-    const {handleClose} = useModalContext()
 
     useEffect(() => {
         userProfile()
