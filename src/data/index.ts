@@ -2,20 +2,6 @@ import { IProduct } from "../components/productCard";
 
 export const Data = () => {};
 
-export const brands = [
-  "chevrolet",
-  "citroën",
-  "fiat",
-  "ford",
-  "honda",
-  "hyundai",
-  "nissan",
-  "peugeot",
-  "renault",
-  "toyota",
-  "volkswagen",
-];
-
 export const listMockedCars: IProduct[] = [
   {
     img: "https://www.autoracing.com.br/wp-content/uploads/2022/12/S22_4012.jpg",

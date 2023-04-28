@@ -1,4 +1,3 @@
-import { ProductCard } from "../productCard";
 import { ListStyled } from "./style";
 import { listMockedCars } from "../../data";
 import { useEffect, useState } from "react";

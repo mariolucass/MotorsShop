@@ -1,7 +1,10 @@
 import { z } from "zod";
 import { registerSchema } from "../schemas/registerSchema";
 import { loginSchema } from "../schemas/loginSchema";
-import { resetPasswordSchema } from "../schemas/resetSchema";
+import {
+  emailForResetSchema,
+  resetPasswordFieldsSchema,
+} from "../schemas/resetSchema";
 
 export type ILoginUseForm = z.infer<typeof loginSchema>;
 export interface ILogin {
@@ -30,4 +33,5 @@ export interface IRegister {
   };
 }
 
-export type IResetPassword = z.infer<typeof resetPasswordSchema>;
+export type IEmailForReset = z.infer<typeof emailForResetSchema>;
+export type IResetPassword = z.infer<typeof resetPasswordFieldsSchema>;

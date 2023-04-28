@@ -1,5 +1,5 @@
 import { Input } from "../inputs";
-import { brands } from "../../data";
+import { marcas } from "../../data";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -8,10 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { apiFipe, apiServerSide } from "../../services";
 import { Autocomplete, Button, TextField } from "@mui/material";
 import { createAnnouncementSchema } from "../../schemas/announcementSchema";
-import {
-  ICreateAnnouncement,
-  IModelApi,
-} from "../../interfaces/announcements.interfaces";
+import { ICreateAnnouncement, IModelApi } from "../../interfaces";
 import {
   capitalizeString,
   convertToNumber,
@@ -76,6 +73,7 @@ export const CreateAdvertise = () => {
       };
       getYearAndFuel();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model]);
 
   const submitAnnouncement = async (data: any) => {
@@ -109,7 +107,7 @@ export const CreateAdvertise = () => {
     }
   };
 
-  const brandsToSelect = brands.map((elem) => capitalizeString(elem));
+  const brandsToSelect = marcas.map((elem) => capitalizeString(elem));
   const modelsToSelect = models.map((elem: IModelApi) =>
     capitalizeString(elem.name)
   );

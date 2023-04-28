@@ -1,32 +1,42 @@
 import { Paper } from "@mui/material";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 import { localApi } from "../../services";
+import { useParams } from "react-router-dom";
 import { Container, Box, Form } from "./styles";
 import Logo from "../../assets/logoColored.svg";
-import { IEmailForReset } from "../../interfaces";
+import { IResetPassword } from "../../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Footer, Header, Input } from "../../components";
-import { emailForResetSchema } from "../../schemas/resetSchema";
+import { resetPasswordFieldsSchema } from "../../schemas/resetSchema";
 
-export const EmailForPasswordReset = () => {
+export const PasswordReset = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IEmailForReset>({
-    resolver: zodResolver(emailForResetSchema),
+  } = useForm<IResetPassword>({
+    resolver: zodResolver(resetPasswordFieldsSchema),
   });
 
-  const handleReset = async (data: IEmailForReset) => {
-    try {
-      await localApi.post("/resetpassword", data);
+  const { userId, token } = useParams();
+  console.log(token);
 
-      toast.success("Email enviado com sucesso.");
+  const handleReset = async (data: IResetPassword) => {
+    try {
+      const dataUpdated = {
+        password: data.password,
+      };
+
+      await localApi.post(`/resetpassword/${userId}/${token}`, dataUpdated);
+
+      toast.success("Senha atualizada com sucesso.");
     } catch (error) {
-      toast.error("A conta não foi encontrada, tente novamente.");
+      console.log(error);
+      toast.error(
+        "Houve um problema ao atualizar sua senha, por favor tente novamente mais tarde."
+      );
     }
   };
 
@@ -50,20 +60,26 @@ export const EmailForPasswordReset = () => {
 
           <Form onSubmit={handleSubmit(handleReset)}>
             <Input
-              placeholder={"Digite seu email aqui"}
-              label={"Email"}
-              name={"email"}
+              placeholder={"Digite sua senha aqui"}
+              label={"Senha"}
+              name={"password"}
               register={register}
-              error={errors.email}
+              error={errors.password}
               width={"100"}
             />
-            <Button className="buttonBrand" type="submit" sx={{ width: "95%" }}>
-              Enviar email
-            </Button>
 
-            <span>
-              Ainda não possui conta? <Link to={"/register"}>Cadastrar</Link>
-            </span>
+            <Input
+              placeholder={"Confirme sua senha aqui"}
+              label={"Confirmar Senha"}
+              name={"confirmPassword"}
+              register={register}
+              error={errors.confirmPassword}
+              width={"100"}
+            />
+
+            <Button className="buttonBrand" type="submit" sx={{ width: "95%" }}>
+              Redefinir senha
+            </Button>
           </Form>
         </Box>
       </Container>

@@ -1,5 +1,6 @@
-import { Box, Button, Container } from "@mui/material";
 import { AdvertsMenu } from "./style";
+import { Box, Button, Container } from "@mui/material";
+import { useFilterContext, useMediaContext } from "../../context";
 import { Adverts, Footer, Header, Menu, NavBar } from "../../components";
 import { useFilterContext, useMediaContext } from "../../context";
 

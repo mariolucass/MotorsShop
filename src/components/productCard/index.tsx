@@ -1,31 +1,12 @@
+import { StyledChip } from "../chip";
 import Card from "@mui/material/Card";
+import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
 import { Button, Typography } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import CardContent from "@mui/material/CardContent";
+import { IPropsProductCard } from "../../interfaces";
 import { useMediaContext } from "../../context/MediaContext";
-import { StyledChip } from "../chip";
-
-export interface IProduct {
-  title: string;
-  img: string;
-  description: string;
-  price: number;
-  mileage: number;
-  manufacture_year: number;
-
-  user: {
-    img: string;
-    name: string;
-  };
-}
-
-interface IPropsProductCard {
-  element: IProduct;
-  isProfile?: boolean;
-  onClick: () => void;
-}
 
 export const ProductCard = ({
   element,

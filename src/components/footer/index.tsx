@@ -1,6 +1,6 @@
 import { FooterStyled } from "./style";
-import Angle from "../../assets/angle-up.svg";
 import Logo from "../../assets/logo.png";
+import Angle from "../../assets/angle-up.svg";
 
 export const Footer = () => {
   return (
