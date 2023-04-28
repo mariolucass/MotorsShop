@@ -17,7 +17,6 @@ export const ProductCard = ({ element, isProfile }: IPropsProductCard) => {
   const { matches500, matches700, matches1200, matches900 } = useMediaContext();
 
   const cardSize = () => {
-    console.log(matches900);
     if (matches500) {
       return { width: "85%" };
     }

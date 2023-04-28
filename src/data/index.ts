@@ -1,4 +1,4 @@
-import { IProduct } from "../components/productCard";
+import { IProduct } from "./../interfaces";
 
 export const Data = () => {};
 

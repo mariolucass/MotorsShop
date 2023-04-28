@@ -4,17 +4,15 @@ import { ModalProvider } from "./ModalContext";
 import { UserProvider } from "./UserContext";
 import { FilterProvider } from "./FilterContext";
 
-const Providers = ({ children }: IChildren) => {
-  return (
-    <FilterProvider>
-      <MediaProvider>
-        <UserProvider>
-          <ModalProvider>{children}</ModalProvider>
-        </UserProvider>
-      </MediaProvider>
-    </FilterProvider>
-  );
-};
+const Providers = ({ children }: IChildren) => (
+  <FilterProvider>
+    <MediaProvider>
+      <UserProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </UserProvider>
+    </MediaProvider>
+  </FilterProvider>
+);
 
 export default Providers;
 export { useMediaContext } from "./MediaContext";
