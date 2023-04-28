@@ -23,7 +23,7 @@ export const listMockedCars: IProduct[] = [
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -36,7 +36,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -49,7 +49,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -62,7 +62,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -75,7 +75,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -88,7 +88,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -101,7 +101,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -114,7 +114,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -127,7 +127,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -140,7 +140,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -153,7 +153,7 @@ export const listMockedCars: IProduct[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eos tenetur sapiente voluptates quia quod corrupti non quam, sit nemo doloribus impedit libero dolorem iusto harum quos. Fugiat, voluptas molestiae.",
     price: 230000,
     mileage: 0,
-    manufacturing_year: 2019,
+    manufacture_year: 2019,
     user: {
       name: "Camila",
       img: "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg",
@@ -162,17 +162,17 @@ export const listMockedCars: IProduct[] = [
 ];
 
 export const marcas = [
-  "chevrolet",
-  "citroën",
-  "fiat",
-  "ford",
-  "honda",
-  "hyundai",
-  "nissan",
-  "peugeot",
-  "renault",
-  "toyota",
-  "volkswagen",
+  "Chevrolet",
+  "Citroën",
+  "Fiat",
+  "Ford",
+  "Honda",
+  "Hyundai",
+  "Nissan",
+  "Peugeot",
+  "Renault",
+  "Toyota",
+  "Volkswagen",
 ];
 
 export const modelos = [
