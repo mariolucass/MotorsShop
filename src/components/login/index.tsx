@@ -5,8 +5,9 @@ import { loginSchema } from "../../schemas/loginSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Alert from "@mui/material/Alert";
-import { useUserContext } from "../../context";
+import { useModalContext, useUserContext } from "../../context";
 import { ILoginUseForm } from "../../interfaces";
+import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
 
 export const Login = () => {
   const { loginUser } = useUserContext();
@@ -16,9 +17,14 @@ export const Login = () => {
     formState: { errors },
   } = useForm<ILoginUseForm>({ resolver: zodResolver(loginSchema) });
 
+
+  const {handleOpen } = useModalContext();
+
   return (
     <Container>
       <Box>
+        <ModalUpdateDeleteUser/>
+        <button onClick={()=> {handleOpen()}}>open modal</button>
         <Title>Login</Title>
         <Form onSubmit={handleSubmit(loginUser)}>
           <label htmlFor="email">Email</label>
