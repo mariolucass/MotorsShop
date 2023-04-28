@@ -14,3 +14,5 @@ export const convertToNumber = (price: string) => {
   const numericValue = parseFloat(numericString);
   return String(numericValue);
 };
+
+export const modelFind = () => {};
