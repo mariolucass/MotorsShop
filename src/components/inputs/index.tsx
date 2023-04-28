@@ -1,17 +1,5 @@
-import { InputHTMLAttributes } from "react";
 import { ContainerStyled, LabelStyled, InputStyled } from "./style";
-import { UseFormRegister } from "react-hook-form";
-
-export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  name: string;
-  error?: any;
-  width: string;
-  placeholder: string;
-  register: UseFormRegister<any>;
-  handlerChange?: (event: any) => void;
-  isFipe?: boolean;
-}
+import { IInputProps } from "../../interfaces";
 
 export const Input = ({
   name,
