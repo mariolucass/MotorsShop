@@ -77,16 +77,12 @@ export const Adverts = ({ isProfile }: iAdvertsProps) => {
     ? `${priceMinQuery}priceMax=${MaxPrice}${countQueryArray !== 0 ? "&" : ""}`
     : priceMinQuery;
 
-  const mileageMinQuery = MaxPrice
-    ? `${priceMaxQuery}mileageMin=${+MaxPrice}${
-        countQueryArray !== 0 ? "&" : ""
-      }`
+  const mileageMinQuery = MinKm
+    ? `${priceMaxQuery}mileageMin=${MinKm}${countQueryArray !== 0 ? "&" : ""}`
     : priceMaxQuery;
 
-  const mileageMaxQuery = MaxPrice
-    ? `${mileageMinQuery}mileageMax=${+MaxPrice}${
-        countQueryArray !== 0 ? "&" : ""
-      }`
+  const mileageMaxQuery = MaxKm
+    ? `${mileageMinQuery}mileageMax=${MaxKm}${countQueryArray !== 0 ? "&" : ""}`
     : mileageMinQuery;
   console.log(mileageMaxQuery);
   useEffect(() => {
