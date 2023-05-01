@@ -12,6 +12,13 @@ export interface IModelApi {
   value: number;
 }
 
+export interface IImage {
+  id: string;
+  name: string;
+  size: number;
+  url: string;
+}
+
 export interface IProduct {
   id: string;
   brand: string;
@@ -23,7 +30,7 @@ export interface IProduct {
   price_fipe: string;
   price: string;
   description: string;
-  listImage: Array<string>;
+  listImage: IImage[];
 
   user: {
     img: string;

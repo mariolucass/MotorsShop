@@ -22,6 +22,7 @@ import {
   FormStyled,
   InputSplitDiv,
 } from "./style";
+import { Upload } from "../upload";
 
 export const CreateAdvertise = () => {
   const { handleClose } = useModalContext();
@@ -206,33 +207,7 @@ export const CreateAdvertise = () => {
           }
           width={"100"}
         />
-        <Input
-          name={"imageCover"}
-          register={register}
-          error={errors.description}
-          label={"Imagem da capa"}
-          placeholder={" https://image.com"}
-          width={"100"}
-        />
-        <Input
-          name={"image1"}
-          register={register}
-          error={errors.description}
-          label={"1° Imagem da galeria"}
-          placeholder={" https://image.com"}
-          width={"100"}
-        />
-        <Input
-          name={"image2"}
-          register={register}
-          error={errors.description}
-          label={"2° Imagem da galeria"}
-          placeholder={" https://image.com"}
-          width={"100"}
-        />
-        <Button className="buttonImage">
-          Adicionar campo para imagem da galeria
-        </Button>
+        <Upload />
         <ButtonDiv>
           <Button className="buttonForms" onClick={handleClose}>
             Cancelar
