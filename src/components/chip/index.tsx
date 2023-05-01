@@ -5,5 +5,11 @@ interface iProps {
 }
 
 export const StyledChip = ({ label }: iProps) => {
-  return <Chip label={label} className="chip" sx={{ borderRadius: 2 }} />;
+  return (
+    <Chip
+      label={label}
+      className="chip"
+      sx={{ borderRadius: 2, width: "100%" }}
+    />
+  );
 };
