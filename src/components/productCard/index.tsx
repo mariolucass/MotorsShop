@@ -46,7 +46,11 @@ export const ProductCard = ({
       <CardMedia
         component={"img"}
         height={"175"}
-        image={element.listImage[0].url}
+        image={
+          !!element.listImage.length
+            ? element.listImage[0].url
+            : "https://s7d1.scene7.com/is/image/hyundai/compare-vehicle-1225x619?wid=276&hei=156&fmt=webp-alpha"
+        }
         alt={element.model}
       />
 

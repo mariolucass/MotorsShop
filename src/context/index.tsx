@@ -8,11 +8,11 @@ import { UploadProvider } from "./UploadContext";
 const Providers = ({ children }: iChildren) => (
   <FilterProvider>
     <MediaProvider>
-      <UserProvider>
-        <UploadProvider>
+      <UploadProvider>
+        <UserProvider>
           <ModalProvider>{children}</ModalProvider>
-        </UploadProvider>
-      </UserProvider>
+        </UserProvider>
+      </UploadProvider>
     </MediaProvider>
   </FilterProvider>
 );

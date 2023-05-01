@@ -17,6 +17,16 @@ export interface iImage {
   name: string;
   size: number;
   url: string;
+  key: string;
+}
+
+export interface iUpload extends iImage {
+  image?: Blob;
+  readableSize: string;
+  preview: string;
+  progress: number;
+  uploaded: boolean;
+  error: boolean;
 }
 
 export interface iProduct {

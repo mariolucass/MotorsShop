@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { iImage, iLogin, iRegister, iChildren } from "../interfaces";
+import { iLogin, iRegister, iChildren } from "../interfaces";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   getUserProfile,
@@ -12,14 +12,12 @@ import {
 interface iContextProvider {
   userData: iUser | null;
   announcementsData: iAnnouncement[] | null;
-  uploadFiles: iImage[];
   loading: boolean;
   registerUser: (formData: iRegister) => Promise<void>;
   loginUser: (formData: iLogin) => Promise<void>;
   autoLoginUser: () => Promise<void>;
   logoutUser: () => void;
   userProfile: () => void;
-  setUploadFiles: React.Dispatch<React.SetStateAction<iImage[]>>;
 }
 
 const UserContext = createContext({} as iContextProvider);
@@ -33,7 +31,6 @@ export const UserProvider = ({ children }: iChildren) => {
   const [userData, setUserData] = useState<iUser | null>(null);
   const [announcementsData, setAnnouncementsData] =
     useState<Array<iAnnouncement> | null>(null);
-  const [uploadFiles, setUploadFiles] = useState<iImage[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -56,7 +53,6 @@ export const UserProvider = ({ children }: iChildren) => {
       const response = await getUserProfile(token);
       setUserData(response);
       setAnnouncementsData(response.announcement);
-
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -71,7 +67,6 @@ export const UserProvider = ({ children }: iChildren) => {
         const response = await getUserProfile(token);
         setUserData(response);
         setAnnouncementsData(response.announcement);
-        setUploadFiles(response.listImage);
       } catch (error) {
         console.error(error);
       } finally {
@@ -107,14 +102,12 @@ export const UserProvider = ({ children }: iChildren) => {
       value={{
         userData,
         announcementsData,
-        uploadFiles,
         loading,
         registerUser,
         loginUser,
         autoLoginUser,
         logoutUser,
         userProfile,
-        setUploadFiles,
       }}
     >
       {children}

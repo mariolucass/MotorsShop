@@ -3,7 +3,7 @@ import { marcas } from "../../data";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useModalContext } from "../../context";
+import { useModalContext, useUploadContext } from "../../context";
 import { postAnnouncement } from "../../services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getModelsByBrandFipe } from "../../services/apiFipe";
@@ -26,6 +26,7 @@ import { Upload } from "../upload";
 
 export const CreateAdvertise = () => {
   const { handleClose } = useModalContext();
+  const { uploadFiles, setUploadFiles } = useUploadContext();
   const {
     register,
     handleSubmit,
@@ -75,7 +76,7 @@ export const CreateAdvertise = () => {
     data.manufacture_year = year;
     data.fuel = fuel;
     data.mileage = +data.mileage;
-    data.listImage = [];
+    data.listImage = uploadFiles;
 
     try {
       await postAnnouncement(data);
@@ -83,6 +84,8 @@ export const CreateAdvertise = () => {
       toast.success(
         "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
       );
+      handleClose();
+      setUploadFiles([]);
     } catch (error) {
       toast.error(
         "Infelizmente não foi possivel cadastrar o anúncio, se possivel tente mais tarde."
