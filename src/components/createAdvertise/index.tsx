@@ -1,7 +1,7 @@
 import { Input } from "../inputs";
 import { marcas } from "../../data";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useModalContext, useUploadContext } from "../../context";
 import { postAnnouncement } from "../../services";
@@ -31,6 +31,7 @@ export const CreateAdvertise = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<iCreateAnnouncement>({
     resolver: zodResolver(createAnnouncementSchema),
   });
@@ -78,19 +79,19 @@ export const CreateAdvertise = () => {
     data.mileage = +data.mileage;
     data.listImage = uploadFiles;
 
-    try {
-      await postAnnouncement(data);
+    // try {
+    //   await postAnnouncement(data);
 
-      toast.success(
-        "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
-      );
-      handleClose();
-      setUploadFiles([]);
-    } catch (error) {
-      toast.error(
-        "Infelizmente não foi possivel cadastrar o anúncio, se possivel tente mais tarde."
-      );
-    }
+    //   toast.success(
+    //     "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
+    //   );
+    //   handleClose();
+    //   setUploadFiles([]);
+    // } catch (error) {
+    //   toast.error(
+    //     "Infelizmente não foi possivel cadastrar o anúncio, se possivel tente mais tarde."
+    //   );
+    // }
   };
 
   const brandsToSelect = marcas.map((elem) => capitalizeString(elem));
@@ -210,6 +211,17 @@ export const CreateAdvertise = () => {
           }
           width={"100"}
         />
+
+        <Input
+          name={"imagemCapa"}
+          register={register}
+          error={errors.imagemCapa}
+          label={"Imagem da capa"}
+          placeholder={" https://image.com"}
+          width={"100"}
+          isFile
+        />
+
         <Upload />
         <ButtonDiv>
           <Button className="buttonForms" onClick={handleClose}>

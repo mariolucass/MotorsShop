@@ -11,7 +11,9 @@ export const Input = ({
   isFipe,
   register,
   handlerChange,
+  isFile,
 }: iInputProps) => {
+  console.log(error);
   return isFipe ? (
     <ContainerStyled width={width}>
       <LabelStyled>{label}</LabelStyled>
@@ -20,6 +22,18 @@ export const Input = ({
         placeholder={placeholder}
         className={error && "errorInput"}
         value={value !== undefined ? value : ""}
+      />
+    </ContainerStyled>
+  ) : isFile ? (
+    <ContainerStyled width={width}>
+      <LabelStyled>{label}</LabelStyled>
+      <InputStyled
+        type="file"
+        accept="images/*"
+        {...register(name)}
+        placeholder={placeholder}
+        className={error && "errorInput"}
+        onChange={handlerChange}
       />
     </ContainerStyled>
   ) : (

@@ -10,6 +10,7 @@ export interface iInputProps extends InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<any>;
   handlerChange?: (event: any) => void;
   isFipe?: boolean;
+  isFile?: boolean;
 }
 
 export interface iBox {
