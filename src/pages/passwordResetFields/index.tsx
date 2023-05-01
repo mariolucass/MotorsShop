@@ -2,7 +2,7 @@ import { Paper } from "@mui/material";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
-import { localApi } from "../../services";
+import { apiUsingNow } from "../../services";
 import { useParams } from "react-router-dom";
 import { Container, Box, Form } from "./styles";
 import Logo from "../../assets/logoColored.svg";
@@ -21,7 +21,6 @@ export const PasswordReset = () => {
   });
 
   const { userId, token } = useParams();
-  console.log(token);
 
   const handleReset = async (data: IResetPassword) => {
     try {
@@ -29,7 +28,7 @@ export const PasswordReset = () => {
         password: data.password,
       };
 
-      await localApi.post(`/resetpassword/${userId}/${token}`, dataUpdated);
+      await apiUsingNow.post(`/resetpassword/${userId}/${token}`, dataUpdated);
 
       toast.success("Senha atualizada com sucesso.");
     } catch (error) {

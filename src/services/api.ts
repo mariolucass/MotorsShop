@@ -32,4 +32,4 @@ export const apiServerSideToken = axios.create({
   headers: { Authorization: `Bearer ${token}` },
 });
 
-export const apiUsingNow = localApi;
+export const apiUsingNow = apiServerSide;

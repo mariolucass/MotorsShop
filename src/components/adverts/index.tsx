@@ -1,7 +1,7 @@
 import { ListStyled } from "./style";
 // import {} from "../../data";
 import { useEffect, useState } from "react";
-import { localApi } from "../../services";
+import { apiUsingNow } from "../../services";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../productCard";
 import { useFilterContext } from "../../context";
@@ -88,10 +88,10 @@ export const Adverts = ({ isProfile }: iAdvertsProps) => {
         countQueryArray !== 0 ? "&" : ""
       }`
     : mileageMinQuery;
-  console.log(mileageMaxQuery);
+
   useEffect(() => {
     try {
-      localApi
+      apiUsingNow
         .get(`/${mileageMaxQuery}`)
         .then((res) => setAdvertsData(res.data))
         .catch((err) => console.log(err));
