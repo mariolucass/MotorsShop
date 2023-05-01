@@ -1,11 +1,11 @@
-import { IChildren } from "../interfaces/global.interfaces";
+import { iChildren } from "../interfaces";
 import { MediaProvider } from "./MediaContext";
 import { ModalProvider } from "./ModalContext";
 import { UserProvider } from "./UserContext";
 import { FilterProvider } from "./FilterContext";
 import { UploadProvider } from "./UploadContext";
 
-const Providers = ({ children }: IChildren) => (
+const Providers = ({ children }: iChildren) => (
   <FilterProvider>
     <MediaProvider>
       <UserProvider>

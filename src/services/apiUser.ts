@@ -1,7 +1,8 @@
 import { FieldValues } from "react-hook-form";
-import { apiServerSide, localApiToken, apiUsingNow } from "./api";
+import { localApiToken, apiUsingNow } from "./api";
 
 import { iAnnouncement } from "./apiAnnouncement";
+import { iImage } from "../interfaces";
 
 export interface iUser {
   id: string;
@@ -23,6 +24,7 @@ export interface iUser {
     complement?: string;
   };
   announcement: Array<iAnnouncement>;
+  listImage: Array<iImage>;
 }
 
 export interface ipostUser {
@@ -40,7 +42,10 @@ export async function postUserCreate(data: FieldValues): Promise<iUser> {
 }
 
 export async function patchUser(data: FieldValues, id: string): Promise<iUser> {
-  const { data: response } = await localApiToken.patch<iUser>(`users/${id}`, data);
+  const { data: response } = await localApiToken.patch<iUser>(
+    `users/${id}`,
+    data
+  );
   return response;
 }
 

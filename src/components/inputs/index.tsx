@@ -1,5 +1,5 @@
 import { ContainerStyled, LabelStyled, InputStyled } from "./style";
-import { IInputProps } from "../../interfaces";
+import { iInputProps } from "../../interfaces";
 
 export const Input = ({
   name,
@@ -11,7 +11,7 @@ export const Input = ({
   isFipe,
   register,
   handlerChange,
-}: IInputProps) => {
+}: iInputProps) => {
   return isFipe ? (
     <ContainerStyled width={width}>
       <LabelStyled>{label}</LabelStyled>

@@ -1,9 +1,8 @@
-import { createContext, useContext, useState } from "react";
-import { IChildren } from "../interfaces/global.interfaces";
-import { IImage } from "../interfaces";
+import { createContext, useContext } from "react";
+import { iChildren, iImage } from "../interfaces";
+import { useUserContext } from "./UserContext";
 
 interface iContextProvider {
-  uploadFiles: IImage[];
   handleUpload: (files: any) => void;
 }
 
@@ -13,9 +12,9 @@ export const useUploadContext = () => {
   return useContext(UploadContext);
 };
 
-export const UploadProvider = ({ children }: IChildren) => {
-  const [uploadFiles, setUploadFiles] = useState<IImage[]>([]);
-  const handleUpload = (files: IImage) =>
+export const UploadProvider = ({ children }: iChildren) => {
+  const { setUploadFiles } = useUserContext();
+  const handleUpload = (files: iImage) =>
     setUploadFiles((el) => {
       el.push(files);
       return el;
@@ -24,7 +23,6 @@ export const UploadProvider = ({ children }: IChildren) => {
   return (
     <UploadContext.Provider
       value={{
-        uploadFiles,
         handleUpload,
       }}
     >

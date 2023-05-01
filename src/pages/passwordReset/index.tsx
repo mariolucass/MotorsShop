@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { apiUsingNow } from "../../services";
 import { Container, Box, Form } from "./styles";
 import Logo from "../../assets/logoColored.svg";
-import { IEmailForReset } from "../../interfaces";
+import { iEmailForReset } from "../../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Footer, Header, Input } from "../../components";
 import { emailForResetSchema } from "../../schemas/resetSchema";
@@ -16,11 +16,11 @@ export const EmailForPasswordReset = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IEmailForReset>({
+  } = useForm<iEmailForReset>({
     resolver: zodResolver(emailForResetSchema),
   });
 
-  const handleReset = async (data: IEmailForReset) => {
+  const handleReset = async (data: iEmailForReset) => {
     try {
       const response = await apiUsingNow.post("/resetpassword", data);
       toast.success("Email enviado com sucesso.");

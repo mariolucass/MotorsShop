@@ -8,7 +8,7 @@ import { postAnnouncement } from "../../services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getModelsByBrandFipe } from "../../services/apiFipe";
 import { Autocomplete, Button, TextField } from "@mui/material";
-import { ICreateAnnouncement, IModelApi } from "../../interfaces";
+import { iCreateAnnouncement, iModelApi } from "../../interfaces";
 import { createAnnouncementSchema } from "../../schemas/announcementSchema";
 import {
   capitalizeString,
@@ -30,13 +30,13 @@ export const CreateAdvertise = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ICreateAnnouncement>({
+  } = useForm<iCreateAnnouncement>({
     resolver: zodResolver(createAnnouncementSchema),
   });
 
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
-  const [models, setModels] = useState<IModelApi[]>([]);
+  const [models, setModels] = useState<iModelApi[]>([]);
   const [year, setYear] = useState("");
   const [fuel, setFuel] = useState("");
   const [price, setPrice] = useState("");
@@ -91,7 +91,7 @@ export const CreateAdvertise = () => {
   };
 
   const brandsToSelect = marcas.map((elem) => capitalizeString(elem));
-  const modelsToSelect = models.map((elem: IModelApi) =>
+  const modelsToSelect = models.map((elem: iModelApi) =>
     capitalizeString(elem.name)
   );
 
@@ -192,7 +192,7 @@ export const CreateAdvertise = () => {
             error={errors.price}
             label={"Preço"}
             value={price}
-            handlerChange={(event) => setPrice(event.target.value)}
+            handlerChange={(event: any) => setPrice(event.target.value)}
             placeholder={"R$ 50.000,00"}
             width={"50"}
           />

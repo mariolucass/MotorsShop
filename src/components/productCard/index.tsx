@@ -5,7 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
-import { IPropsProductCard } from "../../interfaces";
+import { iPropsProductCard } from "../../interfaces";
 import { useMediaContext } from "../../context/MediaContext";
 import { monetizeString } from "../../utils/utils";
 
@@ -13,7 +13,7 @@ export const ProductCard = ({
   element,
   isProfile,
   onClick,
-}: IPropsProductCard) => {
+}: iPropsProductCard) => {
   // const priceFormatted = element.price.toLocaleString("pt-BR", {
   //   style: "currency",
   //   currency: "BRL",

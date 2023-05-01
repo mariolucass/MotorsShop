@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Alert from "@mui/material/Alert";
 import { registerSchema } from "../../schemas/registerSchema";
 import { useUserContext } from "../../context";
-import { IRegisterUseForm } from "../../interfaces";
+import { iRegisterUseForm } from "../../interfaces";
 
 export const Register = () => {
   const { registerUser } = useUserContext();
@@ -13,7 +13,7 @@ export const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRegisterUseForm>({ resolver: zodResolver(registerSchema) });
+  } = useForm<iRegisterUseForm>({ resolver: zodResolver(registerSchema) });
 
   return (
     <Container>

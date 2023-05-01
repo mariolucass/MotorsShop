@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ILogin, IRegister } from "../interfaces";
-import { IChildren } from "../interfaces/global.interfaces";
+import { iImage, iLogin, iRegister, iChildren } from "../interfaces";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   getUserProfile,
@@ -13,12 +12,14 @@ import {
 interface iContextProvider {
   userData: iUser | null;
   announcementsData: iAnnouncement[] | null;
+  uploadFiles: iImage[];
   loading: boolean;
-  registerUser: (formData: IRegister) => Promise<void>;
-  loginUser: (formData: ILogin) => Promise<void>;
+  registerUser: (formData: iRegister) => Promise<void>;
+  loginUser: (formData: iLogin) => Promise<void>;
   autoLoginUser: () => Promise<void>;
   logoutUser: () => void;
-  userProfile: () => void
+  userProfile: () => void;
+  setUploadFiles: React.Dispatch<React.SetStateAction<iImage[]>>;
 }
 
 const UserContext = createContext({} as iContextProvider);
@@ -27,18 +28,19 @@ export const useUserContext = () => {
   return useContext(UserContext);
 };
 
-export const UserProvider = ({ children }: IChildren) => {
+export const UserProvider = ({ children }: iChildren) => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState<iUser | null>(null);
   const [announcementsData, setAnnouncementsData] =
     useState<Array<iAnnouncement> | null>(null);
+  const [uploadFiles, setUploadFiles] = useState<iImage[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     autoLoginUser();
   }, []);
 
-  const registerUser = async (formData: IRegister) => {
+  const registerUser = async (formData: iRegister) => {
     try {
       await postUserCreate(formData);
       navigate("/login");
@@ -47,7 +49,7 @@ export const UserProvider = ({ children }: IChildren) => {
     }
   };
 
-  const loginUser = async (formData: ILogin) => {
+  const loginUser = async (formData: iLogin) => {
     try {
       const { token } = await postUser(formData);
       localStorage.setItem("@MotorsShop:token", token);
@@ -69,6 +71,7 @@ export const UserProvider = ({ children }: IChildren) => {
         const response = await getUserProfile(token);
         setUserData(response);
         setAnnouncementsData(response.announcement);
+        setUploadFiles(response.listImage);
       } catch (error) {
         console.error(error);
       } finally {
@@ -97,19 +100,21 @@ export const UserProvider = ({ children }: IChildren) => {
         setLoading(false);
       }
     }
-  }
+  };
 
   return (
     <UserContext.Provider
       value={{
         userData,
         announcementsData,
+        uploadFiles,
         loading,
         registerUser,
         loginUser,
         autoLoginUser,
         logoutUser,
-        userProfile
+        userProfile,
+        setUploadFiles,
       }}
     >
       {children}

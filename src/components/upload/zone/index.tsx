@@ -3,8 +3,7 @@ import { DropContainer, UploadMessage } from "./style";
 import { useUploadContext } from "../../../context";
 
 export const Zone = () => {
-  const { uploadFiles, handleUpload } = useUploadContext();
-  console.log(uploadFiles);
+  const { handleUpload } = useUploadContext();
   const renderDragMessage = (isDragActive: boolean, isDragReject: boolean) => {
     if (!isDragActive) {
       return <UploadMessage>Arraste as imagens aqui...</UploadMessage>;

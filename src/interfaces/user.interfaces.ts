@@ -6,14 +6,14 @@ import {
   resetPasswordFieldsSchema,
 } from "../schemas/resetSchema";
 
-export type ILoginUseForm = z.infer<typeof loginSchema>;
-export interface ILogin {
+export type iLoginUseForm = z.infer<typeof loginSchema>;
+export interface iLogin {
   email: string;
   password: string;
 }
 
-export type IRegisterUseForm = z.infer<typeof registerSchema>;
-export interface IRegister {
+export type iRegisterUseForm = z.infer<typeof registerSchema>;
+export interface iRegister {
   name: string;
   email: string;
   password: string;
@@ -33,5 +33,5 @@ export interface IRegister {
   };
 }
 
-export type IEmailForReset = z.infer<typeof emailForResetSchema>;
-export type IResetPassword = z.infer<typeof resetPasswordFieldsSchema>;
+export type iEmailForReset = z.infer<typeof emailForResetSchema>;
+export type iResetPassword = z.infer<typeof resetPasswordFieldsSchema>;
