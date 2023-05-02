@@ -24,6 +24,6 @@ export const AdvertsMenu = styled.div`
   }
 
   @media (min-width: 1200px) {
-    gap: 50px;
+    gap: 30px;
   }
 `;

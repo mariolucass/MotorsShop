@@ -4,15 +4,18 @@ import { ModalProvider } from "./ModalContext";
 import { UserProvider } from "./UserContext";
 import { FilterProvider } from "./FilterContext";
 import { AnnouncementProvider } from "./AnnouncementContext";
+import { DataPrivider } from "./DataContext";
 
 const Providers = ({ children }: iChildren) => (
   <FilterProvider>
     <MediaProvider>
-      <UserProvider>
-        <AnnouncementProvider>
-          <ModalProvider>{children}</ModalProvider>
-        </AnnouncementProvider>
-      </UserProvider>
+      <DataPrivider>
+        <UserProvider>
+          <AnnouncementProvider>
+            <ModalProvider>{children}</ModalProvider>
+          </AnnouncementProvider>
+        </UserProvider>
+      </DataPrivider>
     </MediaProvider>
   </FilterProvider>
 );
@@ -23,3 +26,4 @@ export { useFilterContext } from "./FilterContext";
 export { useMediaContext } from "./MediaContext";
 export { useModalContext } from "./ModalContext";
 export { useUserContext } from "./UserContext";
+export { useDataContext } from "./DataContext";

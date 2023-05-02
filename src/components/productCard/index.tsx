@@ -94,7 +94,7 @@ export const ProductCard = ({
           sx={{ width: "100%" }}
         >
           <Stack
-            direction="row"
+            direction="column"
             justifyContent="space-between"
             alignItems="center"
             spacing={0.5}
