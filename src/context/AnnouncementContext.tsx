@@ -1,7 +1,6 @@
 import { iAnnouncement, iAnnouncementRequest, iChildren } from "../interfaces";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import {
-  getUserProfile,
   postAnnouncement,
   postImageAnnouncement,
   postImageAnnouncementCover,
@@ -9,10 +8,11 @@ import {
 import { toast } from "react-toastify";
 
 interface iContextProvider {
-  announcementsProfile: iAnnouncement[] | null;
+  announcementsProfile: iAnnouncement[];
+  setannouncementsProfile: React.Dispatch<
+    React.SetStateAction<iAnnouncement[]>
+  >;
   createAnnouncement: (formData: iAnnouncementRequest) => Promise<void>;
-  coverImage: (data: iAnnouncement) => string;
-  profileImageCard: (data: iAnnouncement) => string;
 }
 
 const AnnouncementContext = createContext({} as iContextProvider);
@@ -22,47 +22,9 @@ export const useAnnouncementContext = () => {
 };
 
 export const AnnouncementProvider = ({ children }: iChildren) => {
-  const [announcementsProfile, setannouncementsProfile] =
-    useState<Array<iAnnouncement> | null>(null);
-
-  useEffect(() => {
-    reloadAnnouncements();
-  }, []);
-
-  const coverImage = (data: iAnnouncement) => {
-    let imageCover =
-      "https://s7d1.scene7.com/is/image/hyundai/compare-vehicle-1225x619?wid=276&hei=156&fmt=webp-alpha";
-    data.listImage.forEach((el) => {
-      if (el.is_cover) {
-        imageCover = el.url;
-      }
-    });
-    return imageCover;
-  };
-  const profileImageCard = (data: iAnnouncement) => {
-    let profile =
-      "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg";
-    if (data.user) {
-      data.user.listImage.forEach((el) => {
-        if (el.is_profile) {
-          profile = el.url;
-        }
-      });
-    }
-    return profile;
-  };
-
-  const reloadAnnouncements = async () => {
-    const token = localStorage.getItem("@MotorsShop:token");
-    if (token) {
-      try {
-        const response = await getUserProfile(token);
-        setannouncementsProfile(response.announcement);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+  const [announcementsProfile, setannouncementsProfile] = useState<
+    iAnnouncement[]
+  >([]);
 
   const createAnnouncement = async (formData: iAnnouncementRequest) => {
     try {
@@ -93,9 +55,8 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
     <AnnouncementContext.Provider
       value={{
         announcementsProfile,
+        setannouncementsProfile,
         createAnnouncement,
-        coverImage,
-        profileImageCard,
       }}
     >
       {children}

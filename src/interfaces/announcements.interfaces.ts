@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createAnnouncementSchema } from "../schemas/announcementSchema";
-import { iImage } from "./images.interfaces";
+import { iImage, iListImage } from "./images.interfaces";
 import { iUser } from "./user.interfaces";
 
 export type iCreateAnnouncement = z.infer<typeof createAnnouncementSchema>;
@@ -16,8 +16,9 @@ export interface iAnnouncement {
   price_fipe: string;
   price: string;
   description: string;
-  listImage: Array<iImage>;
+  cover: iImage;
   user: iUser;
+  listImage: Array<iListImage>;
 }
 
 export interface iAnnouncementRequest {

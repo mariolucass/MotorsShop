@@ -10,11 +10,11 @@ const Providers = ({ children }: iChildren) => (
   <FilterProvider>
     <MediaProvider>
       <DataPrivider>
-        <UserProvider>
-          <AnnouncementProvider>
+        <AnnouncementProvider>
+          <UserProvider>
             <ModalProvider>{children}</ModalProvider>
-          </AnnouncementProvider>
-        </UserProvider>
+          </UserProvider>
+        </AnnouncementProvider>
       </DataPrivider>
     </MediaProvider>
   </FilterProvider>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { apiUsingNow } from "../../services";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../productCard";
-import { useFilterContext } from "../../context";
+import { useAnnouncementContext, useFilterContext } from "../../context";
 import { iAnnouncement } from "../../interfaces";
 
 export interface iAdvertsProps {
@@ -24,6 +24,7 @@ export const Adverts = ({ isProfile }: iAdvertsProps) => {
     MaxPrice,
     MinPrice,
   } = useFilterContext();
+  const { announcementsProfile } = useAnnouncementContext();
   const navigate = useNavigate();
 
   const queryArray = [
@@ -97,16 +98,28 @@ export const Adverts = ({ isProfile }: iAdvertsProps) => {
     }
   }, [mileageMaxQuery]);
 
-  const list = AdvertsData.map((element) => {
-    return (
-      <ProductCard
-        isProfile={isProfile}
-        element={element}
-        key={element.id}
-        onClick={() => navigate("/advert/")}
-      />
-    );
-  });
+  const list = isProfile
+    ? announcementsProfile &&
+      announcementsProfile.map((element) => {
+        return (
+          <ProductCard
+            isProfile={isProfile}
+            element={element}
+            key={element.id}
+            onClick={() => navigate("/advert/")}
+          />
+        );
+      })
+    : AdvertsData.map((element) => {
+        return (
+          <ProductCard
+            isProfile={isProfile}
+            element={element}
+            key={element.id}
+            onClick={() => navigate("/advert/")}
+          />
+        );
+      });
 
   return <ListStyled isProfile={isProfile}>{list}</ListStyled>;
 };

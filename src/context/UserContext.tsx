@@ -9,6 +9,7 @@ import {
   postUserCreate,
 } from "../services";
 import { toast } from "react-toastify";
+import { useAnnouncementContext } from "./AnnouncementContext";
 
 interface iContextProvider {
   userData: iUser | null;
@@ -19,7 +20,6 @@ interface iContextProvider {
   logoutUser: () => void;
   destroyUser: (id: string) => Promise<void>;
   userProfile: () => void;
-  imageProfile: string;
 }
 
 const UserContext = createContext({} as iContextProvider);
@@ -30,27 +30,13 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children }: iChildren) => {
   const navigate = useNavigate();
+  const { setannouncementsProfile } = useAnnouncementContext();
   const [userData, setUserData] = useState<iUser | null>(null);
   const [loading, setLoading] = useState(false);
-  const [imageProfile, setImageProfile] = useState(
-    "https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg"
-  );
 
   useEffect(() => {
     autoLoginUser();
   }, []);
-
-  const toggleImageProfile = () => {
-    let profile = "";
-    if (userData) {
-      userData.listImage.forEach((el) => {
-        if (el.is_profile) {
-          profile = el.url;
-        }
-      });
-    }
-    setImageProfile(profile);
-  };
 
   const registerUser = async (formData: iRegister) => {
     try {
@@ -74,6 +60,7 @@ export const UserProvider = ({ children }: iChildren) => {
       localStorage.setItem("@MotorsShop:token", token);
       const response = await getUserProfile(token);
       setUserData(response);
+      setannouncementsProfile(response.announcements);
       toast.success("Login realizado com sucesso");
       navigate("/");
     } catch (error) {
@@ -88,7 +75,7 @@ export const UserProvider = ({ children }: iChildren) => {
         setLoading(true);
         const response = await getUserProfile(token);
         setUserData(response);
-        toggleImageProfile();
+        setannouncementsProfile(response.announcements);
       } catch (error) {
         console.error(error);
       } finally {
@@ -135,7 +122,6 @@ export const UserProvider = ({ children }: iChildren) => {
         logoutUser,
         destroyUser,
         userProfile,
-        imageProfile,
       }}
     >
       {children}

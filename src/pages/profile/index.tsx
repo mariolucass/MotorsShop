@@ -21,7 +21,7 @@ const theme = createTheme({
 
 const Profile = () => {
   const { handleOpen } = useModalContext();
-  const { userData, imageProfile } = useUserContext();
+  const { userData } = useUserContext();
 
   return (
     <ThemeProvider theme={theme}>
@@ -31,7 +31,10 @@ const Profile = () => {
         <StyledHero>
           <section>
             <div>
-              <Avatar sx={{ width: 80, height: 80 }} src={imageProfile} />
+              <Avatar
+                sx={{ width: 80, height: 80 }}
+                src={userData?.profile.url}
+              />
               <div>
                 <span>{userData?.name}</span>
                 <div>Anunciante</div>

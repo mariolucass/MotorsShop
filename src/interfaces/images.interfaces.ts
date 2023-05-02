@@ -4,6 +4,8 @@ export interface iImage {
   size: number;
   url: string;
   key: string;
-  is_cover: boolean;
-  is_profile: boolean;
+}
+
+export interface iListImage {
+  image: iImage;
 }

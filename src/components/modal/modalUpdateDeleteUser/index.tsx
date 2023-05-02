@@ -128,7 +128,6 @@ export const ModalUpdateDeleteUser = () => {
               onClick={() => {
                 if (userData) {
                   destroyUser(userData.id);
-                  handleClose();
                 }
               }}
             >

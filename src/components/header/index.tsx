@@ -11,7 +11,7 @@ import { ModalUpdateAddress } from "../modal/modalUpdateAddress";
 export const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const { matches700 } = useMediaContext();
-  const { userData, imageProfile } = useUserContext();
+  const { userData } = useUserContext();
 
   const username = userData ? userData!.name.split(" ") : "User";
   const headerUsername =
@@ -31,7 +31,7 @@ export const Header = () => {
               className={matches700 ? "ocult" : "div__user"}
               onClick={() => setIsOpenMenu(!isOpenMenu)}
             >
-              <Avatar src={imageProfile} />
+              <Avatar src={userData.profile.url} />
               <span>{headerUsername}</span>
               <MenuHeader isOpen={isOpenMenu} />
             </div>

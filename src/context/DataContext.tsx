@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useFilterContext } from "./FilterContext";
 import { localApi } from "../services";
+import { iAnnouncement } from "../interfaces";
 
 interface iProps {
   children: React.ReactNode;
 }
 
 interface iDataProps {
-  AdvertsData: never[];
-  setAdvertsData: React.Dispatch<React.SetStateAction<never[]>>;
+  AdvertsData: iAnnouncement[];
+  setAdvertsData: React.Dispatch<React.SetStateAction<iAnnouncement[]>>;
 }
 
 const DataContext = createContext({} as iDataProps);
@@ -18,7 +19,7 @@ export const useDataContext = () => {
 };
 
 export const DataPrivider = ({ children }: iProps) => {
-  const [AdvertsData, setAdvertsData] = useState([]);
+  const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
   const {
     Marca,
     Ano,

@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import { iPropsProductCard } from "../../interfaces";
-import { useMediaContext, useAnnouncementContext } from "../../context";
+import { useMediaContext } from "../../context";
 import { monetizeString } from "../../utils/utils";
 
 export const ProductCard = ({
@@ -20,7 +20,6 @@ export const ProductCard = ({
   // });
 
   const { matches500, matches700, matches1200, matches900 } = useMediaContext();
-  const { profileImageCard, coverImage } = useAnnouncementContext();
 
   const cardSize = () => {
     if (matches500) {
@@ -47,7 +46,7 @@ export const ProductCard = ({
       <CardMedia
         component={"img"}
         height={"175"}
-        image={coverImage(element)}
+        image={element.cover.url}
         alt={element.model}
       />
 
@@ -79,7 +78,7 @@ export const ProductCard = ({
         <>
           {!isProfile && (
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar alt={element.user.name} src={profileImageCard(element)} />
+              <Avatar alt={element.user.name} src={element.user.profile.url} />
 
               <span className="card--user">{element.user.name}</span>
             </Stack>

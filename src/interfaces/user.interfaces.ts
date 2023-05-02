@@ -33,8 +33,8 @@ export interface iUser {
     number: string;
     complement?: string;
   };
-  announcement: Array<iAnnouncement>;
-  listImage: Array<iImage>;
+  profile: iImage;
+  announcements: Array<iAnnouncement>;
 }
 
 export type iRegisterUseForm = z.infer<typeof registerSchema>;
