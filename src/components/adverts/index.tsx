@@ -5,13 +5,14 @@ import { apiUsingNow } from "../../services";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../productCard";
 import { useFilterContext } from "../../context";
+import { iAnnouncement } from "../../interfaces";
 
 export interface iAdvertsProps {
   isProfile?: boolean;
 }
 
 export const Adverts = ({ isProfile }: iAdvertsProps) => {
-  const [AdvertsData, setAdvertsData] = useState([]);
+  const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
   const {
     Marca,
     Ano,
@@ -96,12 +97,12 @@ export const Adverts = ({ isProfile }: iAdvertsProps) => {
     }
   }, [mileageMaxQuery]);
 
-  const list = AdvertsData.map((element, index) => {
+  const list = AdvertsData.map((element) => {
     return (
       <ProductCard
         isProfile={isProfile}
         element={element}
-        key={/*element.title*/ +index}
+        key={element.id}
         onClick={() => navigate("/advert/")}
       />
     );

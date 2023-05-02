@@ -4,10 +4,9 @@ import { Input } from "../../inputs";
 import { Container, Form, DivisionTypes, Buttons } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { useEffect } from "react";
-import { useUserContext } from "../../../context/UserContext";
+import { useUserContext, useModalContext } from "../../../context";
 import Button from "@mui/material/Button";
-import { useModalContext } from "../../../context";
-import { deleteUser, patchUser } from "../../../services/apiUser";
+import { patchUser } from "../../../services";
 
 interface IUserUpdate {
   name?: string;
@@ -26,18 +25,13 @@ interface IUserUpdate {
 }
 
 export const ModalUpdateDeleteUser = () => {
-  const { userData } = useUserContext();
+  const { userData, destroyUser } = useUserContext();
   const { register, handleSubmit, setValue } = useForm();
   const { handleClose, handleOpen } = useModalContext();
 
   const onSubmit = async (data: IUserUpdate) => {
     let response = await patchUser(data, userData!.id);
     handleClose();
-  };
-
-  const deleteUserId = async () => {
-    await deleteUser(userData!.id);
-    document.location.reload();
   };
 
   useEffect(() => {
@@ -132,7 +126,10 @@ export const ModalUpdateDeleteUser = () => {
               variant="contained"
               id="delete"
               onClick={() => {
-                deleteUserId();
+                if (userData) {
+                  destroyUser(userData.id);
+                  handleClose();
+                }
               }}
             >
               Excluir
