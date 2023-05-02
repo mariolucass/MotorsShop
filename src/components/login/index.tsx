@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Alert from "@mui/material/Alert";
 import { useUserContext } from "../../context";
-import { ILoginUseForm } from "../../interfaces";
+import { iLoginUseForm } from "../../interfaces";
 
 export const Login = () => {
   const { loginUser } = useUserContext();
@@ -14,7 +14,7 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILoginUseForm>({ resolver: zodResolver(loginSchema) });
+  } = useForm<iLoginUseForm>({ resolver: zodResolver(loginSchema) });
 
   return (
     <Container>

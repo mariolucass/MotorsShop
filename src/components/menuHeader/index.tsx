@@ -8,6 +8,7 @@ import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
 interface IProps {
   isOpen: boolean;
 }
+
 export const MenuHeader = ({ isOpen }: IProps) => {
   const { userData, logoutUser } = useUserContext();
   const navigate = useNavigate();

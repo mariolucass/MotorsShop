@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from "react";
 import { UseFormRegister } from "react-hook-form";
 
-export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface iInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   error?: any;
@@ -10,13 +10,14 @@ export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<any>;
   handlerChange?: (event: any) => void;
   isFipe?: boolean;
+  isFile?: boolean;
 }
 
-export interface IBox {
+export interface iBox {
   children: React.ReactElement;
   Class?: string;
 }
 
-export interface IAdvertsProps {
+export interface iAdvertsProps {
   isProfile?: boolean;
 }

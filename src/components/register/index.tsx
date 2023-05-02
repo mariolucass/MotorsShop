@@ -3,9 +3,9 @@ import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Alert from "@mui/material/Alert";
-import { registerSchema } from "../../schemas/registerSchema";
+import { registerSchema } from "../../schemas";
 import { useUserContext } from "../../context";
-import { IRegisterUseForm } from "../../interfaces";
+import { iRegisterUseForm } from "../../interfaces";
 
 export const Register = () => {
   const { registerUser } = useUserContext();
@@ -13,13 +13,26 @@ export const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRegisterUseForm>({ resolver: zodResolver(registerSchema) });
+  } = useForm<iRegisterUseForm>({ resolver: zodResolver(registerSchema) });
 
   return (
     <Container>
       <Box>
         <Title id="titulo">Cadastro</Title>
         <Form onSubmit={handleSubmit(registerUser)}>
+          <SubTitle>Foto de Perfil</SubTitle>
+          <label htmlFor="image">Avatar</label>
+          <input
+            type="file"
+            accept="image/*"
+            id="image"
+            {...register("image")}
+          />
+          {errors.image && (
+            <Alert severity="error" id="alert">
+              {errors.image!.message}
+            </Alert>
+          )}
           <SubTitle>Informações Pessoais</SubTitle>
           <label htmlFor="name">Nome</label>
           <input

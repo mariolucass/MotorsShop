@@ -1,29 +1,6 @@
 import { FieldValues } from "react-hook-form";
-import { apiServerSide, localApiToken, apiUsingNow } from "./api";
-
-import { iAnnouncement } from "./apiAnnouncement";
-
-export interface iUser {
-  id: string;
-  name: string;
-  email: string;
-  cpf: string;
-  phone: string;
-  birthdate: string;
-  description: string;
-  role: "BUYER" | "SELLER";
-  created_at: Date;
-  address: {
-    id: string;
-    zip_code: string;
-    state: string;
-    city: string;
-    street: string;
-    number: string;
-    complement?: string;
-  };
-  announcement: Array<iAnnouncement>;
-}
+import { localApiToken, apiUsingNow } from "./api";
+import { iUser } from "../interfaces";
 
 export interface ipostUser {
   token: string;
@@ -40,7 +17,10 @@ export async function postUserCreate(data: FieldValues): Promise<iUser> {
 }
 
 export async function patchUser(data: FieldValues, id: string): Promise<iUser> {
-  const { data: response } = await localApiToken.patch<iUser>(`users/${id}`, data);
+  const { data: response } = await localApiToken.patch<iUser>(
+    `users/${id}`,
+    data
+  );
   return response;
 }
 

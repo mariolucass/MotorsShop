@@ -2,9 +2,8 @@ import Box from "@mui/material/Box";
 import { ano, combustivel, cores, marcas, modelos } from "../../data";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
-import { useMediaContext } from "../../context/MediaContext";
+import { useMediaContext, useFilterContext } from "../../context";
 import Button from "@mui/material/Button";
-import { useFilterContext } from "../../context/FilterContext";
 import { Stack, Typography } from "@mui/material";
 import { GrFormClose } from "react-icons/gr";
 

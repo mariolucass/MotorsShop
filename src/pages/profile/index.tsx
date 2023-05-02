@@ -21,7 +21,7 @@ const theme = createTheme({
 
 const Profile = () => {
   const { handleOpen } = useModalContext();
-  const { userData } = useUserContext();
+  const { userData, imageProfile } = useUserContext();
 
   return (
     <ThemeProvider theme={theme}>
@@ -31,10 +31,7 @@ const Profile = () => {
         <StyledHero>
           <section>
             <div>
-              <Avatar
-                sx={{ width: 80, height: 80 }}
-                src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg "
-              />
+              <Avatar sx={{ width: 80, height: 80 }} src={imageProfile} />
               <div>
                 <span>{userData?.name}</span>
                 <div>Anunciante</div>

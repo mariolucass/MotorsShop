@@ -1,5 +1,5 @@
 import { ContainerStyled, LabelStyled, InputStyled } from "./style";
-import { IInputProps } from "../../interfaces";
+import { iInputProps } from "../../interfaces";
 
 export const Input = ({
   name,
@@ -11,18 +11,36 @@ export const Input = ({
   isFipe,
   register,
   handlerChange,
-}: IInputProps) => {
-  return isFipe ? (
-    <ContainerStyled width={width}>
-      <LabelStyled>{label}</LabelStyled>
-      <InputStyled
-        {...register(name)}
-        placeholder={placeholder}
-        className={error && "errorInput"}
-        value={value !== undefined ? value : ""}
-      />
-    </ContainerStyled>
-  ) : (
+  isFile,
+}: iInputProps) => {
+  if (isFipe) {
+    return (
+      <ContainerStyled width={width}>
+        <LabelStyled>{label}</LabelStyled>
+        <InputStyled
+          {...register(name)}
+          placeholder={placeholder}
+          className={error && "errorInput"}
+          value={value !== undefined ? value : ""}
+        />
+      </ContainerStyled>
+    );
+  }
+  if (isFile) {
+    return (
+      <ContainerStyled width={width}>
+        <LabelStyled>{label}</LabelStyled>
+        <InputStyled
+          type="file"
+          accept="images/*"
+          {...register(name)}
+          placeholder={placeholder}
+          className={error && "errorInput"}
+        />
+      </ContainerStyled>
+    );
+  }
+  return (
     <ContainerStyled width={width}>
       <LabelStyled>{label}</LabelStyled>
       <InputStyled
