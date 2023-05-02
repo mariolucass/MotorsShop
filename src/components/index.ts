@@ -12,4 +12,3 @@ export * from "./modal";
 export * from "./navbar";
 export * from "./productCard";
 export * from "./register";
-export * from "./upload";

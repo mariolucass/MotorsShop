@@ -1,7 +1,51 @@
 import { z } from "zod";
 import { createAnnouncementSchema } from "../schemas/announcementSchema";
+import { iImage } from "./images.interfaces";
+import { iUser } from "./user.interfaces";
 
 export type iCreateAnnouncement = z.infer<typeof createAnnouncementSchema>;
+
+export interface iAnnouncement {
+  id: string;
+  brand: string;
+  model: string;
+  manufacture_year: string;
+  fuel: string;
+  mileage: number;
+  color: string;
+  price_fipe: string;
+  price: string;
+  description: string;
+  listImage: Array<iImage>;
+  user: iUser;
+}
+
+export interface iAnnouncementRequest {
+  brand: string;
+  model: string;
+  manufacture_year: string;
+  fuel: string;
+  mileage: number;
+  color: string;
+  price_fipe: string;
+  price: string;
+  description: string;
+  imageCover: File;
+  images: File[];
+}
+
+export interface iAnnouncementResponse {
+  id: string;
+  brand: string;
+  model: string;
+  manufacture_year: string;
+  fuel: string;
+  mileage: number;
+  color: string;
+  price_fipe: string;
+  price: string;
+  description: string;
+}
 
 export interface iModelApi {
   id: string;
@@ -10,23 +54,6 @@ export interface iModelApi {
   year: string;
   fuel: 1 | 2 | 3;
   value: number;
-}
-
-export interface iImage {
-  id: string;
-  name: string;
-  size: number;
-  url: string;
-  key: string;
-}
-
-export interface iUpload extends iImage {
-  image?: Blob;
-  readableSize: string;
-  preview: string;
-  progress: number;
-  uploaded: boolean;
-  error: boolean;
 }
 
 export interface iProduct {
@@ -49,7 +76,7 @@ export interface iProduct {
 }
 
 export interface iPropsProductCard {
-  element: iProduct;
+  element: iAnnouncement;
   isProfile?: boolean;
   onClick: () => void;
 }

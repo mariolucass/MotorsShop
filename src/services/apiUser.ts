@@ -1,31 +1,6 @@
 import { FieldValues } from "react-hook-form";
 import { localApiToken, apiUsingNow } from "./api";
-
-import { iAnnouncement } from "./apiAnnouncement";
-import { iImage } from "../interfaces";
-
-export interface iUser {
-  id: string;
-  name: string;
-  email: string;
-  cpf: string;
-  phone: string;
-  birthdate: string;
-  description: string;
-  role: "BUYER" | "SELLER";
-  created_at: Date;
-  address: {
-    id: string;
-    zip_code: string;
-    state: string;
-    city: string;
-    street: string;
-    number: string;
-    complement?: string;
-  };
-  announcement: Array<iAnnouncement>;
-  listImage: Array<iImage>;
-}
+import { iUser } from "../interfaces";
 
 export interface ipostUser {
   token: string;

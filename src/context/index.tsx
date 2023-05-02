@@ -3,23 +3,23 @@ import { MediaProvider } from "./MediaContext";
 import { ModalProvider } from "./ModalContext";
 import { UserProvider } from "./UserContext";
 import { FilterProvider } from "./FilterContext";
-import { UploadProvider } from "./UploadContext";
+import { AnnouncementProvider } from "./AnnouncementContext";
 
 const Providers = ({ children }: iChildren) => (
   <FilterProvider>
     <MediaProvider>
-      <UploadProvider>
-        <UserProvider>
+      <UserProvider>
+        <AnnouncementProvider>
           <ModalProvider>{children}</ModalProvider>
-        </UserProvider>
-      </UploadProvider>
+        </AnnouncementProvider>
+      </UserProvider>
     </MediaProvider>
   </FilterProvider>
 );
 
 export default Providers;
+export { useAnnouncementContext } from "./AnnouncementContext";
+export { useFilterContext } from "./FilterContext";
 export { useMediaContext } from "./MediaContext";
 export { useModalContext } from "./ModalContext";
 export { useUserContext } from "./UserContext";
-export { useFilterContext } from "./FilterContext";
-export { useUploadContext } from "./UploadContext";

@@ -5,11 +5,36 @@ import {
   emailForResetSchema,
   resetPasswordFieldsSchema,
 } from "../schemas/resetSchema";
+import { iImage } from "./images.interfaces";
+import { iAnnouncement } from "./announcements.interfaces";
 
 export type iLoginUseForm = z.infer<typeof loginSchema>;
 export interface iLogin {
   email: string;
   password: string;
+}
+
+export interface iUser {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  birthdate: string;
+  description: string;
+  role: "BUYER" | "SELLER";
+  created_at: Date;
+  address: {
+    id: string;
+    zip_code: string;
+    state: string;
+    city: string;
+    street: string;
+    number: string;
+    complement?: string;
+  };
+  announcement: Array<iAnnouncement>;
+  listImage: Array<iImage>;
 }
 
 export type iRegisterUseForm = z.infer<typeof registerSchema>;
@@ -31,6 +56,7 @@ export interface iRegister {
     number: string;
     complement?: string;
   };
+  image: File;
 }
 
 export type iEmailForReset = z.infer<typeof emailForResetSchema>;
