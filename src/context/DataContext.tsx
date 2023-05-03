@@ -1,14 +1,25 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useFilterContext } from "./FilterContext";
 import { localApi } from "../services";
+import { IAnnouncementRequest } from "../interfaces";
 
 interface iProps {
   children: React.ReactNode;
 }
 
 interface iDataProps {
-  AdvertsData: never[];
-  setAdvertsData: React.Dispatch<React.SetStateAction<never[]>>;
+  AdvertsData: IAnnouncementRequest[];
+  setAdvertsData: React.Dispatch<React.SetStateAction<IAnnouncementRequest[]>>;
+  AdvertId: string;
+  setAdvertId: React.Dispatch<React.SetStateAction<string>>;
+  specificAdvertData: IAnnouncementRequest | undefined;
+  setSpecificAdvertData: React.Dispatch<
+    React.SetStateAction<IAnnouncementRequest | undefined>
+  >;
+}
+
+export interface IImageRequest {
+  image: string;
 }
 
 const DataContext = createContext({} as iDataProps);
@@ -18,7 +29,11 @@ export const useDataContext = () => {
 };
 
 export const DataPrivider = ({ children }: iProps) => {
-  const [AdvertsData, setAdvertsData] = useState([]);
+  const id = localStorage.getItem("@MotorsShop:advert");
+  const [AdvertsData, setAdvertsData] = useState<IAnnouncementRequest[]>([]);
+  const [AdvertId, setAdvertId] = useState<string>(id || "");
+  const [specificAdvertData, setSpecificAdvertData] =
+    useState<IAnnouncementRequest>();
   const {
     Marca,
     Ano,
@@ -89,7 +104,7 @@ export const DataPrivider = ({ children }: iProps) => {
   const mileageMaxQuery = MaxKm
     ? `${mileageMinQuery}mileageMax=${MaxKm}${countQueryArray !== 0 ? "&" : ""}`
     : mileageMinQuery;
-  console.log(mileageMaxQuery);
+
   useEffect(() => {
     try {
       localApi
@@ -102,7 +117,16 @@ export const DataPrivider = ({ children }: iProps) => {
   }, [mileageMaxQuery]);
 
   return (
-    <DataContext.Provider value={{ AdvertsData, setAdvertsData }}>
+    <DataContext.Provider
+      value={{
+        AdvertsData,
+        setAdvertsData,
+        AdvertId,
+        setAdvertId,
+        specificAdvertData,
+        setSpecificAdvertData,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );

@@ -12,7 +12,11 @@ export interface IModelApi {
   value: number;
 }
 
-export interface IProduct {
+export interface IImageRequest {
+  image: string;
+}
+
+export interface IAnnouncementRequest {
   id: string;
   brand: string;
   model: string;
@@ -23,7 +27,7 @@ export interface IProduct {
   price_fipe: string;
   price: string;
   description: string;
-  listImage: Array<string>;
+  listImage: Array<IImageRequest>;
 
   user: {
     img: string;
@@ -32,7 +36,7 @@ export interface IProduct {
 }
 
 export interface IPropsProductCard {
-  element: IProduct;
+  element: IAnnouncementRequest;
   isProfile?: boolean;
   onClick: () => void;
 }

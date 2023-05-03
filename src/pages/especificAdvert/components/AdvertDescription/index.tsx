@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 
 interface iProps {
-  desc: string;
+  desc: string | undefined;
 }
 
 const AdvertDesc = ({ desc }: iProps) => {

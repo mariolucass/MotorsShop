@@ -9,7 +9,13 @@ export interface iAdvertsProps {
 }
 
 export const Adverts = ({ isProfile }: iAdvertsProps) => {
-  const { AdvertsData } = useDataContext();
+  const { AdvertsData, setAdvertId } = useDataContext();
+
+  const advertData = (id: string) => {
+    setAdvertId(id);
+    navigate("/advert/");
+    localStorage.setItem("@MotorsShop:advert", id);
+  };
 
   const navigate = useNavigate();
 
@@ -19,7 +25,7 @@ export const Adverts = ({ isProfile }: iAdvertsProps) => {
         isProfile={isProfile}
         element={element}
         key={/*element.title*/ +index}
-        onClick={() => navigate("/advert/")}
+        onClick={() => advertData(element.id)}
       />
     );
   });

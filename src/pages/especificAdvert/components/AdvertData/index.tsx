@@ -3,8 +3,8 @@ import Stack from "@mui/material/Stack";
 import { StyledChip } from "../../../../components";
 
 interface iProps {
-  name: string;
-  price: number;
+  name: string | undefined;
+  price: string | undefined;
 }
 
 const AdvertData = ({ name, price }: iProps) => {
