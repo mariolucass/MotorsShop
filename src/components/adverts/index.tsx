@@ -14,7 +14,7 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
 
   const advertData = (id: string) => {
     setAdvertId(id);
-    navigate(`/advert/${id}`);
+    navigate(`/advert/`);
     localStorage.setItem("@MotorsShop:advert", id);
   };
 

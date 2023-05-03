@@ -26,7 +26,7 @@ const AdvertPageSize = () => {
       console.log(error);
     }
   }, [AdvertId]);
-  console.log(specificAdvertData?.listImage);
+
   if (matches700) {
     return (
       <Container sx={{ mt: 2 }}>
