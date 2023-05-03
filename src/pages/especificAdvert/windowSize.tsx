@@ -68,7 +68,7 @@ const AdvertPageSize = () => {
           />
         </Grid>
         <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
-          <AdvertImageList src={undefined} />
+          <AdvertImageList src={specificAdvertData?.listImage} />
         </Grid>
         <Grid
           item

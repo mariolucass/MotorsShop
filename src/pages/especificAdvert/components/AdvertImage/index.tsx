@@ -4,14 +4,13 @@ import { StyledImg } from "./style";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import ImageList from "@mui/material/ImageList";
-import { ImageListItem } from "@mui/material";
-import { IImageRequest } from "../../../../interfaces";
+import { iListImage } from "../../../../interfaces";
 
 interface iProps {
   src: string;
 }
 interface iPropsList {
-  src: Array<IImageRequest> | undefined | any;
+  src: Array<iListImage> | undefined;
 }
 
 const AdvertImage = ({ src }: iProps) => {

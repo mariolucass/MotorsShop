@@ -1,20 +1,20 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useFilterContext } from "./FilterContext";
 import { localApi } from "../services";
-import { IAnnouncementRequest } from "../interfaces";
+import { iAnnouncement } from "../interfaces";
 
 interface iProps {
   children: React.ReactNode;
 }
 
 interface iDataProps {
-  AdvertsData: IAnnouncementRequest[];
-  setAdvertsData: React.Dispatch<React.SetStateAction<IAnnouncementRequest[]>>;
+  AdvertsData: iAnnouncement[];
+  setAdvertsData: React.Dispatch<React.SetStateAction<iAnnouncement[]>>;
   AdvertId: string;
   setAdvertId: React.Dispatch<React.SetStateAction<string>>;
-  specificAdvertData: IAnnouncementRequest | undefined;
+  specificAdvertData: iAnnouncement | undefined;
   setSpecificAdvertData: React.Dispatch<
-    React.SetStateAction<IAnnouncementRequest | undefined>
+    React.SetStateAction<iAnnouncement | undefined>
   >;
 }
 
@@ -30,10 +30,9 @@ export const useDataContext = () => {
 
 export const DataPrivider = ({ children }: iProps) => {
   const id = localStorage.getItem("@MotorsShop:advert");
-  const [AdvertsData, setAdvertsData] = useState<IAnnouncementRequest[]>([]);
+  const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
   const [AdvertId, setAdvertId] = useState<string>(id || "");
-  const [specificAdvertData, setSpecificAdvertData] =
-    useState<IAnnouncementRequest>();
+  const [specificAdvertData, setSpecificAdvertData] = useState<iAnnouncement>();
   const {
     Marca,
     Ano,
