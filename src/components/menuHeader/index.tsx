@@ -3,7 +3,6 @@ import { ListMenuStyled } from "./style";
 import { useModalContext, useUserContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import * as framer from "../../libs/framer";
-import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
 
 interface IProps {
   isOpen: boolean;

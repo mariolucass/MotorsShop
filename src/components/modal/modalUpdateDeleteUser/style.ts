@@ -4,7 +4,7 @@ export const Container = styled.section`
     width: 100%;
     height: 70vh;
     padding: 16px 24px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 
     svg {
         cursor: pointer;

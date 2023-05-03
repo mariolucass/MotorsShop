@@ -6,9 +6,10 @@ export const Box = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 520px;
+  /* height: 80vh; */
   border-radius: 2px;
-  padding: 10px;
   background: var(--whitefixed);
+  padding: 16px 24px;
 
   display: flex;
   justify-content: center;
@@ -17,6 +18,28 @@ export const Box = styled.div`
   overflow-y: auto;
 
   z-index: 9999;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  /* Fundo da barra de rolagem */
+  ::-webkit-scrollbar-track-piece {
+    border: none;
+  }
+
+  /* Cor do indicador de rolagem */
+  ::-webkit-scrollbar-thumb:vertical,
+  ::-webkit-scrollbar-thumb:horizontal {
+    background-color: var(--grey4);
+    border-radius: 5px;
+  }
+
+  /* Cor do indicador de rolagem - ao passar o mouse */
+  ::-webkit-scrollbar-thumb:vertical:hover,
+  ::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: var(--grey5);
+  }
 
   @media (max-width: 1024px) {
     max-width: 100vw;
@@ -39,13 +62,9 @@ export const Box = styled.div`
 
 export const Container = styled.section`
     width: 100%;
-    padding: 16px 24px;
-    /* overflow-y: auto; */
-
-    svg {
-        cursor: pointer;
-    }
-
+    height: 100%;
+    /* padding: 16px 24px; */
+    
     #title {
         display: flex;
         justify-content: space-between;
@@ -57,17 +76,10 @@ export const Container = styled.section`
         line-height: 20px;
         color: var(--grey1);
     }
-
-    #subtitle {
-        margin-top: 16px;
-        margin-bottom: 16px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 24px;
+    
+    svg {
+        cursor: pointer;
     }
-
 `
 
 export const Form = styled.form`
@@ -108,7 +120,7 @@ export const Form = styled.form`
     }
 
     input {
-        width: 95%;
+        width: 93%;
     }
 
 `
@@ -191,5 +203,15 @@ export const Buttons = styled.div`
         font-weight: 600;
         font-size: 16px;
         text-transform: capitalize;
+    }
+`
+
+export const Section = styled.section`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+
+    input {
+        width: 85%;
     }
 `
