@@ -31,7 +31,7 @@ export const Header = () => {
               className={matches700 ? "ocult" : "div__user"}
               onClick={() => setIsOpenMenu(!isOpenMenu)}
             >
-              <Avatar src={"https://www.sketchappsources.com/resources/source-image/profile-illustration-gunaldi-yunus.png"} />
+              <Avatar src={userData.profile.url} />
               <span>{headerUsername}</span>
               <MenuHeader isOpen={isOpenMenu} />
             </div>
