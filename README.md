@@ -88,7 +88,7 @@ Inicie o servidor:
 
 Aqui estão os projetos relacionados:
 
-- [Front-End MotorsShop](https://github.com/ProjetoFullStackT30-Paulo/FrontEnd-FullStackM6)
+- [Back-End MotorsShop](https://github.com/ProjetoFullStackT30-Paulo/BackEnd-FullStackM6)
 - [Documentação do Back-End](https://github.com/ProjetoFullStackT30-Paulo/Doc-BackEnd-FullStackM6)
 
 
