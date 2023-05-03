@@ -1,24 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import { ILogin, IRegister } from "../interfaces";
-import { IChildren } from "../interfaces/global.interfaces";
+import { iLogin, iRegister, iChildren, iUser } from "../interfaces";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
+  deleteUser,
   getUserProfile,
-  iAnnouncement,
-  iUser,
+  postImageUser,
   postUser,
   postUserCreate,
 } from "../services";
+import { toast } from "react-toastify";
+import { useAnnouncementContext } from "./AnnouncementContext";
 
 interface iContextProvider {
   userData: iUser | null;
-  announcementsData: iAnnouncement[] | null;
   loading: boolean;
-  registerUser: (formData: IRegister) => Promise<void>;
-  loginUser: (formData: ILogin) => Promise<void>;
+  registerUser: (formData: iRegister) => Promise<void>;
+  loginUser: (formData: iLogin) => Promise<void>;
   autoLoginUser: () => Promise<void>;
   logoutUser: () => void;
-  userProfile: () => void
+  destroyUser: (id: string) => Promise<void>;
+  userProfile: () => void;
 }
 
 const UserContext = createContext({} as iContextProvider);
@@ -27,37 +28,43 @@ export const useUserContext = () => {
   return useContext(UserContext);
 };
 
-export const UserProvider = ({ children }: IChildren) => {
+export const UserProvider = ({ children }: iChildren) => {
   const navigate = useNavigate();
+  const { setannouncementsProfile } = useAnnouncementContext();
   const [userData, setUserData] = useState<iUser | null>(null);
-  const [announcementsData, setAnnouncementsData] =
-    useState<Array<iAnnouncement> | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     autoLoginUser();
   }, []);
 
-  const registerUser = async (formData: IRegister) => {
+  const registerUser = async (formData: iRegister) => {
     try {
-      await postUserCreate(formData);
+      const user = await postUserCreate(formData);
+      const data = new FormData();
+      data.append("image", formData.image);
+      await postImageUser(data, user.id);
+      toast.success(
+        "Conta criada com sucesso, realize seu login para ter acessoa a plataforma"
+      );
       navigate("/login");
     } catch (error) {
-      console.error(error);
+      toast.error("Conta já existe, tente recuperar sua senha");
+      navigate("/login");
     }
   };
 
-  const loginUser = async (formData: ILogin) => {
+  const loginUser = async (formData: iLogin) => {
     try {
       const { token } = await postUser(formData);
       localStorage.setItem("@MotorsShop:token", token);
       const response = await getUserProfile(token);
       setUserData(response);
-      setAnnouncementsData(response.announcement);
-
+      setannouncementsProfile(response.announcements);
+      toast.success("Login realizado com sucesso");
       navigate("/");
     } catch (error) {
-      console.error(error);
+      toast.error("Combinação de Email e Senha incorretos");
     }
   };
 
@@ -68,7 +75,7 @@ export const UserProvider = ({ children }: IChildren) => {
         setLoading(true);
         const response = await getUserProfile(token);
         setUserData(response);
-        setAnnouncementsData(response.announcement);
+        setannouncementsProfile(response.announcements);
       } catch (error) {
         console.error(error);
       } finally {
@@ -80,8 +87,13 @@ export const UserProvider = ({ children }: IChildren) => {
   const logoutUser = () => {
     localStorage.removeItem("@MotorsShop:token");
     setUserData(null);
-    setAnnouncementsData(null);
     navigate("/login");
+  };
+
+  const destroyUser = async (id: string) => {
+    await deleteUser(id);
+    localStorage.removeItem("@MotorsShop:token");
+    setUserData(null);
   };
 
   const userProfile = async () => {
@@ -97,19 +109,19 @@ export const UserProvider = ({ children }: IChildren) => {
         setLoading(false);
       }
     }
-  }
+  };
 
   return (
     <UserContext.Provider
       value={{
         userData,
-        announcementsData,
         loading,
         registerUser,
         loginUser,
         autoLoginUser,
         logoutUser,
-        userProfile
+        destroyUser,
+        userProfile,
       }}
     >
       {children}

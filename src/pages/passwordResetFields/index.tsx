@@ -2,11 +2,11 @@ import { Paper } from "@mui/material";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
-import { localApi } from "../../services";
+import { apiUsingNow } from "../../services";
 import { useParams } from "react-router-dom";
 import { Container, Box, Form } from "./styles";
 import Logo from "../../assets/logoColored.svg";
-import { IResetPassword } from "../../interfaces";
+import { iResetPassword } from "../../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Footer, Header, Input } from "../../components";
 import { resetPasswordFieldsSchema } from "../../schemas/resetSchema";
@@ -16,20 +16,19 @@ export const PasswordReset = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IResetPassword>({
+  } = useForm<iResetPassword>({
     resolver: zodResolver(resetPasswordFieldsSchema),
   });
 
   const { userId, token } = useParams();
-  console.log(token);
 
-  const handleReset = async (data: IResetPassword) => {
+  const handleReset = async (data: iResetPassword) => {
     try {
       const dataUpdated = {
         password: data.password,
       };
 
-      await localApi.post(`/resetpassword/${userId}/${token}`, dataUpdated);
+      await apiUsingNow.post(`/resetpassword/${userId}/${token}`, dataUpdated);
 
       toast.success("Senha atualizada com sucesso.");
     } catch (error) {

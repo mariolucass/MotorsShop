@@ -33,7 +33,7 @@ const Profile = () => {
             <div>
               <Avatar
                 sx={{ width: 80, height: 80 }}
-                src="https://raw.githubusercontent.com/maidi29/custom-avatar-generator/images/images/avatar-example-3.svg "
+                src={userData?.profile.url}
               />
               <div>
                 <span>{userData?.name}</span>

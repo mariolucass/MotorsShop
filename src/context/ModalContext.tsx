@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { IChildren } from "../interfaces/global.interfaces";
+import { iChildren } from "../interfaces";
 
 interface iContextProvider {
   open: boolean;
@@ -16,7 +16,7 @@ export const useModalContext = () => {
   return useContext(ModalContext);
 };
 
-export const ModalProvider = ({ children }: IChildren) => {
+export const ModalProvider = ({ children }: iChildren) => {
   const [open, setOpen] = useState(false);
   const [openAddress, setOpenAddress] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -25,7 +25,16 @@ export const ModalProvider = ({ children }: IChildren) => {
   const handleCloseAddress = () => setOpenAddress(false);
 
   return (
-    <ModalContext.Provider value={{ open, handleOpen, handleClose, openAddress, handleOpenAddress, handleCloseAddress }}>
+    <ModalContext.Provider
+      value={{
+        open,
+        handleOpen,
+        handleClose,
+        openAddress,
+        handleOpenAddress,
+        handleCloseAddress,
+      }}
+    >
       {children}
     </ModalContext.Provider>
   );

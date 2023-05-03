@@ -1,9 +1,9 @@
 import { Box } from "./style";
-import { IChildren } from "../../interfaces";
+import { iChildren } from "../../interfaces";
 import { useModalContext } from "../../context";
 import { Backdrop, Fade, Modal } from "@mui/material";
 
-export const ModalGeneral = ({ children }: IChildren) => {
+export const ModalGeneral = ({ children }: iChildren) => {
   const { open, handleClose } = useModalContext();
 
   return (

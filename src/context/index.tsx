@@ -1,25 +1,29 @@
-import { IChildren } from "../interfaces/global.interfaces";
+import { iChildren } from "../interfaces";
 import { MediaProvider } from "./MediaContext";
 import { ModalProvider } from "./ModalContext";
 import { UserProvider } from "./UserContext";
 import { FilterProvider } from "./FilterContext";
+import { AnnouncementProvider } from "./AnnouncementContext";
 import { DataPrivider } from "./DataContext";
 
-const Providers = ({ children }: IChildren) => (
+const Providers = ({ children }: iChildren) => (
   <FilterProvider>
-    <DataPrivider>
-      <MediaProvider>
-        <UserProvider>
-          <ModalProvider>{children}</ModalProvider>
-        </UserProvider>
-      </MediaProvider>
-    </DataPrivider>
+    <MediaProvider>
+      <DataPrivider>
+        <AnnouncementProvider>
+          <UserProvider>
+            <ModalProvider>{children}</ModalProvider>
+          </UserProvider>
+        </AnnouncementProvider>
+      </DataPrivider>
+    </MediaProvider>
   </FilterProvider>
 );
 
 export default Providers;
+export { useAnnouncementContext } from "./AnnouncementContext";
+export { useFilterContext } from "./FilterContext";
 export { useMediaContext } from "./MediaContext";
 export { useModalContext } from "./ModalContext";
 export { useUserContext } from "./UserContext";
-export { useFilterContext } from "./FilterContext";
 export { useDataContext } from "./DataContext";

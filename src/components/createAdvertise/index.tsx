@@ -1,14 +1,16 @@
 import { Input } from "../inputs";
 import { marcas } from "../../data";
-import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useModalContext } from "../../context";
-import { postAnnouncement } from "../../services";
+import { useAnnouncementContext, useModalContext } from "../../context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getModelsByBrandFipe } from "../../services/apiFipe";
 import { Autocomplete, Button, TextField } from "@mui/material";
-import { ICreateAnnouncement, IModelApi } from "../../interfaces";
+import {
+  iAnnouncementRequest,
+  iCreateAnnouncement,
+  iModelApi,
+} from "../../interfaces";
 import { createAnnouncementSchema } from "../../schemas/announcementSchema";
 import {
   capitalizeString,
@@ -22,20 +24,27 @@ import {
   FormStyled,
   InputSplitDiv,
 } from "./style";
+import { ContainerStyled, InputStyled, LabelStyled } from "../inputs/style";
 
 export const CreateAdvertise = () => {
   const { handleClose } = useModalContext();
+  const { createAnnouncement } = useAnnouncementContext();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ICreateAnnouncement>({
+    control,
+  } = useForm<iCreateAnnouncement>({
     resolver: zodResolver(createAnnouncementSchema),
   });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "images",
+  } as never);
 
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
-  const [models, setModels] = useState<IModelApi[]>([]);
+  const [models, setModels] = useState<iModelApi[]>([]);
   const [year, setYear] = useState("");
   const [fuel, setFuel] = useState("");
   const [price, setPrice] = useState("");
@@ -66,31 +75,8 @@ export const CreateAdvertise = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model]);
 
-  const submitAnnouncement = async (data: any) => {
-    data.brand = capitalizeString(brand);
-    data.model = capitalizeString(model);
-    data.price_fipe = convertToNumber(valueFipe);
-    data.price = convertToNumber(data.price);
-    data.manufacture_year = year;
-    data.fuel = fuel;
-    data.mileage = +data.mileage;
-    data.listImage = [];
-
-    try {
-      await postAnnouncement(data);
-
-      toast.success(
-        "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
-      );
-    } catch (error) {
-      toast.error(
-        "Infelizmente não foi possivel cadastrar o anúncio, se possivel tente mais tarde."
-      );
-    }
-  };
-
   const brandsToSelect = marcas.map((elem) => capitalizeString(elem));
-  const modelsToSelect = models.map((elem: IModelApi) =>
+  const modelsToSelect = models.map((elem: iModelApi) =>
     capitalizeString(elem.name)
   );
 
@@ -104,7 +90,23 @@ export const CreateAdvertise = () => {
 
   return (
     <DivStyled>
-      <FormStyled onSubmit={handleSubmit(submitAnnouncement)}>
+      <FormStyled
+        onSubmit={handleSubmit((formData) => {
+          let data: iAnnouncementRequest;
+          data = {
+            ...formData,
+            brand: capitalizeString(brand),
+            model: capitalizeString(model),
+            price_fipe: convertToNumber(valueFipe),
+            price: convertToNumber(formData.price),
+            manufacture_year: year,
+            fuel,
+            mileage: +formData.mileage,
+          };
+          createAnnouncement(data);
+          handleClose();
+        })}
+      >
         <h1>Criar anúncio </h1>
         <h3>Informações do veículo </h3>
         <AutoCompleteDiv>
@@ -191,7 +193,7 @@ export const CreateAdvertise = () => {
             error={errors.price}
             label={"Preço"}
             value={price}
-            handlerChange={(event) => setPrice(event.target.value)}
+            handlerChange={(event: any) => setPrice(event.target.value)}
             placeholder={"R$ 50.000,00"}
             width={"50"}
           />
@@ -206,33 +208,51 @@ export const CreateAdvertise = () => {
           }
           width={"100"}
         />
+
         <Input
           name={"imageCover"}
           register={register}
-          error={errors.description}
+          error={errors.imageCover}
           label={"Imagem da capa"}
           placeholder={" https://image.com"}
           width={"100"}
+          isFile
         />
-        <Input
-          name={"image1"}
-          register={register}
-          error={errors.description}
-          label={"1° Imagem da galeria"}
-          placeholder={" https://image.com"}
-          width={"100"}
-        />
-        <Input
-          name={"image2"}
-          register={register}
-          error={errors.description}
-          label={"2° Imagem da galeria"}
-          placeholder={" https://image.com"}
-          width={"100"}
-        />
-        <Button className="buttonImage">
-          Adicionar campo para imagem da galeria
-        </Button>
+        <ContainerStyled width={"100"}>
+          <LabelStyled>
+            Imagens{" "}
+            <Button
+              size="small"
+              onClick={() => {
+                append({});
+              }}
+            >
+              Adicionar
+            </Button>
+          </LabelStyled>
+          {fields.map((field, index) => {
+            return (
+              <InputSplitDiv key={field.id}>
+                <InputStyled
+                  type="file"
+                  accept="images/*"
+                  {...register(`images.${index}`)}
+                  className={
+                    errors.images && errors.images[index] && "errorInput"
+                  }
+                />
+                <Button
+                  size="small"
+                  onClick={() => {
+                    remove(index);
+                  }}
+                >
+                  Remover
+                </Button>
+              </InputSplitDiv>
+            );
+          })}
+        </ContainerStyled>
         <ButtonDiv>
           <Button className="buttonForms" onClick={handleClose}>
             Cancelar

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { imageSchema } from "./imageSchema";
 
 const addressSchema = z.object({
   zip_code: z.string().nonempty("CEP obrigatório"),
@@ -20,4 +21,5 @@ export const registerSchema = z.object({
   password: z.string().nonempty("Senha obrigatória"),
   confirm_password: z.string().nonempty("Confirmação de senha obrigatória"),
   address: addressSchema,
+  image: imageSchema,
 });

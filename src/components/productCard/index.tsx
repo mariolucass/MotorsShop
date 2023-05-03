@@ -5,15 +5,15 @@ import Avatar from "@mui/material/Avatar";
 import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
-import { IPropsProductCard } from "../../interfaces";
-import { useMediaContext } from "../../context/MediaContext";
+import { iPropsProductCard } from "../../interfaces";
+import { useMediaContext } from "../../context";
 import { monetizeString } from "../../utils/utils";
 
 export const ProductCard = ({
   element,
   isProfile,
   onClick,
-}: IPropsProductCard) => {
+}: iPropsProductCard) => {
   // const priceFormatted = element.price.toLocaleString("pt-BR", {
   //   style: "currency",
   //   currency: "BRL",
@@ -46,9 +46,7 @@ export const ProductCard = ({
       <CardMedia
         component={"img"}
         height={"175"}
-        image={
-          "https://s7d1.scene7.com/is/image/hyundai/compare-vehicle-1225x619?wid=276&hei=156&fmt=webp-alpha"
-        }
+        image={element.cover.url}
         alt={element.model}
       />
 
@@ -80,7 +78,7 @@ export const ProductCard = ({
         <>
           {!isProfile && (
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar alt={element.user.name} src={element.user.img} />
+              <Avatar alt={element.user.name} src={element.user.profile.url} />
 
               <span className="card--user">{element.user.name}</span>
             </Stack>

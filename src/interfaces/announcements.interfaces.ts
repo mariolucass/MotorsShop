@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createAnnouncementSchema } from "../schemas/announcementSchema";
 
-export type ICreateAnnouncement = z.infer<typeof createAnnouncementSchema>;
+export type iCreateAnnouncement = z.infer<typeof createAnnouncementSchema>;
 
 export interface IModelApi {
   id: string;

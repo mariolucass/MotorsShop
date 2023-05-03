@@ -1,5 +1,4 @@
 import { ListStyled } from "./style";
-// import {} from "../../data";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../productCard";
 import { useDataContext } from "../../context";
