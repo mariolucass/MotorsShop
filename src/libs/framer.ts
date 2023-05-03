@@ -23,3 +23,29 @@ export const animateShownLi = {
   scale: 1,
   filter: "blur(0px)",
 };
+
+export const animateShownPresence = {
+  opacity: 1,
+  scale: 1,
+  filter: "blur(0px)",
+  transition: {
+    ease: "easeOut",
+  },
+};
+
+export const animateExitPresence = {
+  opacity: 0,
+  scale: 0,
+  transition: {
+    ease: "easeOut",
+  },
+};
+
+export const animateInitialPresence = {
+  opacity: 0,
+  scale: 0.9,
+  filter: "blur(5px)",
+  transition: {
+    ease: "easeOut",
+  },
+};

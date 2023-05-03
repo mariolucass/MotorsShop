@@ -13,6 +13,8 @@ interface iContextProvider {
     React.SetStateAction<iAnnouncement[]>
   >;
   createAnnouncement: (formData: iAnnouncementRequest) => Promise<void>;
+  userAdverts: iAnnouncement[];
+  setUserAdverts: React.Dispatch<React.SetStateAction<iAnnouncement[]>>;
 }
 
 const AnnouncementContext = createContext({} as iContextProvider);
@@ -25,6 +27,8 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
   const [announcementsProfile, setannouncementsProfile] = useState<
     iAnnouncement[]
   >([]);
+
+  const [userAdverts, setUserAdverts] = useState<iAnnouncement[]>([]);
 
   const createAnnouncement = async (formData: iAnnouncementRequest) => {
     try {
@@ -57,6 +61,8 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
         announcementsProfile,
         setannouncementsProfile,
         createAnnouncement,
+        userAdverts,
+        setUserAdverts,
       }}
     >
       {children}

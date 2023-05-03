@@ -30,6 +30,12 @@ export async function deleteUser(id: string): Promise<void> {
 
 export async function getUserProfile(token: string): Promise<iUser> {
   apiUsingNow.defaults.headers.authorization = `Bearer ${token}`;
+
   const { data: response } = await apiUsingNow.get<iUser>("users/profile");
+  return response;
+}
+
+export async function getUserById(id: string): Promise<iUser> {
+  const { data: response } = await apiUsingNow.get(`users/${id}`);
   return response;
 }

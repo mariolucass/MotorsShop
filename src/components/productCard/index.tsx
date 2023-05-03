@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import { IPropsProductCard } from "../../interfaces";
-import { useMediaContext } from "../../context";
+import { useMediaContext, useUserContext } from "../../context";
 import { monetizeString } from "../../utils/utils";
 
 export const ProductCard = ({
@@ -14,12 +14,13 @@ export const ProductCard = ({
   isProfile,
   onClick,
 }: IPropsProductCard) => {
-  // const priceFormatted = element.price.toLocaleString("pt-BR", {
-  //   style: "currency",
-  //   currency: "BRL",
-  // });
+  const { userData } = useUserContext();
 
   const { matches500, matches700, matches1200, matches900 } = useMediaContext();
+
+  if (isProfile) {
+    isProfile = element.user.id === userData?.id;
+  }
 
   const cardSize = () => {
     if (matches500) {

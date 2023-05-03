@@ -10,6 +10,7 @@ import { iEmailForReset } from "../../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Footer, Header, Input } from "../../components";
 import { emailForResetSchema } from "../../schemas/resetSchema";
+import { sendEmailPassword } from "../../services/apiPassword";
 
 export const EmailForPasswordReset = () => {
   const {
@@ -22,10 +23,10 @@ export const EmailForPasswordReset = () => {
 
   const handleReset = async (data: iEmailForReset) => {
     try {
-      const response = await apiUsingNow.post("/resetpassword", data);
+      await sendEmailPassword(data);
+
       toast.success("Email enviado com sucesso.");
     } catch (error) {
-      console.log(error);
       toast.error("A conta não foi encontrada, tente novamente.");
     }
   };
