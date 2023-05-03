@@ -6,7 +6,7 @@ import AdvertData from "./components/AdvertData";
 import AdvertDesc from "./components/AdvertDescription";
 import SalesmanData from "./components/SalesmanData";
 import { useEffect } from "react";
-import { localApi } from "../../services";
+import { apiUsingNow } from "../../services";
 
 const AdvertPageSize = () => {
   const { matches500, matches700, matches900 } = useMediaContext();
@@ -15,7 +15,7 @@ const AdvertPageSize = () => {
 
   useEffect(() => {
     try {
-      localApi
+      apiUsingNow
         .get(`/announcements/${AdvertId}`)
         .then((res) => {
           setSpecificAdvertData(res.data);

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useFilterContext } from "./FilterContext";
-import { localApi } from "../services";
+import { apiUsingNow } from "../services";
 import { iAnnouncement } from "../interfaces";
 
 interface iProps {
@@ -106,7 +106,7 @@ export const DataPrivider = ({ children }: iProps) => {
 
   useEffect(() => {
     try {
-      localApi
+      apiUsingNow
         .get(`/${mileageMaxQuery}`)
         .then((res) => setAdvertsData(res.data))
         .catch((err) => console.log(err));
