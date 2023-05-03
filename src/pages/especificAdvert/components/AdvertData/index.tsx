@@ -5,9 +5,11 @@ import { StyledChip } from "../../../../components";
 interface iProps {
   name: string | undefined;
   price: string | undefined;
+  year: string | undefined;
+  km: number | undefined;
 }
 
-const AdvertData = ({ name, price }: iProps) => {
+const AdvertData = ({ name, price, km, year }: iProps) => {
   return (
     <CardContent
       className="AdvertCard"
@@ -35,13 +37,15 @@ const AdvertData = ({ name, price }: iProps) => {
           alignItems="flex-start"
           spacing={2}
         >
-          <StyledChip label={2012} />
-          <StyledChip label={"0 KM"} />
+          <StyledChip label={year!} />
+          <StyledChip label={`${km!} KM`} />
         </Stack>
         <span className="card--price">R${price}</span>
       </Stack>
       <CardActions sx={{ p: 0 }}>
-        <Button variant="contained">Comprar</Button>
+        <Button variant="contained" className="buttonBrand">
+          Comprar
+        </Button>
       </CardActions>
     </CardContent>
   );

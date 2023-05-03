@@ -26,22 +26,20 @@ const AdvertPageSize = () => {
       console.log(error);
     }
   }, [AdvertId]);
-
+  console.log(specificAdvertData?.listImage);
   if (matches700) {
     return (
       <Container sx={{ mt: 2 }}>
         <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
           <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-            <AdvertImage
-              src={
-                "https://s7d1.scene7.com/is/image/hyundai/compare-vehicle-1225x619?wid=276&hei=156&fmt=webp-alpha"
-              }
-            />
+            <AdvertImage src={specificAdvertData?.cover} />
           </Grid>
           <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
             <AdvertData
               name={specificAdvertData?.model}
               price={specificAdvertData?.price}
+              km={specificAdvertData?.mileage}
+              year={specificAdvertData?.manufacture_year}
             />
           </Grid>
           <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
@@ -51,7 +49,7 @@ const AdvertPageSize = () => {
             <AdvertImageList src={specificAdvertData?.listImage} />
           </Grid>
           <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-            <SalesmanData />
+            <SalesmanData data={specificAdvertData?.user} />
           </Grid>
         </Grid>
       </Container>
@@ -61,11 +59,7 @@ const AdvertPageSize = () => {
     <Container sx={{ mt: 2 }}>
       <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
         <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-          <AdvertImage
-            src={
-              "https://s7d1.scene7.com/is/image/hyundai/compare-vehicle-1225x619?wid=276&hei=156&fmt=webp-alpha"
-            }
-          />
+          <AdvertImage src={specificAdvertData?.cover} />
         </Grid>
         <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
           <AdvertImageList src={specificAdvertData?.listImage} />
@@ -78,11 +72,13 @@ const AdvertPageSize = () => {
           <AdvertData
             name={specificAdvertData?.model}
             price={specificAdvertData?.price}
+            km={specificAdvertData?.mileage}
+            year={specificAdvertData?.manufacture_year}
           />
           <AdvertDesc desc={specificAdvertData?.description} />
         </Grid>
         <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
-          <SalesmanData />
+          <SalesmanData data={specificAdvertData?.user} />
         </Grid>
       </Grid>
     </Container>
