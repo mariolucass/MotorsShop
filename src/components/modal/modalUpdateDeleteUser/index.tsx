@@ -6,43 +6,38 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useEffect } from "react";
 import { useUserContext, useModalContext } from "../../../context";
 import Button from "@mui/material/Button";
-import { patchUser } from "../../../services";
-
-interface IUserUpdate {
-  name?: string;
-  email?: string;
-  password?: string;
-  phone?: string;
-  birthdate?: Date;
-  description?: string;
-  role?: string;
-  /*     zip_code?: string
-    state?: string
-    street?: string
-    city?: string
-    number?: string
-    complement?: string */
-}
+import { IUpdateUser, IUpdateUserUseForm } from "../../../interfaces";
+import { Alert } from "@mui/material";
+import { updateUserSchema } from "../../../schemas/updateUserSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
 
 export const ModalUpdateDeleteUser = () => {
-  const { userData, destroyUser } = useUserContext();
-  const { register, handleSubmit, setValue } = useForm();
-  const { handleClose, handleOpen } = useModalContext();
+  const { userData, destroyUser, updateUser } = useUserContext();
+  const { register, handleSubmit, setValue, formState: {errors} } = useForm<IUpdateUserUseForm>( {resolver: zodResolver(updateUserSchema)});
+  const { handleClose } = useModalContext();
 
-  const onSubmit = async (data: IUserUpdate) => {
-    let response = await patchUser(data, userData!.id);
-    handleClose();
+  const onSubmit = async (data: IUpdateUser) => {
+    /* console.log(data.role) */
+    try {
+      updateUser({...data, role: data.role || "BUYER"}, userData!.id)
+      handleClose();
+    } catch (error) {
+      toast.error("Erro ao atualizar os dados")
+    }
   };
 
   useEffect(() => {
-    setValue("name", userData ? userData.name : "");
-    setValue("email", userData ? userData.email : "");
-    setValue("phone", userData ? userData.phone : "");
-    setValue("cpf", userData ? userData.cpf : "");
-    setValue("birthdate", userData ? userData.birthdate : "");
-    setValue("description", userData ? userData.description : "");
-    setValue("role", userData ? userData.role : "");
-  }, [handleOpen]);
+    if (userData) {
+      setValue("name", userData ? userData.name : "");
+      setValue("email", userData ? userData.email : "");
+      setValue("phone", userData ? userData.phone : "");
+      setValue("cpf", userData ? userData.cpf : "");
+      setValue("birthdate", userData ? userData.birthdate : "");
+      setValue("description", userData ? userData.description : "");
+      setValue("role", userData!.role);
+    }
+  }, [userData]);
 
   return (
     <ModalGeneral>
@@ -64,6 +59,11 @@ export const ModalUpdateDeleteUser = () => {
             placeholder="Nome completo"
             register={register}
           />
+          {errors.name && (
+            <Alert severity="error" id="alert">
+              {errors.name!.message}
+            </Alert>
+          )}
           <Input
             label="Email"
             name="email"
@@ -71,7 +71,11 @@ export const ModalUpdateDeleteUser = () => {
             placeholder="Email"
             register={register}
           />
-          {/* <Input label="Senha" name="password" width="100%" placeholder="Senha" register={register}/> */}
+          {errors.email && (
+            <Alert severity="error" id="alert">
+              {errors.email!.message}
+            </Alert>
+          )}
           <Input
             label="CPF"
             name="cpf"
@@ -79,6 +83,11 @@ export const ModalUpdateDeleteUser = () => {
             placeholder="000.000.000-00"
             register={register}
           />
+          {errors.cpf && (
+            <Alert severity="error" id="alert">
+              {errors.cpf!.message}
+            </Alert>
+          )}
           <Input
             label="Celular"
             name="phone"
@@ -86,6 +95,11 @@ export const ModalUpdateDeleteUser = () => {
             placeholder="(00) 00000-0000"
             register={register}
           />
+          {errors.phone && (
+            <Alert severity="error" id="alert">
+              {errors.phone!.message}
+            </Alert>
+          )}
           <Input
             label="Data de Nascimento"
             name="birthdate"
@@ -93,8 +107,12 @@ export const ModalUpdateDeleteUser = () => {
             placeholder="DD/MM/AAAA"
             register={register}
           />
+          {errors.birthdate && (
+            <Alert severity="error" id="alert">
+              {errors.birthdate!.message}
+            </Alert>
+          )}
           <textarea placeholder="Descrição..." {...register("description")}>
-            dsadasdas
           </textarea>
           <span>Tipo de conta</span>
           <DivisionTypes>
@@ -103,12 +121,17 @@ export const ModalUpdateDeleteUser = () => {
                 type="radio"
                 value={"BUYER"}
                 {...register("role")}
-                checked
+                defaultChecked={userData?.role === "BUYER"}
               />
               <span>Comprador</span>
             </label>
             <label className="radio">
-              <input type="radio" value={"SELLER"} {...register("role")} />
+              <input 
+              type="radio" 
+              value={"SELLER"} 
+              {...register("role")} 
+              defaultChecked={userData?.role === "SELLER"}
+              />
               <span>Anunciante</span>
             </label>
           </DivisionTypes>

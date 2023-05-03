@@ -1,39 +1,21 @@
 import { useForm } from "react-hook-form";
 import { Input } from "../../inputs";
-import { Container, Form, Buttons, Box } from "./style";
+import { Container, Form, Buttons, Box, Section } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { useEffect } from "react";
 import { useUserContext, useModalContext } from "../../../context";
 import Button from "@mui/material/Button";
 import { Backdrop, Fade, Modal } from "@mui/material";
-import { patchUser } from "../../../services";
-import Alert from "@mui/material/Alert";
-
-interface IAddressUpdate {
-  /*     name?: string
-    email?: string
-    password?: string
-    phone?: string
-    birthdate?: Date
-    description?: string 
-    role?: string  */
-  zip_code?: string;
-  state?: string;
-  street?: string;
-  city?: string;
-  number?: string;
-  complement?: string;
-}
+import { IAddressUpdate } from "../../../interfaces";
 
 export const ModalUpdateAddress = () => {
-  const { userData } = useUserContext();
+  const { userData, updateAddress } = useUserContext();
   const { register, handleSubmit, setValue } = useForm();
-  const { handleCloseAddress, handleOpenAddress, openAddress } =
+  const { handleCloseAddress, openAddress } =
     useModalContext();
 
   const onSubmit = async (data: IAddressUpdate) => {
-    let response = await patchUser({ address: data }, userData!.id);
-
+    updateAddress(data, userData!.id)
     handleCloseAddress();
   };
 
@@ -43,7 +25,8 @@ export const ModalUpdateAddress = () => {
     setValue("city", userData ? userData.address.city : "");
     setValue("street", userData ? userData.address.street : "");
     setValue("number", userData ? userData.address.number : "");
-  }, [handleOpenAddress, onSubmit]);
+    setValue("complement", userData ? userData.address.complement : "");
+  }, [userData]);
 
   return (
     <Modal
@@ -63,14 +46,13 @@ export const ModalUpdateAddress = () => {
         <Box>
           <Container>
             <div id="title">
-              <span>Editar endereço</span>
+              <h3>Infomações de endereço</h3>
               <AiOutlineClose
                 onClick={() => {
                   handleCloseAddress();
                 }}
               />
             </div>
-            <h3 id="subtitle">Infomações de endereço</h3>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Input
                 label="CEP"
@@ -79,20 +61,22 @@ export const ModalUpdateAddress = () => {
                 placeholder="00.000-000"
                 register={register}
               />
-              <Input
-                label="Cidade"
-                name="city"
-                width="100%"
-                placeholder="Cidade"
-                register={register}
-              />
-              <Input
-                label="Estado"
-                name="state"
-                width="100%"
-                placeholder="Estado"
-                register={register}
-              />
+              <Section>
+                <Input
+                  label="Cidade"
+                  name="city"
+                  width="100%"
+                  placeholder="Cidade"
+                  register={register}
+                />
+                <Input
+                  label="Estado"
+                  name="state"
+                  width="100%"
+                  placeholder="Estado"
+                  register={register}
+                />
+              </Section>
               <Input
                 label="Rua"
                 name="street"
@@ -100,13 +84,22 @@ export const ModalUpdateAddress = () => {
                 placeholder="Rua"
                 register={register}
               />
-              <Input
-                label="Número"
-                name="number"
-                width="100%"
-                placeholder="Número"
-                register={register}
-              />
+              <Section>
+                <Input
+                  label="Número"
+                  name="number"
+                  width="100%"
+                  placeholder="Número"
+                  register={register}
+                />
+                <Input
+                  label="Complemento"
+                  name="complement"
+                  width="100%"
+                  placeholder="Complemento"
+                  register={register}
+                />
+              </Section>
               <Buttons>
                 <Button
                   variant="contained"

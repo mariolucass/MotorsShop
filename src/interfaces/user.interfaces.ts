@@ -7,6 +7,7 @@ import {
 } from "../schemas/resetSchema";
 import { iImage } from "./images.interfaces";
 import { iAnnouncement } from "./announcements.interfaces";
+import { updateUserSchema } from "../schemas/updateUserSchema";
 
 export type iLoginUseForm = z.infer<typeof loginSchema>;
 export interface iLogin {
@@ -59,5 +60,29 @@ export interface iRegister {
   image: File;
 }
 
+export interface IAddressUpdate {
+  zip_code?: string;
+  state?: string;
+  street?: string;
+  city?: string;
+  number?: string;
+  complement?: string;
+}
+
+export interface IUpdateUser {
+  name: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  birthdate: string;
+  description: string;
+  role: "BUYER" | "SELLER";
+  // image: string;
+  // password: string;
+  // confirm_password: string;
+}
+
+export type IUpdateUserUseForm = z.infer<typeof updateUserSchema>;
 export type iEmailForReset = z.infer<typeof emailForResetSchema>;
 export type iResetPassword = z.infer<typeof resetPasswordFieldsSchema>;
+

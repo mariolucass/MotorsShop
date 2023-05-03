@@ -90,7 +90,7 @@ export const DataPrivider = ({ children }: iProps) => {
   const mileageMaxQuery = MaxKm
     ? `${mileageMinQuery}mileageMax=${MaxKm}${countQueryArray !== 0 ? "&" : ""}`
     : mileageMinQuery;
-  console.log(mileageMaxQuery);
+  /* console.log(mileageMaxQuery); */
   useEffect(() => {
     try {
       localApi
