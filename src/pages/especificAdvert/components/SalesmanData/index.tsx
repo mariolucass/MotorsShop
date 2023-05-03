@@ -2,8 +2,13 @@ import { Avatar, Button, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import React from "react";
+import { iUser } from "../../../../interfaces";
 
-const SalesmanData = () => {
+interface iProps {
+  data: iUser | undefined;
+}
+
+const SalesmanData = ({ data }: iProps) => {
   return (
     <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
       <Stack
@@ -12,15 +17,12 @@ const SalesmanData = () => {
         alignItems="center"
         spacing={4}
       >
-        <Avatar sx={{ bgcolor: "green" }}>FC</Avatar>
-        <Typography className="card--title">Filipe Costa</Typography>
-        <Typography className="Advertdesc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </Typography>
-        <Button variant="contained">Ver Anuncios</Button>
+        <Avatar src={data?.profile?.url} alt={data?.name} />
+        <Typography className="card--title">{data?.name}</Typography>
+        <Typography className="Advertdesc">{data?.description}</Typography>
+        <Button variant="contained" className="buttonGrey-1">
+          Ver Anuncios
+        </Button>
       </Stack>
     </Box>
   );

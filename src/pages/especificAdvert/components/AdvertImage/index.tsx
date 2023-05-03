@@ -4,10 +4,11 @@ import { StyledImg } from "./style";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import ImageList from "@mui/material/ImageList";
-import { iListImage } from "../../../../interfaces";
+import { iImage, iListImage } from "../../../../interfaces";
+import { ImageListItem } from "@mui/material";
 
 interface iProps {
-  src: string;
+  src: iImage | undefined;
 }
 interface iPropsList {
   src: Array<iListImage> | undefined;
@@ -18,7 +19,7 @@ const AdvertImage = ({ src }: iProps) => {
     <StyledImg>
       <Box
         component={"img"}
-        src={src}
+        src={src?.url}
         sx={{
           objectFit: "contain",
           width: "70%",
@@ -31,6 +32,7 @@ const AdvertImage = ({ src }: iProps) => {
 };
 
 const AdvertImageList = ({ src }: iPropsList) => {
+  console.log(src);
   return (
     <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
       <Stack
@@ -41,24 +43,11 @@ const AdvertImageList = ({ src }: iPropsList) => {
       >
         <Typography className="card--title">Fotos</Typography>
         <ImageList sx={{ width: "100%" }}>
-          {/* <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem> */}
+          {src!.map((iten, index) => (
+            <ImageListItem key={index}>
+              <img src={iten?.image?.url} alt="" />
+            </ImageListItem>
+          ))}
         </ImageList>
       </Stack>
     </Box>
