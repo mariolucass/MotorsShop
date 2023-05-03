@@ -10,10 +10,10 @@ import {
 } from "../services";
 import { toast } from "react-toastify";
 import { useAnnouncementContext } from "./AnnouncementContext";
+import { useLoadingContext } from "./LoadingContext";
 
 interface iContextProvider {
   userData: iUser | null;
-  loading: boolean;
   registerUser: (formData: iRegister) => Promise<void>;
   loginUser: (formData: iLogin) => Promise<void>;
   autoLoginUser: () => Promise<void>;
@@ -32,7 +32,7 @@ export const UserProvider = ({ children }: iChildren) => {
   const navigate = useNavigate();
   const { setannouncementsProfile } = useAnnouncementContext();
   const [userData, setUserData] = useState<iUser | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { setIsLoading } = useLoadingContext();
 
   useEffect(() => {
     autoLoginUser();
@@ -72,14 +72,14 @@ export const UserProvider = ({ children }: iChildren) => {
     const token = localStorage.getItem("@MotorsShop:token");
     if (token) {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const response = await getUserProfile(token);
         setUserData(response);
         setannouncementsProfile(response.announcements);
       } catch (error) {
         console.error(error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     }
   };
@@ -100,13 +100,13 @@ export const UserProvider = ({ children }: iChildren) => {
     const token = localStorage.getItem("@MotorsShop:token");
     if (token) {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const response = await getUserProfile(token);
         setUserData(response);
       } catch (error) {
         console.error(error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     }
   };
@@ -115,7 +115,6 @@ export const UserProvider = ({ children }: iChildren) => {
     <UserContext.Provider
       value={{
         userData,
-        loading,
         registerUser,
         loginUser,
         autoLoginUser,

@@ -6,6 +6,7 @@ import AdvertPage from "../pages/especificAdvert";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PasswordReset } from "../pages/passwordResetFields";
 import { EmailForPasswordReset } from "../pages/passwordReset";
+import { EspecificUser } from "../pages/especificUser";
 
 const Router = () => (
   <Routes>
@@ -15,6 +16,7 @@ const Router = () => (
     <Route path="/profile" element={<Profile />} />
     <Route path="/resetpassword" element={<EmailForPasswordReset />} />
     <Route path="/resetpassword/:userId/:token" element={<PasswordReset />} />
+    <Route path="/users/:userId" element={<EspecificUser />} />
     <Route path="/" element={<Home />} />
     <Route path="/*" element={<Navigate to={"/"} />} />
   </Routes>

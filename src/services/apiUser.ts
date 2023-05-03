@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form";
-import { localApiToken, apiUsingNow } from "./api";
+import { apiUsingNow } from "./api";
 import { iUser } from "../interfaces";
 
 export interface ipostUser {
@@ -17,7 +17,7 @@ export async function postUserCreate(data: FieldValues): Promise<iUser> {
 }
 
 export async function patchUser(data: FieldValues, id: string): Promise<iUser> {
-  const { data: response } = await localApiToken.patch<iUser>(
+  const { data: response } = await apiUsingNow.patch<iUser>(
     `users/${id}`,
     data
   );
@@ -25,11 +25,17 @@ export async function patchUser(data: FieldValues, id: string): Promise<iUser> {
 }
 
 export async function deleteUser(id: string): Promise<void> {
-  await localApiToken.delete<iUser>(`users/${id}`);
+  await apiUsingNow.delete<iUser>(`users/${id}`);
 }
 
 export async function getUserProfile(token: string): Promise<iUser> {
   apiUsingNow.defaults.headers.authorization = `Bearer ${token}`;
+
   const { data: response } = await apiUsingNow.get<iUser>("users/profile");
+  return response;
+}
+
+export async function getUserById(id: string): Promise<iUser> {
+  const { data: response } = await apiUsingNow.get(`users/${id}`);
   return response;
 }
