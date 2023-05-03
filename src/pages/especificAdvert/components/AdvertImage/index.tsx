@@ -4,10 +4,13 @@ import { StyledImg } from "./style";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import ImageList from "@mui/material/ImageList";
-import { ImageListItem } from "@mui/material";
+import { iListImage } from "../../../../interfaces";
 
 interface iProps {
   src: string;
+}
+interface iPropsList {
+  src: Array<iListImage> | undefined;
 }
 
 const AdvertImage = ({ src }: iProps) => {
@@ -27,7 +30,7 @@ const AdvertImage = ({ src }: iProps) => {
   );
 };
 
-const AdvertImageList = ({ src }: iProps) => {
+const AdvertImageList = ({ src }: iPropsList) => {
   return (
     <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
       <Stack
@@ -38,7 +41,7 @@ const AdvertImageList = ({ src }: iProps) => {
       >
         <Typography className="card--title">Fotos</Typography>
         <ImageList sx={{ width: "100%" }}>
-          <ImageListItem>
+          {/* <ImageListItem>
             <img src={src} alt="" />
           </ImageListItem>
           <ImageListItem>
@@ -55,7 +58,7 @@ const AdvertImageList = ({ src }: iProps) => {
           </ImageListItem>
           <ImageListItem>
             <img src={src} alt="" />
-          </ImageListItem>
+          </ImageListItem> */}
         </ImageList>
       </Stack>
     </Box>
