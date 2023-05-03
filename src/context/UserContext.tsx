@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { iLogin, iRegister, iChildren, iUser, IUpdateUser, IAddressUpdate } from "../interfaces";
+import { iLogin, iRegister, iChildren, iUser, IUpdateUser, IUpdateAddress } from "../interfaces";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   deleteUser,
@@ -22,7 +22,7 @@ interface iContextProvider {
   destroyUser: (id: string) => Promise<void>;
   userProfile: () => void;
   updateUser: (data: IUpdateUser, id: string) => Promise<void> 
-  updateAddress: (data: IAddressUpdate, id: string) => Promise<void>
+  updateAddress: (data: IUpdateAddress, id: string) => Promise<void>
 }
 
 const UserContext = createContext({} as iContextProvider);
@@ -127,7 +127,7 @@ export const UserProvider = ({ children }: iChildren) => {
     }
   }
 
-  const updateAddress = async (data: IAddressUpdate, id: string) => {
+  const updateAddress = async (data: IUpdateAddress, id: string) => {
     try {
       await patchUser({ address: data }, id);
       toast.success(
