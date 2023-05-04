@@ -1,15 +1,14 @@
-import { Paper } from "@mui/material";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import Button from "@mui/material/Button";
 import { apiUsingNow } from "../../services";
 import { useParams } from "react-router-dom";
+import { Paper, Button } from "@mui/material";
 import { Container, Box, Form } from "./styles";
 import Logo from "../../assets/logoColored.svg";
 import { iResetPassword } from "../../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Footer, Header, Input } from "../../components";
 import { resetPasswordFieldsSchema } from "../../schemas/resetSchema";
+import { Footer, Header, Input, TransitionAnimation } from "../../components";
 
 export const PasswordReset = () => {
   const {
@@ -40,7 +39,7 @@ export const PasswordReset = () => {
   };
 
   return (
-    <>
+    <TransitionAnimation>
       <Header />
 
       <Container>
@@ -84,6 +83,6 @@ export const PasswordReset = () => {
       </Container>
 
       <Footer />
-    </>
+    </TransitionAnimation>
   );
 };

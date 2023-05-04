@@ -1,11 +1,9 @@
-import Box from "@mui/material/Box";
-import { ano, combustivel, cores, marcas, modelos } from "../../data";
+import { GrFormClose } from "react-icons/gr";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
+import { Stack, Typography, Button, Box } from "@mui/material";
 import { useMediaContext, useFilterContext } from "../../context";
-import Button from "@mui/material/Button";
-import { Stack, Typography } from "@mui/material";
-import { GrFormClose } from "react-icons/gr";
+import { ano, combustivel, cores, marcas, modelos } from "../../data";
 
 export const NavBar = () => {
   const { matches700 } = useMediaContext();
@@ -57,13 +55,14 @@ export const NavBar = () => {
     return {
       width: "30%",
       m: 2,
+      maxWidth: 500,
     };
   };
 
   return (
     <Box
       className={matches700 && showFilter === false ? "ocult" : "navbar"}
-      sx={size}
+      sx={{ maxWidth: 500, ...size }}
     >
       {showFilter ? (
         <Stack

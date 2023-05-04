@@ -1,3 +1,7 @@
+import { StyledHero } from "./style";
+import { motion } from "framer-motion";
+import { animateTransitionPresence } from "../../libs/framer";
+import { useModalContext, useUserContext } from "../../context";
 import {
   Avatar,
   Button,
@@ -11,12 +15,9 @@ import {
   Footer,
   Header,
   ModalGeneral,
+  TransitionAnimation,
+  LoadingComponent,
 } from "../../components";
-import { StyledHero } from "./style";
-import { useModalContext, useUserContext } from "../../context";
-import { LoadingComponent } from "../../components/loading";
-import { motion } from "framer-motion";
-import { TransitionAnimation } from "../../components/transitionAnimation";
 
 const theme = createTheme({
   palette: { primary: { main: "#4529e6" }, secondary: { main: "#212529" } },
@@ -32,9 +33,12 @@ const Profile = () => {
         <ThemeProvider theme={theme}>
           <motion.div className="advertBody">
             <Header />
-
             <StyledHero>
-              <section>
+              <motion.section
+                animate={{ width: "100%", opacity: 1 }}
+                initial={{ width: "35%", opacity: 0 }}
+                transition={animateTransitionPresence}
+              >
                 <div>
                   <Avatar
                     sx={{ width: 80, height: 80 }}
@@ -54,18 +58,18 @@ const Profile = () => {
                       fontWeight: 600,
                       textTransform: "unset",
                       fontSize: 12,
+                      fontFamily: "Inter",
                     }}
                   >
                     Criar anuncio
                   </Button>
                 </div>
-              </section>
+              </motion.section>
             </StyledHero>
 
             <Container>
               <Adverts isProfile />
             </Container>
-
             <Footer />
           </motion.div>
 

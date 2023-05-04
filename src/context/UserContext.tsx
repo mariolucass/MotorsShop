@@ -1,5 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { iLogin, iRegister, iChildren, iUser, IUpdateUser, IUpdateAddress } from "../interfaces";
+import {
+  iLogin,
+  iRegister,
+  iChildren,
+  iUser,
+  IUpdateUser,
+  IUpdateAddress,
+} from "../interfaces";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   deleteUser,
@@ -21,8 +28,8 @@ interface iContextProvider {
   logoutUser: () => void;
   destroyUser: (id: string) => Promise<void>;
   userProfile: () => void;
-  updateUser: (data: IUpdateUser, id: string) => Promise<void> 
-  updateAddress: (data: IUpdateAddress, id: string) => Promise<void>
+  updateUser: (data: IUpdateUser, id: string) => Promise<void>;
+  updateAddress: (data: IUpdateAddress, id: string) => Promise<void>;
 }
 
 const UserContext = createContext({} as iContextProvider);
@@ -39,6 +46,7 @@ export const UserProvider = ({ children }: iChildren) => {
 
   useEffect(() => {
     autoLoginUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const registerUser = async (formData: iRegister) => {
@@ -113,32 +121,24 @@ export const UserProvider = ({ children }: iChildren) => {
       }
     }
   };
-  
+
   const updateUser = async (data: IUpdateUser, id: string) => {
     try {
       await patchUser(data, id);
-      toast.success(
-        "Dados alterados com sucesso"
-      );
+      toast.success("Dados alterados com sucesso");
     } catch (error) {
-      toast.warning(
-        "Houve um erro ao alterar os dados"
-      );
+      toast.warning("Houve um erro ao alterar os dados");
     }
-  }
+  };
 
   const updateAddress = async (data: IUpdateAddress, id: string) => {
     try {
       await patchUser({ address: data }, id);
-      toast.success(
-        "Dados alterados com sucesso"
-      );
+      toast.success("Dados alterados com sucesso");
     } catch (error) {
-      toast.warning(
-        "Houve um erro ao alterar os dados"
-      );
+      toast.warning("Houve um erro ao alterar os dados");
     }
-  }
+  };
 
   return (
     <UserContext.Provider
@@ -151,7 +151,7 @@ export const UserProvider = ({ children }: iChildren) => {
         destroyUser,
         userProfile,
         updateUser,
-        updateAddress
+        updateAddress,
       }}
     >
       {children}

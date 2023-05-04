@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 export interface iInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   name: string;
   error?: any;
   width: string;
@@ -20,4 +20,9 @@ export interface iBox {
 
 export interface iAdvertsProps {
   isProfile?: boolean;
+  isHome?: boolean;
+}
+
+export interface iChip {
+  label: string | number;
 }

@@ -12,12 +12,18 @@ import { updateAddressSchema } from "../../../schemas/updateAddressSchema";
 
 export const ModalUpdateAddress = () => {
   const { userData, updateAddress } = useUserContext();
-  const { register, handleSubmit, setValue, formState: {errors}  } =useForm<IUpdateAddressUseForm>( {resolver: zodResolver(updateAddressSchema)});
-  const { handleCloseAddress, openAddress } =
-    useModalContext();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IUpdateAddressUseForm>({
+    resolver: zodResolver(updateAddressSchema),
+  });
+  const { handleCloseAddress, openAddress } = useModalContext();
 
   const onSubmit = async (data: IUpdateAddress) => {
-    updateAddress(data, userData!.id)
+    updateAddress(data, userData!.id);
     handleCloseAddress();
   };
 

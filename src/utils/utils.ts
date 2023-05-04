@@ -16,3 +16,8 @@ export const convertToNumber = (price: string) => {
 };
 
 export const modelFind = () => {};
+
+export const usernameLimiter = (name: string) => {
+  const username = name ? name.split(" ") : "User";
+  return username.length > 1 ? username[0] + " " + username[1] : username[0];
+};

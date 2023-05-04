@@ -1,11 +1,9 @@
-import { Header, Login, Footer } from "../../components";
+import { Header, Login, Footer, TransitionAnimation } from "../../components";
 
-export const LoginPage = () => {
-  return (
-    <>
-      <Header />
-      <Login />
-      <Footer />
-    </>
-  );
-};
+export const LoginPage = () => (
+  <TransitionAnimation>
+    <Header />
+    <Login />
+    <Footer />
+  </TransitionAnimation>
+);

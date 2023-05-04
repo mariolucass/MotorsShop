@@ -2,6 +2,7 @@ import { z } from "zod";
 import { createAnnouncementSchema } from "../schemas/announcementSchema";
 import { iImage, iListImage } from "./images.interfaces";
 import { iUser } from "./user.interfaces";
+import { iComment } from "./comments.interfaces";
 
 export type iCreateAnnouncement = z.infer<typeof createAnnouncementSchema>;
 
@@ -28,6 +29,7 @@ export interface iAnnouncement {
   cover: iImage;
   user: iUser;
   listImage: Array<iListImage>;
+  listComment: Array<iComment>;
 }
 
 export interface iAnnouncementRequest {

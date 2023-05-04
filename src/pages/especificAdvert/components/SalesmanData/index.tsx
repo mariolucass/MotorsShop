@@ -1,10 +1,13 @@
-import { Avatar, Button, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import React from "react";
 import { iUser } from "../../../../interfaces";
 import { useNavigate } from "react-router-dom";
-
+import { Avatar, Button, Typography, Stack, Box } from "@mui/material";
+import { motion } from "framer-motion";
+import {
+  animateHiddenItens,
+  animateShownItens,
+  animateTransitionItens,
+} from "../../../../libs";
 interface iProps {
   data: iUser | undefined;
 }
@@ -15,16 +18,32 @@ const SalesmanData = ({ data }: iProps) => {
     navigate(`/users/${data!.id}`);
   };
   return (
-    <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
+    <Box
+      className="AdvertCard"
+      sx={{ p: 2, borderRadius: 1 }}
+      component={motion.div}
+      initial={animateHiddenItens}
+      animate={animateShownItens}
+      transition={animateTransitionItens}
+    >
       <Stack
         direction="column"
         justifyContent="space-between"
         alignItems="center"
         spacing={4}
       >
-        <Avatar src={data?.profile?.url} alt={data?.name} />
-        <Typography className="card--title">{data?.name}</Typography>
-        <Typography className="Advertdesc">{data?.description}</Typography>
+        <Avatar
+          src={data?.profile?.url}
+          alt={data?.name}
+          sx={{ width: 104, height: 104 }}
+        />
+        <Typography className="card--title" sx={{ fontFamily: "Lexend" }}>
+          {data?.name}
+        </Typography>
+        <Typography className="Advertdesc" sx={{ fontFamily: "Inter" }}>
+          {data?.description}
+        </Typography>
+
         <Button
           variant="contained"
           className="buttonGrey-1"

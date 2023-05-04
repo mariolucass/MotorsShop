@@ -1,24 +1,21 @@
 import { ListStyled } from "./style";
-import { useNavigate, useParams } from "react-router-dom";
 import { ProductCard } from "../productCard";
+import { iAdvertsProps, iAnnouncement } from "../../interfaces";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAnnouncementContext, useDataContext } from "../../context";
-
-export interface iAdvertsProps {
-  isProfile?: boolean;
-  isHome?: boolean;
-}
+import { AnimatePresence } from "framer-motion";
 
 export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
-  const { AdvertsData, setAdvertId } = useDataContext();
+  const navigate = useNavigate();
+
+  const { AdvertsData } = useDataContext();
   const { userAdverts, announcementsProfile } = useAnnouncementContext();
+  const { setSpecificAdvertData } = useDataContext();
 
   const advertData = (id: string) => {
-    setAdvertId(id);
-    navigate(`/advert/`);
-    localStorage.setItem("@MotorsShop:advert", id);
+    setSpecificAdvertData({} as iAnnouncement);
+    navigate(`/advert/${id}`);
   };
-
-  const navigate = useNavigate();
 
   const { userId } = useParams();
 
@@ -37,5 +34,15 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
     />
   ));
 
-  return <ListStyled isProfile={isProfile}>{list}</ListStyled>;
+  return (
+    <AnimatePresence>
+      <ListStyled
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.2, ease: [0.6, -0.05, 0.01, 0.99] }}
+      >
+        {list}
+      </ListStyled>
+    </AnimatePresence>
+  );
 };

@@ -1,12 +1,11 @@
-import { Container, Box, Title, Form } from "./style";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { loginSchema } from "../../schemas/loginSchema";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Alert from "@mui/material/Alert";
+import { loginSchema } from "../../schemas";
+import { Button, Alert } from "@mui/material";
 import { useUserContext } from "../../context";
 import { iLoginUseForm } from "../../interfaces";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Container, Box, Title, Form } from "./style";
 
 export const Login = () => {
   const { loginUser } = useUserContext();

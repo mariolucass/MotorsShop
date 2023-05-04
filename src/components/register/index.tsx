@@ -1,11 +1,10 @@
-import { Box, Container, Form, Title, SubTitle, Division } from "./style";
-import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Alert from "@mui/material/Alert";
+import { Button, Alert } from "@mui/material";
 import { registerSchema } from "../../schemas";
 import { useUserContext } from "../../context";
 import { iRegisterUseForm } from "../../interfaces";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Container, Form, Title, SubTitle, Division } from "./style";
 
 export const Register = () => {
   const { registerUser } = useUserContext();

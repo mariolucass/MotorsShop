@@ -23,24 +23,42 @@ import {
   InputSplitDiv,
 } from "./style";
 import { ContainerStyled, InputStyled, LabelStyled } from "../inputs/style";
+import { deleteAnnouncement, getAnnouncementById } from "../../services";
+import { toast } from "react-toastify";
 
-export const CreateAdvertise = () => {
-  const { handleClose } = useModalContext();
-  const { createAnnouncement } = useAnnouncementContext();
+interface IProps {
+  id: string;
+}
+
+export const EditAdvertise = ({ id }: IProps) => {
+  const { handleCloseEditAnnouncement } = useModalContext();
+  const { editAnnouncement } = useAnnouncementContext();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     control,
   } = useForm<iCreateAnnouncement>({
     resolver: zodResolver(createAnnouncementSchema),
   });
 
+  const excludeAnnouncement = async () => {
+    try {
+      const response = await deleteAnnouncement(id);
+      handleCloseEditAnnouncement();
+      toast.success("Anuncio excluido com sucesso.");
+    } catch (error) {
+      console.log(error);
+      handleCloseEditAnnouncement();
+      toast.error("A exclusão do anúncio falhou, tente novamente mais tarde.");
+    }
+  };
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "images",
   } as never);
-  console.log(fields);
 
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -49,6 +67,27 @@ export const CreateAdvertise = () => {
   const [fuel, setFuel] = useState("");
   const [price, setPrice] = useState("");
   const [valueFipe, setValueFipe] = useState("");
+  console.log(id);
+
+  useEffect(() => {
+    const getFieldsValueOfAnnouncement = async () => {
+      const advertiseData = await getAnnouncementById(id);
+
+      if (advertiseData) {
+        setBrand(advertiseData ? advertiseData.brand : "");
+        setModel(advertiseData ? advertiseData.model : "");
+        setYear(advertiseData ? advertiseData.manufacture_year : "");
+        setFuel(advertiseData ? advertiseData.fuel : "");
+        setValueFipe(advertiseData ? advertiseData.price_fipe : " ");
+        setValue("mileage", advertiseData ? String(advertiseData.mileage) : "");
+        setValue("price", advertiseData ? String(advertiseData.price) : "");
+        setValue("description", advertiseData ? advertiseData.description : "");
+      }
+    };
+
+    getFieldsValueOfAnnouncement();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (brand.length) {
@@ -103,8 +142,8 @@ export const CreateAdvertise = () => {
             fuel,
             mileage: +formData.mileage,
           };
-          createAnnouncement(data);
-          handleClose();
+          editAnnouncement(id, data);
+          handleCloseEditAnnouncement();
         })}
       >
         <h1>Criar anúncio </h1>
@@ -280,11 +319,12 @@ export const CreateAdvertise = () => {
         </ContainerStyled>
 
         <ButtonDiv>
-          <Button className="buttonForms" onClick={handleClose}>
-            Cancelar
+          <Button className="buttonForms" onClick={excludeAnnouncement}>
+            Excluir
           </Button>
+
           <Button className="buttonForms" type="submit">
-            Criar anúncio
+            Editar Anúncio
           </Button>
         </ButtonDiv>
       </FormStyled>
