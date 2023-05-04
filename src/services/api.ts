@@ -33,4 +33,4 @@ export const apiServerSideToken = axios.create({
 });
 
 export const apiUsingNow = apiServerSide;
-export const apiUsingNowWithToken = apiServerSideToken
+export const apiUsingNowWithToken = apiServerSideToken;

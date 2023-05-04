@@ -12,10 +12,12 @@ import {
   useDataContext,
   useLoadingContext,
   useMediaContext,
+  useUserContext,
 } from "../../context";
 
 const AdvertPageSize = () => {
   const { matches500, matches700, matches900 } = useMediaContext();
+  const { userData } = useUserContext();
   const { specificAdvertData, setSpecificAdvertData } = useDataContext();
   const { setIsLoading } = useLoadingContext();
 
@@ -29,8 +31,6 @@ const AdvertPageSize = () => {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(specificAdvertData);
 
   if (matches700) {
     return (
@@ -83,9 +83,9 @@ const AdvertPageSize = () => {
 
           <AdvertDesc desc={specificAdvertData?.description} />
 
-          <AdvertComments />
+          <AdvertComments comments={specificAdvertData?.listComment} />
 
-          <AdvertCreateComment />
+          {userData && <AdvertCreateComment id={specificAdvertData?.id} />}
         </Grid>
         <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
           <SalesmanData data={specificAdvertData?.user} />

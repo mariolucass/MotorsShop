@@ -38,8 +38,8 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
       await postImageAnnouncementCover(data, announcement.id);
 
       if (!!formData.images.length) {
-        const data = new FormData();
         formData.images.forEach(async (el) => {
+          const data = new FormData();
           data.append("image", el);
           await postImageAnnouncement(data, announcement.id);
         });

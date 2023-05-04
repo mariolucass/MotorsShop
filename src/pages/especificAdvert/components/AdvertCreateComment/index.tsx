@@ -1,31 +1,31 @@
-import { useForm } from "react-hook-form";
-import { IComment } from "../../../../interfaces";
+import { iCommentRequest } from "../../../../interfaces";
 import { usernameLimiter } from "../../../../utils";
 import { useUserContext } from "../../../../context";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { postComment } from "../../../../services/apiComments";
-import { hoverButton, tapButton } from "../../../../libs/framer";
-import { Avatar, Box, Stack, TextareaAutosize } from "@mui/material";
-import { createCommentSchema } from "../../../../schemas/commentsSchema";
+import { postComment } from "../../../../services";
+import { hoverButton, tapButton } from "../../../../libs";
+import { Avatar, Box, Stack } from "@mui/material";
+import { createCommentSchema } from "../../../../schemas";
 import { AutoCompletes, ButtonDiv, ButtonSubmit, DivStyled } from "./style";
+import { FormContainer, TextareaAutosizeElement } from "react-hook-form-mui";
+import { useState } from "react";
 
-export const AdvertCreateComment = () => {
+interface iAdvertCreateCommentProps {
+  id?: string;
+}
+
+export const AdvertCreateComment = ({ id }: iAdvertCreateCommentProps) => {
   const { userData } = useUserContext();
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    // formState: { errors },
-  } = useForm<IComment>({
-    resolver: zodResolver(createCommentSchema),
-  });
+  const [values, setValues] = useState<iCommentRequest>();
 
   const handleButtonComplete = (event: any) => {
-    setValue("comment", event.target.textContent);
+    setValues({ comment: event.target.textContent });
   };
 
-  const createComment = async (data: any) => {
-    await postComment(data);
+  const createComment = async (data: iCommentRequest) => {
+    if (id) {
+      await postComment(data, id);
+    }
   };
 
   const defaultTexts = [
@@ -34,8 +34,9 @@ export const AdvertCreateComment = () => {
     "Recomendarei para os meus amigos!",
   ];
 
-  const renderCompleteButtons = defaultTexts.map((elem) => (
+  const renderCompleteButtons = defaultTexts.map((elem, index) => (
     <AutoCompletes
+      key={index}
       onClick={handleButtonComplete}
       whileHover={hoverButton}
       whileTap={tapButton}
@@ -45,23 +46,27 @@ export const AdvertCreateComment = () => {
   ));
 
   return (
-    <form onSubmit={handleSubmit(createComment)}>
-      <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
-        <Stack
-          direction="column"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          spacing={4}
-        >
-          <DivStyled>
-            <div className="user">
-              <Avatar src={userData?.profile.url} />
+    <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
+      <Stack
+        direction="column"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        spacing={4}
+      >
+        <DivStyled>
+          <div className="user">
+            <Avatar src={userData?.profile.url} />
 
-              <h3>{usernameLimiter(userData?.name || "Usuário")}</h3>
-            </div>
+            <h3>{usernameLimiter(userData?.name || "Usuário")}</h3>
+          </div>
 
-            <TextareaAutosize
-              {...register("comment")}
+          <FormContainer
+            values={values}
+            resolver={zodResolver(createCommentSchema)}
+            onSuccess={createComment}
+          >
+            <TextareaAutosizeElement
+              name="comment"
               maxRows={10}
               className="textArea"
               placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
@@ -74,11 +79,11 @@ export const AdvertCreateComment = () => {
             >
               Comentar
             </ButtonSubmit>
+          </FormContainer>
 
-            <ButtonDiv>{renderCompleteButtons}</ButtonDiv>
-          </DivStyled>
-        </Stack>
-      </Box>
-    </form>
+          <ButtonDiv>{renderCompleteButtons}</ButtonDiv>
+        </DivStyled>
+      </Stack>
+    </Box>
   );
 };
