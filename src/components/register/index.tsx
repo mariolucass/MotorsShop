@@ -1,33 +1,10 @@
-import { Box, Container, Form, Title, SubTitle, Division } from "./style";
-import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Alert from "@mui/material/Alert";
-import { z } from "zod";
-import { registerSchema } from "../../schemas/registerSchema";
+import { Button, Alert } from "@mui/material";
+import { registerSchema } from "../../schemas";
 import { useUserContext } from "../../context";
-
-export interface iRegister {
-  name: string;
-  email: string;
-  password: string;
-  confirm_password: string;
-  cpf: string;
-  phone: string;
-  birthdate: string;
-  description: string;
-  role: "BUYER" | "SELLER";
-  address: {
-    zip_code: string;
-    state: string;
-    city: string;
-    street: string;
-    number: string;
-    complement?: string;
-  };
-}
-
-type iRegisterUseForm = z.infer<typeof registerSchema>;
+import { iRegisterUseForm } from "../../interfaces";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Container, Form, Title, SubTitle, Division } from "./style";
 
 export const Register = () => {
   const { registerUser } = useUserContext();
@@ -42,6 +19,19 @@ export const Register = () => {
       <Box>
         <Title id="titulo">Cadastro</Title>
         <Form onSubmit={handleSubmit(registerUser)}>
+          <SubTitle>Foto de Perfil</SubTitle>
+          <label htmlFor="image">Avatar</label>
+          <input
+            type="file"
+            accept="image/*"
+            id="image"
+            {...register("image")}
+          />
+          {errors.image && (
+            <Alert severity="error" id="alert">
+              {errors.image!.message}
+            </Alert>
+          )}
           <SubTitle>Informações Pessoais</SubTitle>
           <label htmlFor="name">Nome</label>
           <input

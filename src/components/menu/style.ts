@@ -46,7 +46,7 @@ const StyledMenu = styled.section`
     justify-content: center;
     gap: 16px;
 
-    z-index: 9999;
+    z-index: 222;
   }
 
   div p {

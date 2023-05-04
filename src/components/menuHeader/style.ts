@@ -9,7 +9,7 @@ export const ListMenuStyled = styled(motion.ul)`
   padding: 1em;
   position: absolute;
   right: 28px;
-  top: 48px;
+  top: 62px;
   width: 20%;
   max-width: 206px;
   gap: 1em;
@@ -17,7 +17,7 @@ export const ListMenuStyled = styled(motion.ul)`
   flex-direction: column;
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  border-top: 8px solid var(--grey6);
+  border-top: 8px solid var(--brand3);
 
   li {
     :hover {

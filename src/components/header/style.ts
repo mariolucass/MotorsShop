@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
@@ -52,3 +53,5 @@ export const HeaderStyled = styled.header`
     }
   }
 `;
+
+export const HomeButton = styled(motion.div)``;

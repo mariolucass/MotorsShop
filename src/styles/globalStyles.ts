@@ -93,21 +93,23 @@ export const GlobalStyles = createGlobalStyle`
 body {
     width: 100%;
     height: 100%;
+} 
 
+*{
     ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-    background-color: transparent;
+      width: 4px;
+      height: 4px;
+      background-color: transparent;
     }
 
     ::-webkit-scrollbar-thumb {
-    background: transparent; 
-    background-color: var(--brand2); 
+      background: transparent; 
+      background-color: var(--brand2); 
     }
 
     ::-webkit-scrollbar-track {
       background-color: transparent;
     }
-} 
+}
    
 `;

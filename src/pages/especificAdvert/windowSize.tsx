@@ -1,52 +1,99 @@
-import { Container } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import { AdvertImage, AdvertImageList } from "./components/AdvertImage";
-import { useMediaContext } from "../../context";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Container, Grid } from "@mui/material";
 import AdvertData from "./components/AdvertData";
-import { listMockedCars } from "../../data";
-import AdvertDesc from "./components/AdvertDescription";
 import SalesmanData from "./components/SalesmanData";
+import { getAnnouncementById } from "../../services";
+import AdvertDesc from "./components/AdvertDescription";
+import { AdvertComments } from "./components/AdvertComments";
+import { AdvertCreateComment } from "./components/AdvertCreateComment";
+import { AdvertImage, AdvertImageList } from "./components/AdvertImage";
+import {
+  useDataContext,
+  useLoadingContext,
+  useMediaContext,
+  useUserContext,
+} from "../../context";
+import { motion } from "framer-motion";
+import {
+  animateHiddenItens,
+  animateShownItens,
+  animateTransitionItens,
+} from "../../libs";
 
-const WindowSizeMobile = () => {
+const AdvertPageSize = () => {
   const { matches500, matches700, matches900 } = useMediaContext();
+  const { userData } = useUserContext();
+  const { specificAdvertData, setSpecificAdvertData } = useDataContext();
+  const { setIsLoading } = useLoadingContext();
 
+  const { advertId } = useParams();
+
+  useEffect(() => {
+    (async () => {
+      const response = await getAnnouncementById(advertId!);
+      setSpecificAdvertData(response);
+      setIsLoading(false);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (matches700) {
+    return (
+      <Container sx={{ mt: 2 }}>
+        <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
+          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+            <AdvertImage src={specificAdvertData?.cover} />
+          </Grid>
+          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+            <AdvertData
+              name={specificAdvertData?.model}
+              price={specificAdvertData?.price}
+              km={specificAdvertData?.mileage}
+              year={specificAdvertData?.manufacture_year}
+            />
+          </Grid>
+          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+            <AdvertDesc desc={specificAdvertData?.description} />
+          </Grid>
+          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
+            <AdvertImageList src={specificAdvertData?.listImage} />
+          </Grid>
+          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+            <SalesmanData data={specificAdvertData?.user} />
+          </Grid>
+        </Grid>
+
+        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+          <AdvertDesc desc={specificAdvertData?.description} />
+        </Grid>
+
+        <AdvertComments comments={specificAdvertData?.listComment} />
+      </Container>
+    );
+  }
   return (
     <Container sx={{ mt: 2 }}>
       <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-          <AdvertImage src={listMockedCars[0].img} />
+        <Grid
+          item
+          xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}
+          component={motion.div}
+          initial={animateHiddenItens}
+          animate={animateShownItens}
+          transition={animateTransitionItens}
+        >
+          <AdvertImage src={specificAdvertData?.cover} />
         </Grid>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-          <AdvertData
-            name={listMockedCars[0].title}
-            price={listMockedCars[0].price}
-          />
-        </Grid>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-          <AdvertDesc desc={listMockedCars[2].description} />
-        </Grid>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
-          <AdvertImageList src={listMockedCars[0].img} />
-        </Grid>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-          <SalesmanData />
-        </Grid>
-      </Grid>
-    </Container>
-  );
-};
-
-const WindowSize = () => {
-  const { matches500, matches700, matches900 } = useMediaContext();
-
-  return (
-    <Container sx={{ mt: 2 }}>
-      <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-          <AdvertImage src={listMockedCars[0].img} />
-        </Grid>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
-          <AdvertImageList src={listMockedCars[0].img} />
+        <Grid
+          item
+          xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}
+          component={motion.div}
+          initial={animateHiddenItens}
+          animate={animateShownItens}
+          transition={animateTransitionItens}
+        >
+          <AdvertImageList src={specificAdvertData?.listImage} />
         </Grid>
         <Grid
           item
@@ -54,17 +101,24 @@ const WindowSize = () => {
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
           <AdvertData
-            name={listMockedCars[0].title}
-            price={listMockedCars[0].price}
+            name={specificAdvertData?.model}
+            price={specificAdvertData?.price}
+            km={specificAdvertData?.mileage}
+            year={specificAdvertData?.manufacture_year}
           />
-          <AdvertDesc desc={listMockedCars[2].description} />
+
+          <AdvertDesc desc={specificAdvertData?.description} />
+
+          <AdvertComments comments={specificAdvertData?.listComment} />
+
+          {userData && <AdvertCreateComment id={specificAdvertData?.id} />}
         </Grid>
         <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
-          <SalesmanData />
+          <SalesmanData data={specificAdvertData?.user} />
         </Grid>
       </Grid>
     </Container>
   );
 };
 
-export { WindowSizeMobile, WindowSize };
+export { AdvertPageSize };

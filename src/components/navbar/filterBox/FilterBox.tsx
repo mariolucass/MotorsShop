@@ -1,15 +1,17 @@
-import { Box, Stack } from "@mui/material";
-import { StyledOptions } from "./style";
+import { Box, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material";
 import { useMediaContext } from "../../../context";
+import { useState } from "react";
 
 interface iProps {
   title: string;
   options: Array<string>;
+  to?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-const FilterBox = ({ title, options }: iProps) => {
+const FilterBox = ({ title, options, to }: iProps) => {
+  const [Active, setActive] = useState(false);
   const { matches900 } = useMediaContext();
-
+  console.log(Active);
   return (
     <Box>
       <h6 className={matches900 ? "heading6-600" : "heading4-600"}>{title}</h6>
@@ -21,14 +23,30 @@ const FilterBox = ({ title, options }: iProps) => {
         }}
         spacing={1}
       >
-        {options.map((value, i) => (
-          <StyledOptions
-            className={matches900 ? "heading7-600" : "heading6-600"}
-            key={i}
-          >
-            {value}
-          </StyledOptions>
-        ))}
+        <RadioGroup>
+          {options.map((value, i) => (
+            <FormControlLabel
+              value={value}
+              control={<Radio />}
+              label={value}
+              onClick={() => {
+                to!(value);
+                setActive(!Active);
+              }}
+              key={i}
+              className={Active ? "Active" : ""}
+              sx={{
+                color: "#868e96",
+                listStyle: "none",
+                fontWeight: 500,
+                cursor: "pointer",
+                width: "100%",
+                m: 0,
+                "&:hover": { transition: 0.5, color: "#4529e6" },
+              }}
+            />
+          ))}
+        </RadioGroup>
       </Stack>
     </Box>
   );

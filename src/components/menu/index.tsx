@@ -1,6 +1,5 @@
 import StyledMenu from "./style";
-import { useMediaContext } from "../../context/MediaContext";
-import { useFilterContext } from "../../context/FilterContext";
+import { useMediaContext, useFilterContext } from "../../context";
 
 export const Menu = () => {
   const { matches500, matches700 } = useMediaContext();

@@ -1,16 +1,37 @@
-import Box from "@mui/material/Box";
-import { ano, combustivel, cores, marcas, modelos } from "../../data";
+import { GrFormClose } from "react-icons/gr";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
-import { useMediaContext } from "../../context/MediaContext";
-import Button from "@mui/material/Button";
-import { useFilterContext } from "../../context/FilterContext";
-import { Stack, Typography } from "@mui/material";
-import { GrFormClose } from "react-icons/gr";
+import { Stack, Typography, Button, Box } from "@mui/material";
+import { useMediaContext, useFilterContext } from "../../context";
+import { ano, combustivel, cores, marcas, modelos } from "../../data";
 
 export const NavBar = () => {
   const { matches700 } = useMediaContext();
-  const { setShowFilter, showFilter } = useFilterContext();
+  const {
+    showFilter,
+    setShowFilter,
+    setMarca,
+    setAno,
+    setCombustivel,
+    setCor,
+    setModelo,
+    setMaxKm,
+    setMaxPrice,
+    setMinKm,
+    setMinPrice,
+  } = useFilterContext();
+
+  const emptyFilter = () => {
+    setMarca(undefined);
+    setAno(undefined);
+    setCombustivel(undefined);
+    setCor(undefined);
+    setModelo(undefined);
+    setMaxKm(undefined);
+    setMaxPrice(undefined);
+    setMinKm(undefined);
+    setMinPrice(undefined);
+  };
 
   const size = () => {
     if (matches700 && showFilter) {
@@ -34,13 +55,14 @@ export const NavBar = () => {
     return {
       width: "30%",
       m: 2,
+      maxWidth: 500,
     };
   };
 
   return (
     <Box
       className={matches700 && showFilter === false ? "ocult" : "navbar"}
-      sx={size}
+      sx={{ maxWidth: 500, ...size }}
     >
       {showFilter ? (
         <Stack
@@ -64,14 +86,23 @@ export const NavBar = () => {
       ) : (
         false
       )}
-      <FilterBox title="Marca" options={marcas} />
-      <FilterBox title="Modelo" options={modelos} />
-      <FilterBox title="Cor" options={cores} />
-      <FilterBox title="Ano" options={ano} />
-      <FilterBox title="Combustivel" options={combustivel} />
-      <FilterBoxInput title="Km" />
-      <FilterBoxInput title="Preço" />
-      <Button className="buttonBrand" variant="outlined" sx={{ width: "100%" }}>
+      <FilterBox title="Marca" options={marcas} to={setMarca} />
+      <FilterBox title="Modelo" options={modelos} to={setModelo} />
+      <FilterBox title="Cor" options={cores} to={setCor} />
+      <FilterBox title="Ano" options={ano} to={setAno} />
+      <FilterBox
+        title="Combustivel"
+        options={combustivel}
+        to={setCombustivel}
+      />
+      <FilterBoxInput title="Km" max={setMaxKm} min={setMinKm} />
+      <FilterBoxInput title="Preço" max={setMaxPrice} min={setMinPrice} />
+      <Button
+        className="buttonBrand"
+        variant="outlined"
+        sx={{ width: "100%" }}
+        onClick={emptyFilter}
+      >
         Limpar Filtro
       </Button>
     </Box>

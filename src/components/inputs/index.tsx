@@ -1,17 +1,5 @@
-import { InputHTMLAttributes } from "react";
 import { ContainerStyled, LabelStyled, InputStyled } from "./style";
-import { FieldValues, UseFormRegister } from "react-hook-form";
-
-export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  name: string;
-  error: any;
-  width: string;
-  placeholder: string;
-  register: UseFormRegister<any>;
-  handlerChange?: (event: any) => void;
-  isFipe?: boolean;
-}
+import { iInputProps } from "../../interfaces";
 
 export const Input = ({
   name,
@@ -23,19 +11,36 @@ export const Input = ({
   isFipe,
   register,
   handlerChange,
-}: IInputProps) => {
-  return isFipe ? (
-    <ContainerStyled width={width}>
-      <LabelStyled>{label}</LabelStyled>
-      <InputStyled
-        value={value !== undefined ? value : ""}
-        {...register(name)}
-        placeholder={placeholder}
-        className={error && "errorInput"}
-        readOnly
-      />
-    </ContainerStyled>
-  ) : (
+  isFile,
+}: iInputProps) => {
+  if (isFipe) {
+    return (
+      <ContainerStyled width={width}>
+        <LabelStyled>{label}</LabelStyled>
+        <InputStyled
+          {...register(name)}
+          placeholder={placeholder}
+          className={error && "errorInput"}
+          value={value !== undefined ? value : ""}
+        />
+      </ContainerStyled>
+    );
+  }
+  if (isFile) {
+    return (
+      <ContainerStyled width={width}>
+        <LabelStyled>{label}</LabelStyled>
+        <InputStyled
+          type="file"
+          accept="images/*"
+          {...register(name)}
+          placeholder={placeholder}
+          className={error && "errorInput"}
+        />
+      </ContainerStyled>
+    );
+  }
+  return (
     <ContainerStyled width={width}>
       <LabelStyled>{label}</LabelStyled>
       <InputStyled

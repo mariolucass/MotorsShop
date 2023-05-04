@@ -1,26 +1,56 @@
-import { Avatar, Button, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import React from "react";
+import { iUser } from "../../../../interfaces";
+import { useNavigate } from "react-router-dom";
+import { Avatar, Button, Typography, Stack, Box } from "@mui/material";
+import { motion } from "framer-motion";
+import {
+  animateHiddenItens,
+  animateShownItens,
+  animateTransitionItens,
+} from "../../../../libs";
+interface iProps {
+  data: iUser | undefined;
+}
 
-const SalesmanData = () => {
+const SalesmanData = ({ data }: iProps) => {
+  const navigate = useNavigate();
+  const salesmanRedirect = () => {
+    navigate(`/users/${data!.id}`);
+  };
   return (
-    <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
+    <Box
+      className="AdvertCard"
+      sx={{ p: 2, borderRadius: 1 }}
+      component={motion.div}
+      initial={animateHiddenItens}
+      animate={animateShownItens}
+      transition={animateTransitionItens}
+    >
       <Stack
         direction="column"
         justifyContent="space-between"
         alignItems="center"
         spacing={4}
       >
-        <Avatar sx={{ bgcolor: "green" }}>FC</Avatar>
-        <Typography className="card--title">Filipe Costa</Typography>
-        <Typography className="Advertdesc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+        <Avatar
+          src={data?.profile?.url}
+          alt={data?.name}
+          sx={{ width: 104, height: 104 }}
+        />
+        <Typography className="card--title" sx={{ fontFamily: "Lexend" }}>
+          {data?.name}
         </Typography>
-        <Button variant="contained">Ver Anuncios</Button>
+        <Typography className="Advertdesc" sx={{ fontFamily: "Inter" }}>
+          {data?.description}
+        </Typography>
+
+        <Button
+          variant="contained"
+          className="buttonGrey-1"
+          onClick={salesmanRedirect}
+        >
+          Ver Anuncios
+        </Button>
       </Stack>
     </Box>
   );

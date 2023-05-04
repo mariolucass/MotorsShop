@@ -1,12 +1,14 @@
 import styled, { css } from "styled-components";
-import { iAdvertsProps } from ".";
+import { iAdvertsProps } from "../../interfaces";
+import { motion } from "framer-motion";
 
-export const ListStyled = styled.ul<iAdvertsProps>`
+export const ListStyled = styled(motion.ul)<iAdvertsProps>`
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+  max-width: 1500px;
   height: 480px;
   overflow-x: auto;
 

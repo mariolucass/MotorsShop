@@ -1,21 +1,48 @@
-import { ProductCard } from "../productCard";
 import { ListStyled } from "./style";
-import { listMockedCars } from "../../data";
+import { ProductCard } from "../productCard";
+import { iAdvertsProps, iAnnouncement } from "../../interfaces";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAnnouncementContext, useDataContext } from "../../context";
+import { AnimatePresence } from "framer-motion";
 
-export interface iAdvertsProps {
-  isProfile?: boolean;
-}
+export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
+  const navigate = useNavigate();
 
-export const Adverts = ({ isProfile }: iAdvertsProps) => {
-  const list = listMockedCars.map((element, index) => {
-    return (
-      <ProductCard
-        isProfile={isProfile}
-        element={element}
-        key={element.title + index}
-      />
-    );
-  });
+  const { AdvertsData } = useDataContext();
+  const { userAdverts, announcementsProfile } = useAnnouncementContext();
+  const { setSpecificAdvertData } = useDataContext();
 
-  return <ListStyled isProfile={isProfile}>{list}</ListStyled>;
+  const advertData = (id: string) => {
+    setSpecificAdvertData({} as iAnnouncement);
+    navigate(`/advert/${id}`);
+  };
+
+  const { userId } = useParams();
+
+  const listToPick = isHome
+    ? AdvertsData
+    : userId
+    ? userAdverts
+    : announcementsProfile;
+
+  const list = listToPick.map((element) => (
+    <ProductCard
+      key={element.id}
+      isProfile={isProfile}
+      element={element}
+      onClick={() => advertData(element.id)}
+    />
+  ));
+
+  return (
+    <AnimatePresence>
+      <ListStyled
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.2, ease: [0.6, -0.05, 0.01, 0.99] }}
+      >
+        {list}
+      </ListStyled>
+    </AnimatePresence>
+  );
 };

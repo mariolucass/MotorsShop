@@ -1,13 +1,25 @@
-import Box from "@mui/material/Box";
-import React from "react";
 import { StyledImg } from "./style";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import ImageList from "@mui/material/ImageList";
-import { ImageListItem } from "@mui/material";
+import { iImage, iListImage } from "../../../../interfaces";
+import {
+  Typography,
+  ImageList,
+  Stack,
+  ImageListItem,
+  Skeleton,
+  Box,
+} from "@mui/material";
+import { motion } from "framer-motion";
+import {
+  animateHiddenItens,
+  animateShownItens,
+  animateTransitionItens,
+} from "../../../../libs";
 
 interface iProps {
-  src: string;
+  src: iImage | undefined;
+}
+interface iPropsList {
+  src: Array<iListImage> | undefined;
 }
 
 const AdvertImage = ({ src }: iProps) => {
@@ -15,7 +27,7 @@ const AdvertImage = ({ src }: iProps) => {
     <StyledImg>
       <Box
         component={"img"}
-        src={src}
+        src={src?.url}
         sx={{
           objectFit: "contain",
           width: "70%",
@@ -27,35 +39,39 @@ const AdvertImage = ({ src }: iProps) => {
   );
 };
 
-const AdvertImageList = ({ src }: iProps) => {
+const AdvertImageList = ({ src }: iPropsList) => {
   return (
-    <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
+    <Box
+      className="AdvertCard"
+      sx={{ p: 2, borderRadius: 1 }}
+      component={motion.div}
+      initial={animateHiddenItens}
+      animate={animateShownItens}
+      transition={animateTransitionItens}
+    >
       <Stack
         direction="column"
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={4}
       >
-        <Typography className="card--title">Fotos</Typography>
+        <Typography className="card--title" sx={{ fontFamily: "Lexend" }}>
+          Fotos
+        </Typography>
+
         <ImageList sx={{ width: "100%" }}>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
-          <ImageListItem>
-            <img src={src} alt="" />
-          </ImageListItem>
+          {src ? (
+            src!.map((iten, index) => (
+              <ImageListItem key={index}>
+                <img src={iten?.image?.url} alt="" />
+              </ImageListItem>
+            ))
+          ) : (
+            <>
+              <Skeleton height={128} sx={{ mx: 0 }} />
+              <Skeleton height={128} sx={{ mx: 0 }} />
+            </>
+          )}
         </ImageList>
       </Stack>
     </Box>

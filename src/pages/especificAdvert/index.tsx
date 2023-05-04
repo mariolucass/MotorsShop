@@ -1,17 +1,19 @@
-import { Footer, Header } from "../../components";
-import { useMediaContext } from "../../context";
-import { WindowSize, WindowSizeMobile } from "./windowSize";
+import { DivAdvert } from "./style";
+import { AdvertPageSize } from "./windowSize";
+import { Footer, Header, TransitionAnimation } from "../../components";
 
-const AdvertPage = () => {
-  const { matches500, matches700, matches900, matches1200 } = useMediaContext();
-
-  return (
+const AdvertPage = () => (
+  <TransitionAnimation>
     <div className="advertBody">
       <Header />
-      {matches700 ? <WindowSizeMobile /> : <WindowSize />}
+
+      <DivAdvert>
+        <AdvertPageSize />
+      </DivAdvert>
+
       <Footer />
     </div>
-  );
-};
+  </TransitionAnimation>
+);
 
 export default AdvertPage;

@@ -1,17 +1,25 @@
-import { Input } from "./index";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface Props {
   width: string;
 }
+interface iInputProps {
+  type?: string;
+}
+
+const fileInput = css`
+  display: none;
+`;
 
 export const ContainerStyled = styled.div<Props>`
-  height: 100px;
+  height: 5em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   gap: 10px;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
 
   @keyframes tremer {
     0% {
@@ -64,14 +72,14 @@ export const LabelStyled = styled.label`
   color: var(--grey1);
 `;
 
-export const InputStyled = styled.input`
+export const InputStyled = styled.input<iInputProps>`
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 0px;
 
-  color: var(--grey3);
+  color: var(--grey1);
 
   position: relative;
 
@@ -80,4 +88,16 @@ export const InputStyled = styled.input`
   border-radius: 8px;
   border: 1.5px solid var(--grey7);
   border-radius: 4px;
+
+  ${({ type }) => type === "file" && fileInput};
+`;
+
+export const LabelForInputFile = styled.label`
+  width: 97.5%;
+  min-height: 50px;
+  border: 1.5px solid var(--grey7);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  color: var(--grey1);
 `;
