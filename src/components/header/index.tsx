@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Avatar } from "@mui/material";
-import { HeaderStyled } from "./style";
+import { HeaderStyled, HomeButton } from "./style";
 import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
 import { usernameLimiter } from "../../utils";
@@ -19,9 +19,11 @@ export const Header = () => {
       <ModalUpdateDeleteUser />
       <ModalUpdateAddress />
       <HeaderStyled>
-        <Link to={"/"}>
-          <img src={Logo} alt="Logo" />
-        </Link>
+        <HomeButton whileHover={{ scale: 0.85 }} whileTap={{ scale: 0.75 }}>
+          <Link to={"/"}>
+            <img src={Logo} alt="Logo" />
+          </Link>
+        </HomeButton>
 
         <>
           {userData ? (

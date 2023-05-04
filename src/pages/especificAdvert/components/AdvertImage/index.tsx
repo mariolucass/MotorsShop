@@ -8,6 +8,12 @@ import {
   Skeleton,
   Box,
 } from "@mui/material";
+import { motion } from "framer-motion";
+import {
+  animateHiddenItens,
+  animateShownItens,
+  animateTransitionItens,
+} from "../../../../libs";
 
 interface iProps {
   src: iImage | undefined;
@@ -35,14 +41,23 @@ const AdvertImage = ({ src }: iProps) => {
 
 const AdvertImageList = ({ src }: iPropsList) => {
   return (
-    <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
+    <Box
+      className="AdvertCard"
+      sx={{ p: 2, borderRadius: 1 }}
+      component={motion.div}
+      initial={animateHiddenItens}
+      animate={animateShownItens}
+      transition={animateTransitionItens}
+    >
       <Stack
         direction="column"
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={4}
       >
-        <Typography className="card--title">Fotos</Typography>
+        <Typography className="card--title" sx={{ fontFamily: "Lexend" }}>
+          Fotos
+        </Typography>
 
         <ImageList sx={{ width: "100%" }}>
           {src ? (

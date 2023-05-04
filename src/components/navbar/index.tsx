@@ -43,13 +43,14 @@ export const NavBar = () => {
     return {
       width: "30%",
       m: 2,
+      maxWidth: 500,
     };
   };
 
   return (
     <Box
       className={matches700 && showFilter === false ? "ocult" : "navbar"}
-      sx={size}
+      sx={{ maxWidth: 500, ...size }}
     >
       {showFilter ? (
         <Stack

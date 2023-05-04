@@ -1,7 +1,11 @@
 import { StyledChip } from "../chip";
 import { IPropsProductCard } from "../../interfaces";
 import { monetizeString, usernameLimiter } from "../../utils";
-import { useMediaContext, useUserContext } from "../../context";
+import {
+  useMediaContext,
+  useModalContext,
+  useUserContext,
+} from "../../context";
 import { motion } from "framer-motion";
 import {
   Button,
@@ -11,7 +15,13 @@ import {
   Avatar,
   Stack,
   Card,
+  Modal,
+  Fade,
+  Backdrop,
 } from "@mui/material";
+
+import { EditAdvertise } from "../editAdvertise";
+import { Box } from "../modal/style";
 
 export const ProductCard = ({
   element,
@@ -19,8 +29,14 @@ export const ProductCard = ({
   onClick,
 }: IPropsProductCard) => {
   const { userData } = useUserContext();
+  const {
+    openEditAnnouncement,
+    handleCloseEditAnnouncement,
+    handleOpenEditAnnouncement,
+  } = useModalContext();
 
-  const { matches500, matches700, matches1200, matches900 } = useMediaContext();
+  const { matches500, matches700, matches1200, matches900, minMatches1200 } =
+    useMediaContext();
 
   if (isProfile) {
     isProfile = element.user.id === userData?.id;
@@ -28,124 +44,169 @@ export const ProductCard = ({
 
   const cardSize = () => {
     if (matches500) {
-      return { width: "85%", cursor: "pointer" };
+      return { width: "85%", cursor: "pointer", maxWidth: 450 };
     }
 
     if (matches700) {
-      return { width: "40%", cursor: "pointer" };
+      return { width: "40%", cursor: "pointer", maxWidth: 450 };
     }
 
     if (matches900) {
-      return { width: "40%", cursor: "pointer" };
+      return { width: "40%", cursor: "pointer", maxWidth: 450 };
     }
 
     if (matches1200) {
-      return { width: "30%", maxWidth: 312, cursor: "pointer" };
+      return { width: "30%", cursor: "pointer", maxWidth: 450 };
     }
 
-    return { width: "30%", cursor: "pointer" };
+    if (minMatches1200) {
+      return { width: "40%", cursor: "pointer", maxWidth: 450 };
+    }
+
+    return { width: "30%", cursor: "pointer", maxWidth: 450 };
   };
 
   return (
-    <Card
-      variant="outlined"
-      sx={cardSize}
-      onClick={onClick}
-      component={motion.div}
-      whileHover={{ scale: 0.95 }}
-      whileTap={{ scale: 0.75 }}
-    >
-      <CardMedia
-        component={"img"}
-        height={"175"}
-        image={element.cover.url}
-        alt={element.model}
-      />
-
-      <CardContent
-        sx={{
-          gap: 2,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
+    <>
+      <Card
+        variant="outlined"
+        sx={cardSize}
+        // onClick={onClick}
+        component={motion.div}
+        whileHover={{ scale: 0.95 }}
+        whileTap={{ scale: 0.75 }}
       >
-        <Typography
-          component="div"
-          variant="h6"
-          gutterBottom
-          className="card--title"
+        <CardMedia
+          component={"img"}
+          height={"175"}
+          image={element.cover.url}
+          alt={element.model}
+        />
+
+        <CardContent
+          sx={{
+            gap: 2,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
         >
-          {element.model}
-        </Typography>
-
-        <Typography
-          className="card--description"
-          variant="body2"
-          sx={{ overflowX: "auto" }}
-        >
-          {element.description}
-        </Typography>
-
-        <>
-          {!isProfile && (
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar alt={element.user.name} src={element.user.profile.url} />
-
-              <span className="card--user">
-                {usernameLimiter(element.user.name)}
-              </span>
-            </Stack>
-          )}
-        </>
-
-        <Stack
-          direction={matches1200 ? "column" : "row"}
-          justifyContent="space-between"
-          alignItems={matches1200 ? "flex-start" : "center"}
-          spacing={2}
-          sx={{ width: "100%" }}
-        >
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={0.5}
+          <Typography
+            component="div"
+            variant="h6"
+            gutterBottom
+            className="card--title"
+            sx={{ fontFamily: "Lexend" }}
           >
-            <StyledChip label={`${element.mileage} KM`} />
+            {element.model}
+          </Typography>
 
-            <StyledChip label={element.manufacture_year} />
-          </Stack>
+          <Typography
+            className="card--description"
+            variant="body2"
+            sx={{ overflowX: "auto" }}
+          >
+            {element.description}
+          </Typography>
 
-          <span className="card--price">{monetizeString(+element.price)}</span>
-        </Stack>
+          <>
+            {!isProfile && (
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Avatar
+                  alt={element.user.name}
+                  src={element.user.profile.url}
+                />
 
-        <>
-          {isProfile && (
+                <span className="card--user">
+                  {usernameLimiter(element.user.name)}
+                </span>
+              </Stack>
+            )}
+          </>
+
+          <Stack
+            direction={matches1200 ? "column" : "row"}
+            justifyContent="space-between"
+            alignItems={matches1200 ? "flex-start" : "center"}
+            spacing={2}
+            sx={{ width: "100%" }}
+          >
             <Stack
               direction="row"
-              justifyContent="flex-start"
+              justifyContent="space-between"
               alignItems="center"
-              spacing={1.5}
+              spacing={0.5}
             >
-              <Button
-                variant="outlined"
-                color="secondary"
-                sx={{ fontWeight: 600, textTransform: "unset", fontSize: 12 }}
-              >
-                Editar
-              </Button>
-              <Button
-                variant="outlined"
-                color="secondary"
-                sx={{ fontWeight: 600, textTransform: "unset", fontSize: 12 }}
-              >
-                Ver detalhes
-              </Button>
+              <StyledChip label={`${element.mileage} KM`} />
+
+              <StyledChip label={element.manufacture_year} />
             </Stack>
-          )}
-        </>
-      </CardContent>
-    </Card>
+
+            <span className="card--price">
+              {monetizeString(+element.price)}
+            </span>
+          </Stack>
+
+          <>
+            {isProfile && (
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={1.5}
+              >
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  sx={{
+                    fontWeight: 600,
+                    textTransform: "unset",
+                    fontSize: 12,
+                    fontFamily: "Inter",
+                  }}
+                  onClick={() => {
+                    handleOpenEditAnnouncement();
+                  }}
+                >
+                  Editar
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  sx={{
+                    fontWeight: 600,
+                    textTransform: "unset",
+                    fontSize: 12,
+                    fontFamily: "Inter",
+                  }}
+                >
+                  Ver detalhes
+                </Button>
+              </Stack>
+            )}
+          </>
+        </CardContent>
+      </Card>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={openEditAnnouncement}
+        onClose={handleCloseEditAnnouncement}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={openEditAnnouncement}>
+          <Box>
+            <EditAdvertise id={element.id} />
+          </Box>
+        </Fade>
+      </Modal>
+    </>
   );
 };

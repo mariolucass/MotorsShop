@@ -14,6 +14,12 @@ import {
   useMediaContext,
   useUserContext,
 } from "../../context";
+import { motion } from "framer-motion";
+import {
+  animateHiddenItens,
+  animateShownItens,
+  animateTransitionItens,
+} from "../../libs";
 
 const AdvertPageSize = () => {
   const { matches500, matches700, matches900 } = useMediaContext();
@@ -31,6 +37,8 @@ const AdvertPageSize = () => {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(specificAdvertData);
 
   if (matches700) {
     return (
@@ -57,16 +65,36 @@ const AdvertPageSize = () => {
             <SalesmanData data={specificAdvertData?.user} />
           </Grid>
         </Grid>
+
+        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+          <AdvertDesc desc={specificAdvertData?.description} />
+        </Grid>
+
+        <AdvertComments comments={specificAdvertData?.listComment} />
       </Container>
     );
   }
   return (
     <Container sx={{ mt: 2 }}>
       <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+        <Grid
+          item
+          xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}
+          component={motion.div}
+          initial={animateHiddenItens}
+          animate={animateShownItens}
+          transition={animateTransitionItens}
+        >
           <AdvertImage src={specificAdvertData?.cover} />
         </Grid>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
+        <Grid
+          item
+          xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}
+          component={motion.div}
+          initial={animateHiddenItens}
+          animate={animateShownItens}
+          transition={animateTransitionItens}
+        >
           <AdvertImageList src={specificAdvertData?.listImage} />
         </Grid>
         <Grid

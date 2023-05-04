@@ -8,6 +8,7 @@ export const ListStyled = styled(motion.ul)<iAdvertsProps>`
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+  max-width: 1500px;
   height: 480px;
   overflow-x: auto;
 

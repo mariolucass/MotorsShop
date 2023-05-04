@@ -58,6 +58,7 @@ const Profile = () => {
                       fontWeight: 600,
                       textTransform: "unset",
                       fontSize: 12,
+                      fontFamily: "Inter",
                     }}
                   >
                     Criar anuncio

@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form";
-import { apiUsingNow } from "./api";
+import { apiUsingNow, apiUsingNowWithToken } from "./api";
 import { iAnnouncement } from "../interfaces";
 
 export async function postAnnouncement(
@@ -32,6 +32,19 @@ export async function getAnnouncementWithQuery(
 export async function getAnnouncementById(id: string): Promise<iAnnouncement> {
   const { data: response } = await apiUsingNow.get<iAnnouncement>(
     `announcements/${id}`
+  );
+
+  return response;
+}
+
+export async function deleteAnnouncement(id: string) {
+  await apiUsingNowWithToken.delete<iAnnouncement>(`announcements/${id}`);
+}
+
+export async function patchAnnouncement(id: string, data: any) {
+  const { data: response } = await apiUsingNow.patch<iAnnouncement>(
+    `announcements/${id}`,
+    data
   );
 
   return response;

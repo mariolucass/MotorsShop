@@ -1,8 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface Props {
   width: string;
 }
+interface iInputProps {
+  type?: string;
+}
+
+const fileInput = css`
+  display: none;
+`;
 
 export const ContainerStyled = styled.div<Props>`
   height: 5em;
@@ -65,7 +72,7 @@ export const LabelStyled = styled.label`
   color: var(--grey1);
 `;
 
-export const InputStyled = styled.input`
+export const InputStyled = styled.input<iInputProps>`
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -81,4 +88,16 @@ export const InputStyled = styled.input`
   border-radius: 8px;
   border: 1.5px solid var(--grey7);
   border-radius: 4px;
+
+  ${({ type }) => type === "file" && fileInput};
+`;
+
+export const LabelForInputFile = styled.label`
+  width: 97.5%;
+  min-height: 50px;
+  border: 1.5px solid var(--grey7);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  color: var(--grey1);
 `;

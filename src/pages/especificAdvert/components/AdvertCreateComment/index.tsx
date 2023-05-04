@@ -1,14 +1,22 @@
 import { iCommentRequest } from "../../../../interfaces";
 import { usernameLimiter } from "../../../../utils";
-import { useUserContext } from "../../../../context";
+import { useDataContext, useUserContext } from "../../../../context";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { postComment } from "../../../../services";
-import { hoverButton, tapButton } from "../../../../libs";
+import { getAnnouncementById, postComment } from "../../../../services";
+import {
+  animateHiddenItens,
+  animateShownItens,
+  animateTransitionItens,
+  hoverButton,
+  tapButton,
+} from "../../../../libs";
 import { Avatar, Box, Stack } from "@mui/material";
 import { createCommentSchema } from "../../../../schemas";
 import { AutoCompletes, ButtonDiv, ButtonSubmit, DivStyled } from "./style";
 import { FormContainer, TextareaAutosizeElement } from "react-hook-form-mui";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 interface iAdvertCreateCommentProps {
   id?: string;
@@ -17,6 +25,7 @@ interface iAdvertCreateCommentProps {
 export const AdvertCreateComment = ({ id }: iAdvertCreateCommentProps) => {
   const { userData } = useUserContext();
   const [values, setValues] = useState<iCommentRequest>();
+  const { setSpecificAdvertData } = useDataContext();
 
   const handleButtonComplete = (event: any) => {
     setValues({ comment: event.target.textContent });
@@ -25,6 +34,12 @@ export const AdvertCreateComment = ({ id }: iAdvertCreateCommentProps) => {
   const createComment = async (data: iCommentRequest) => {
     if (id) {
       await postComment(data, id);
+
+      toast.success("Comentário criado com sucesso.");
+      setValues({ comment: "" });
+
+      const response = await getAnnouncementById(id);
+      setSpecificAdvertData(response);
     }
   };
 
@@ -46,7 +61,14 @@ export const AdvertCreateComment = ({ id }: iAdvertCreateCommentProps) => {
   ));
 
   return (
-    <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
+    <Box
+      className="AdvertCard"
+      sx={{ p: 6, borderRadius: 1, mb: 12 }}
+      component={motion.div}
+      initial={animateHiddenItens}
+      animate={animateShownItens}
+      transition={animateTransitionItens}
+    >
       <Stack
         direction="column"
         justifyContent="space-between"
