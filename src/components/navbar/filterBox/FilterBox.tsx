@@ -1,6 +1,6 @@
 import { Box, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material";
-import { StyledOptions } from "./style";
-import { useFilterContext, useMediaContext } from "../../../context";
+import { useMediaContext } from "../../../context";
+import { useState } from "react";
 
 interface iProps {
   title: string;
@@ -9,8 +9,9 @@ interface iProps {
 }
 
 const FilterBox = ({ title, options, to }: iProps) => {
+  const [Active, setActive] = useState(false);
   const { matches900 } = useMediaContext();
-
+  console.log(Active);
   return (
     <Box>
       <h6 className={matches900 ? "heading6-600" : "heading4-600"}>{title}</h6>
@@ -30,8 +31,19 @@ const FilterBox = ({ title, options, to }: iProps) => {
               label={value}
               onClick={() => {
                 to!(value);
+                setActive(!Active);
               }}
               key={i}
+              className={Active ? "Active" : ""}
+              sx={{
+                color: "#868e96",
+                listStyle: "none",
+                fontWeight: 500,
+                cursor: "pointer",
+                width: "100%",
+                m: 0,
+                "&:hover": { transition: 0.5, color: "#4529e6" },
+              }}
             />
           ))}
         </RadioGroup>
