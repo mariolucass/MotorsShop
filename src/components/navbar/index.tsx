@@ -21,6 +21,18 @@ export const NavBar = () => {
     setMinPrice,
   } = useFilterContext();
 
+  const emptyFilter = () => {
+    setMarca(undefined);
+    setAno(undefined);
+    setCombustivel(undefined);
+    setCor(undefined);
+    setModelo(undefined);
+    setMaxKm(undefined);
+    setMaxPrice(undefined);
+    setMinKm(undefined);
+    setMinPrice(undefined);
+  };
+
   const size = () => {
     if (matches700 && showFilter) {
       return {
@@ -85,7 +97,12 @@ export const NavBar = () => {
       />
       <FilterBoxInput title="Km" max={setMaxKm} min={setMinKm} />
       <FilterBoxInput title="Preço" max={setMaxPrice} min={setMinPrice} />
-      <Button className="buttonBrand" variant="outlined" sx={{ width: "100%" }}>
+      <Button
+        className="buttonBrand"
+        variant="outlined"
+        sx={{ width: "100%" }}
+        onClick={emptyFilter}
+      >
         Limpar Filtro
       </Button>
     </Box>

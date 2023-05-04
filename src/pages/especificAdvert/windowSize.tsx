@@ -38,8 +38,6 @@ const AdvertPageSize = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(specificAdvertData);
-
   if (matches700) {
     return (
       <Container sx={{ mt: 2 }}>

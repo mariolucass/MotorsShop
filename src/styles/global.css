@@ -207,20 +207,12 @@ body {
   height: 100%;
 }
 
-.css-j204z7-MuiFormControlLabel-root {
-  color: var(--grey3);
-  list-style: none;
-
-  cursor: pointer;
-}
-
-.css-j204z7-MuiFormControlLabel-root :hover {
-  transition: 0ms.5 !important;
-  color: var(--brand1);
-}
-
-.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+.Active {
   color: var(--brand1) !important;
+}
+
+.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
+  display: none !important;
 }
 
 @media (min-width: 400px) {

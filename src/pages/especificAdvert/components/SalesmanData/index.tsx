@@ -8,18 +8,15 @@ import {
   animateShownItens,
   animateTransitionItens,
 } from "../../../../libs";
-
 interface iProps {
   data: iUser | undefined;
 }
 
 const SalesmanData = ({ data }: iProps) => {
   const navigate = useNavigate();
-
   const salesmanRedirect = () => {
     navigate(`/users/${data!.id}`);
   };
-
   return (
     <Box
       className="AdvertCard"
@@ -46,6 +43,7 @@ const SalesmanData = ({ data }: iProps) => {
         <Typography className="Advertdesc" sx={{ fontFamily: "Inter" }}>
           {data?.description}
         </Typography>
+
         <Button
           variant="contained"
           className="buttonGrey-1"
