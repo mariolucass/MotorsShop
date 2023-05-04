@@ -1,17 +1,26 @@
-import { Footer, Header } from "../../components";
-import { useMediaContext } from "../../context";
+import { DivAdvert } from "./style";
 import { AdvertPageSize } from "./windowSize";
+import {
+  Footer,
+  Header,
+  LoadingComponent,
+  TransitionAnimation,
+} from "../../components";
 
-const AdvertPage = () => {
-  const { matches500, matches700, matches900, matches1200 } = useMediaContext();
+const AdvertPage = () => (
+  <LoadingComponent>
+    <TransitionAnimation>
+      <div className="advertBody">
+        <Header />
 
-  return (
-    <div className="advertBody">
-      <Header />
-      <AdvertPageSize />
-      <Footer />
-    </div>
-  );
-};
+        <DivAdvert>
+          <AdvertPageSize />
+        </DivAdvert>
+
+        <Footer />
+      </div>
+    </TransitionAnimation>
+  </LoadingComponent>
+);
 
 export default AdvertPage;

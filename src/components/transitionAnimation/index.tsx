@@ -1,19 +1,17 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { iChildren } from "../../interfaces";
 import {
-  animateExitPresence,
+  animateTransitionPresence,
   animateInitialPresence,
   animateShownPresence,
 } from "../../libs/framer";
 
 export const TransitionAnimation = ({ children }: iChildren) => (
-  <AnimatePresence>
-    <motion.div
-      exit={animateExitPresence}
-      animate={animateShownPresence}
-      initial={animateInitialPresence}
-    >
-      {children}
-    </motion.div>
-  </AnimatePresence>
+  <motion.div
+    animate={animateShownPresence}
+    initial={animateInitialPresence}
+    transition={animateTransitionPresence}
+  >
+    {children}
+  </motion.div>
 );

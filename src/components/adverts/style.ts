@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 import { iAdvertsProps } from "../../interfaces";
+import { motion } from "framer-motion";
 
-export const ListStyled = styled.ul<iAdvertsProps>`
+export const ListStyled = styled(motion.ul)<iAdvertsProps>`
   display: flex;
   gap: 30px;
   flex-wrap: wrap;

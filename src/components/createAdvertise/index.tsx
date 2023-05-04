@@ -12,11 +12,7 @@ import {
   iModelApi,
 } from "../../interfaces";
 import { createAnnouncementSchema } from "../../schemas/announcementSchema";
-import {
-  capitalizeString,
-  convertToNumber,
-  monetizeString,
-} from "../../utils/utils";
+import { capitalizeString, convertToNumber, monetizeString } from "../../utils";
 import {
   AutoCompleteDiv,
   ButtonDiv,

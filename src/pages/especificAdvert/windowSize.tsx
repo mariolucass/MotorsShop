@@ -1,32 +1,37 @@
-import { Container } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import { AdvertImage, AdvertImageList } from "./components/AdvertImage";
-import { useDataContext, useMediaContext } from "../../context";
-import AdvertData from "./components/AdvertData";
-import AdvertDesc from "./components/AdvertDescription";
-import SalesmanData from "./components/SalesmanData";
 import { useEffect } from "react";
-import { apiUsingNow } from "../../services";
+import { useParams } from "react-router-dom";
+import { Container, Grid } from "@mui/material";
+import AdvertData from "./components/AdvertData";
+import SalesmanData from "./components/SalesmanData";
+import { getAnnouncementById } from "../../services";
+import AdvertDesc from "./components/AdvertDescription";
+import { AdvertComments } from "./components/AdvertComments";
+import { AdvertCreateComment } from "./components/AdvertCreateComment";
+import { AdvertImage, AdvertImageList } from "./components/AdvertImage";
+import {
+  useDataContext,
+  useLoadingContext,
+  useMediaContext,
+} from "../../context";
 
 const AdvertPageSize = () => {
   const { matches500, matches700, matches900 } = useMediaContext();
-  const { specificAdvertData, setSpecificAdvertData, AdvertId } =
-    useDataContext();
+  const { specificAdvertData, setSpecificAdvertData } = useDataContext();
+  const { setIsLoading } = useLoadingContext();
+
+  const { advertId } = useParams();
 
   useEffect(() => {
-    try {
-      apiUsingNow
-        .get(`/announcements/${AdvertId}`)
-        .then((res) => {
-          setSpecificAdvertData(res.data);
-          console.log(res.data);
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
-  }, [AdvertId]);
-  console.log(specificAdvertData?.listImage);
+    (async () => {
+      const response = await getAnnouncementById(advertId!);
+      setSpecificAdvertData(response);
+      setIsLoading(false);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(specificAdvertData);
+
   if (matches700) {
     return (
       <Container sx={{ mt: 2 }}>
@@ -75,7 +80,12 @@ const AdvertPageSize = () => {
             km={specificAdvertData?.mileage}
             year={specificAdvertData?.manufacture_year}
           />
+
           <AdvertDesc desc={specificAdvertData?.description} />
+
+          <AdvertComments />
+
+          <AdvertCreateComment />
         </Grid>
         <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
           <SalesmanData data={specificAdvertData?.user} />

@@ -20,4 +20,9 @@ export interface iBox {
 
 export interface iAdvertsProps {
   isProfile?: boolean;
+  isHome?: boolean;
+}
+
+export interface iChip {
+  label: string | number;
 }

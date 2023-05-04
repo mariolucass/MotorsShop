@@ -3,6 +3,7 @@ import { Avatar } from "@mui/material";
 import { HeaderStyled } from "./style";
 import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
+import { usernameLimiter } from "../../utils";
 import Logo from "../../assets/logoColored.svg";
 import { useMediaContext, useUserContext } from "../../context";
 import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
@@ -13,18 +14,15 @@ export const Header = () => {
   const { matches700 } = useMediaContext();
   const { userData } = useUserContext();
 
-  const username = userData ? userData!.name.split(" ") : "User";
-  const headerUsername =
-    username.length > 1 ? username[0] + " " + username[1] : username[0];
-
   return (
     <>
       <ModalUpdateDeleteUser />
       <ModalUpdateAddress />
       <HeaderStyled>
-        <Link to={"/home"}>
+        <Link to={"/"}>
           <img src={Logo} alt="Logo" />
         </Link>
+
         <>
           {userData ? (
             <div
@@ -32,7 +30,7 @@ export const Header = () => {
               onClick={() => setIsOpenMenu(!isOpenMenu)}
             >
               <Avatar src={userData.profile.url} />
-              <span>{headerUsername}</span>
+              <span>{usernameLimiter(userData.name)}</span>
               <MenuHeader isOpen={isOpenMenu} />
             </div>
           ) : (

@@ -1,14 +1,13 @@
-import { useLoadingContext } from "../../context";
-import { iChildren } from "../../interfaces";
 import { Footer } from "../footer";
 import { Header } from "../header";
-import { TransitionAnimation } from "../transitionAnimation";
 import { DivLoading } from "./style";
+import { iChildren } from "../../interfaces";
 import { PulseLoader } from "react-spinners";
+import { useLoadingContext } from "../../context";
+import { TransitionAnimation } from "../transitionAnimation";
 
 export const LoadingComponent = ({ children }: iChildren) => {
   const { isLoading } = useLoadingContext();
-
   return isLoading ? (
     <TransitionAnimation>
       <Header />

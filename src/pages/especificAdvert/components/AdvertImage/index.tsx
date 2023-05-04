@@ -1,11 +1,13 @@
-import Box from "@mui/material/Box";
-import React from "react";
 import { StyledImg } from "./style";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import ImageList from "@mui/material/ImageList";
 import { iImage, iListImage } from "../../../../interfaces";
-import { ImageListItem } from "@mui/material";
+import {
+  Typography,
+  ImageList,
+  Stack,
+  ImageListItem,
+  Skeleton,
+  Box,
+} from "@mui/material";
 
 interface iProps {
   src: iImage | undefined;
@@ -32,7 +34,6 @@ const AdvertImage = ({ src }: iProps) => {
 };
 
 const AdvertImageList = ({ src }: iPropsList) => {
-  console.log(src);
   return (
     <Box className="AdvertCard" sx={{ p: 2, borderRadius: 1 }}>
       <Stack
@@ -42,12 +43,20 @@ const AdvertImageList = ({ src }: iPropsList) => {
         spacing={4}
       >
         <Typography className="card--title">Fotos</Typography>
+
         <ImageList sx={{ width: "100%" }}>
-          {src!.map((iten, index) => (
-            <ImageListItem key={index}>
-              <img src={iten?.image?.url} alt="" />
-            </ImageListItem>
-          ))}
+          {src ? (
+            src!.map((iten, index) => (
+              <ImageListItem key={index}>
+                <img src={iten?.image?.url} alt="" />
+              </ImageListItem>
+            ))
+          ) : (
+            <>
+              <Skeleton height={128} sx={{ mx: 0 }} />
+              <Skeleton height={128} sx={{ mx: 0 }} />
+            </>
+          )}
         </ImageList>
       </Stack>
     </Box>

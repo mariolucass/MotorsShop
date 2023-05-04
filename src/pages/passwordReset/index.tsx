@@ -1,9 +1,7 @@
-import { Paper } from "@mui/material";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Button from "@mui/material/Button";
-import { apiUsingNow } from "../../services";
+import { Paper, Button } from "@mui/material";
 import { Container, Box, Form } from "./styles";
 import Logo from "../../assets/logoColored.svg";
 import { iEmailForReset } from "../../interfaces";
@@ -11,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Footer, Header, Input } from "../../components";
 import { emailForResetSchema } from "../../schemas/resetSchema";
 import { sendEmailPassword } from "../../services/apiPassword";
+import { TransitionAnimation } from "../../components/transitionAnimation";
 
 export const EmailForPasswordReset = () => {
   const {
@@ -32,7 +31,7 @@ export const EmailForPasswordReset = () => {
   };
 
   return (
-    <>
+    <TransitionAnimation>
       <Header />
 
       <Container>
@@ -70,6 +69,6 @@ export const EmailForPasswordReset = () => {
       </Container>
 
       <Footer />
-    </>
+    </TransitionAnimation>
   );
 };

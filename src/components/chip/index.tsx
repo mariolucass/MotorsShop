@@ -1,15 +1,10 @@
 import Chip from "@mui/material/Chip";
+import { iChip } from "../../interfaces";
 
-interface iProps {
-  label: string | number;
-}
-
-export const StyledChip = ({ label }: iProps) => {
-  return (
-    <Chip
-      label={label}
-      className="chip"
-      sx={{ borderRadius: 2, width: "100%" }}
-    />
-  );
-};
+export const StyledChip = ({ label }: iChip) => (
+  <Chip
+    label={label}
+    className="chip"
+    sx={{ borderRadius: 2, width: "100%" }}
+  />
+);

@@ -1,17 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useFilterContext } from "./FilterContext";
 import { apiUsingNow } from "../services";
-import { iAnnouncement } from "../interfaces";
-
-interface iProps {
-  children: React.ReactNode;
-}
+import { iAnnouncement, iChildren } from "../interfaces";
 
 interface iDataProps {
   AdvertsData: iAnnouncement[];
   setAdvertsData: React.Dispatch<React.SetStateAction<iAnnouncement[]>>;
-  AdvertId: string;
-  setAdvertId: React.Dispatch<React.SetStateAction<string>>;
+
   specificAdvertData: iAnnouncement | undefined;
   setSpecificAdvertData: React.Dispatch<
     React.SetStateAction<iAnnouncement | undefined>
@@ -28,10 +23,9 @@ export const useDataContext = () => {
   return useContext(DataContext);
 };
 
-export const DataPrivider = ({ children }: iProps) => {
-  const id = localStorage.getItem("@MotorsShop:advert");
+export const DataPrivider = ({ children }: iChildren) => {
   const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
-  const [AdvertId, setAdvertId] = useState<string>(id || "");
+
   const [specificAdvertData, setSpecificAdvertData] = useState<iAnnouncement>();
   const {
     Marca,
@@ -119,8 +113,6 @@ export const DataPrivider = ({ children }: iProps) => {
       value={{
         AdvertsData,
         setAdvertsData,
-        AdvertId,
-        setAdvertId,
         specificAdvertData,
         setSpecificAdvertData,
       }}

@@ -1,11 +1,14 @@
-import { Footer, Header, Register } from "../../components";
+import {
+  Footer,
+  Header,
+  Register,
+  TransitionAnimation,
+} from "../../components";
 
-export const RegisterPage = () => {
-  return (
-    <>
-      <Header />
-      <Register />
-      <Footer />
-    </>
-  );
-};
+export const RegisterPage = () => (
+  <TransitionAnimation>
+    <Header />
+    <Register />
+    <Footer />
+  </TransitionAnimation>
+);

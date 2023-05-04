@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { ListMenuStyled } from "./style";
-import { useModalContext, useUserContext } from "../../context";
-import { useNavigate } from "react-router-dom";
 import * as framer from "../../libs/framer";
+import { useNavigate } from "react-router-dom";
+import { useModalContext, useUserContext } from "../../context";
 
 interface IProps {
   isOpen: boolean;

@@ -1,6 +1,7 @@
-import { Button, CardActions, CardContent, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { StyledChip } from "../../../../components";
+import { monetizeString } from "../../../../utils";
+import { Button, CardActions, CardContent, Typography } from "@mui/material";
 
 interface iProps {
   name: string | undefined;
@@ -40,7 +41,7 @@ const AdvertData = ({ name, price, km, year }: iProps) => {
           <StyledChip label={year!} />
           <StyledChip label={`${km!} KM`} />
         </Stack>
-        <span className="card--price">R${price}</span>
+        <span className="card--price">{monetizeString(+price!)}</span>
       </Stack>
       <CardActions sx={{ p: 0 }}>
         <Button variant="contained" className="buttonBrand">

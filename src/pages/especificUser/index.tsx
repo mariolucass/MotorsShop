@@ -1,15 +1,19 @@
 import { StyledHero } from "./style";
+import { motion } from "framer-motion";
 import { iUser } from "../../interfaces";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../../services";
 import { Avatar, Container } from "@mui/material";
-import { LoadingComponent } from "../../components/loading";
-import { useAnnouncementContext } from "../../context";
-import { Adverts, Footer, Header } from "../../components";
-import { useLoadingContext } from "../../context/LoadingContext";
-import { motion } from "framer-motion";
-import { TransitionAnimation } from "../../components/transitionAnimation";
+import { useAnnouncementContext, useLoadingContext } from "../../context";
+import { animateTransitionPresence } from "../../libs/framer";
+import {
+  Adverts,
+  Footer,
+  Header,
+  TransitionAnimation,
+  LoadingComponent,
+} from "../../components";
 
 export const EspecificUser = () => {
   const { setUserAdverts } = useAnnouncementContext();
@@ -22,7 +26,6 @@ export const EspecificUser = () => {
   useEffect(() => {
     (async () => {
       const response = await getUserById(userId!);
-
       setUserSpecific(response);
       setUserAdverts(response.announcements);
       setIsLoading(false);
@@ -35,9 +38,14 @@ export const EspecificUser = () => {
       <TransitionAnimation>
         <motion.div className="advertBody">
           <Header />
+
           <>
             <StyledHero>
-              <section>
+              <motion.section
+                animate={{ width: "100%", opacity: 1 }}
+                initial={{ width: "35%", opacity: 0 }}
+                transition={animateTransitionPresence}
+              >
                 <div>
                   <Avatar
                     sx={{ width: 80, height: 80 }}
@@ -53,7 +61,7 @@ export const EspecificUser = () => {
                   </div>
                 </div>
                 <p>{userSpecific?.description}</p>
-              </section>
+              </motion.section>
             </StyledHero>
 
             <Container>

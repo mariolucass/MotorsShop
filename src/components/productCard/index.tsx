@@ -1,13 +1,17 @@
 import { StyledChip } from "../chip";
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
-import CardMedia from "@mui/material/CardMedia";
-import { Button, Typography } from "@mui/material";
-import CardContent from "@mui/material/CardContent";
 import { IPropsProductCard } from "../../interfaces";
+import { monetizeString, usernameLimiter } from "../../utils";
 import { useMediaContext, useUserContext } from "../../context";
-import { monetizeString } from "../../utils/utils";
+import { motion } from "framer-motion";
+import {
+  Button,
+  Typography,
+  CardContent,
+  CardMedia,
+  Avatar,
+  Stack,
+  Card,
+} from "@mui/material";
 
 export const ProductCard = ({
   element,
@@ -43,7 +47,14 @@ export const ProductCard = ({
   };
 
   return (
-    <Card variant="outlined" sx={cardSize} onClick={onClick}>
+    <Card
+      variant="outlined"
+      sx={cardSize}
+      onClick={onClick}
+      component={motion.div}
+      whileHover={{ scale: 0.95 }}
+      whileTap={{ scale: 0.75 }}
+    >
       <CardMedia
         component={"img"}
         height={"175"}
@@ -81,7 +92,9 @@ export const ProductCard = ({
             <Stack direction="row" alignItems="center" spacing={2}>
               <Avatar alt={element.user.name} src={element.user.profile.url} />
 
-              <span className="card--user">{element.user.name}</span>
+              <span className="card--user">
+                {usernameLimiter(element.user.name)}
+              </span>
             </Stack>
           )}
         </>
