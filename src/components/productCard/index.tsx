@@ -71,7 +71,7 @@ export const ProductCard = ({
       <Card
         variant="outlined"
         sx={cardSize}
-        // onClick={onClick}
+        onClick={onClick}
         component={motion.div}
         whileHover={{ scale: 0.95 }}
         whileTap={{ scale: 0.75 }}

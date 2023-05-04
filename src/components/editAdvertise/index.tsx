@@ -46,6 +46,7 @@ export const EditAdvertise = ({ id }: IProps) => {
   const excludeAnnouncement = async () => {
     try {
       const response = await deleteAnnouncement(id);
+      console.log(response);
       handleCloseEditAnnouncement();
       toast.success("Anuncio excluido com sucesso.");
     } catch (error) {
