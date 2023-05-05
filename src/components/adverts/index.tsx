@@ -26,8 +26,6 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
     ? userAdverts
     : announcementsProfile;
 
-    listToPick.length = 0
-
   const list = listToPick.map((element) => (
     <ProductCard
       key={element.id}
