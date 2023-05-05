@@ -11,6 +11,7 @@ interface iContextProvider {
   minMatches700: boolean;
   minMatches900: boolean;
   minMatches1200: boolean;
+  minMatches1500: boolean;
 }
 
 const MediaContext = createContext({} as iContextProvider);
@@ -28,6 +29,7 @@ export const MediaProvider = ({ children }: iChildren) => {
   const minMatches700 = useMediaQuery("(min-width:700px)");
   const minMatches900 = useMediaQuery("(min-width:900px)");
   const minMatches1200 = useMediaQuery("(min-width:1200px)");
+  const minMatches1500 = useMediaQuery("(min-width:1500px)");
 
   return (
     <MediaContext.Provider
@@ -40,6 +42,7 @@ export const MediaProvider = ({ children }: iChildren) => {
         minMatches700,
         minMatches900,
         minMatches1200,
+        minMatches1500,
       }}
     >
       {children}

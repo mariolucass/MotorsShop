@@ -212,7 +212,7 @@ body {
 }
 
 .css-vqmohf-MuiButtonBase-root-MuiRadio-root {
-  display: none !important;
+  color: var(--brand1) !important;
 }
 
 @media (min-width: 400px) {

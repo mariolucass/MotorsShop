@@ -35,7 +35,7 @@ export const ProductCard = ({
     handleOpenEditAnnouncement,
   } = useModalContext();
 
-  const { matches500, matches700, matches1200, matches900, minMatches1200 } =
+  const { matches500, matches700, matches1200, matches900, minMatches1500 } =
     useMediaContext();
 
   if (isProfile) {
@@ -59,7 +59,7 @@ export const ProductCard = ({
       return { width: "30%", cursor: "pointer", maxWidth: 450 };
     }
 
-    if (minMatches1200) {
+    if (minMatches1500) {
       return { width: "40%", cursor: "pointer", maxWidth: 450 };
     }
 

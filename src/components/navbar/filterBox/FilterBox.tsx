@@ -27,22 +27,34 @@ const FilterBox = ({ title, options, to }: iProps) => {
           {options.map((value, i) => (
             <FormControlLabel
               value={value}
-              control={<Radio />}
-              label={value}
+              control={
+                <Radio
+                  sx={{ "&:first-child": { display: "none" } }}
+                  onClick={() => {
+                    setActive(!Active);
+                  }}
+                />
+              }
+              label={
+                <Box
+                  sx={{
+                    color: "#868e96",
+                    "&:hover": { transition: 0.5, color: "#4529e6" },
+                  }}
+                >
+                  {value}
+                </Box>
+              }
               onClick={() => {
                 to!(value);
-                setActive(!Active);
               }}
               key={i}
-              className={Active ? "Active" : ""}
               sx={{
-                color: "#868e96",
                 listStyle: "none",
                 fontWeight: 500,
                 cursor: "pointer",
                 width: "100%",
                 m: 0,
-                "&:hover": { transition: 0.5, color: "#4529e6" },
               }}
             />
           ))}
