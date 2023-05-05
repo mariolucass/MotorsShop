@@ -4,6 +4,7 @@ import { iAdvertsProps, iAnnouncement } from "../../interfaces";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAnnouncementContext, useDataContext } from "../../context";
 import { AnimatePresence } from "framer-motion";
+import { EmptyList } from "../emptyList";
 
 export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
     ? userAdverts
     : announcementsProfile;
 
+    listToPick.length = 0
+
   const list = listToPick.map((element) => (
     <ProductCard
       key={element.id}
@@ -41,7 +44,7 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.6, -0.05, 0.01, 0.99] }}
       >
-        {list}
+        {listToPick.length == 0 ? <EmptyList></EmptyList> : list}
       </ListStyled>
     </AnimatePresence>
   );
