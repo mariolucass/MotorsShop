@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-/* import { ModalGeneral } from ".."; */
 import { Input } from "../../inputs";
 import { Container, Form, DivisionTypes, Buttons, Box } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
