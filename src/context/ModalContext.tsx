@@ -11,6 +11,9 @@ interface iContextProvider {
   openEditAnnouncement: boolean;
   handleOpenEditAnnouncement: () => void;
   handleCloseEditAnnouncement: () => void;
+  openUpdateUser: boolean
+  handleOpenUpdateUser: () => void
+  handleCloseUpdateUser: () => void
 }
 
 const ModalContext = createContext({} as iContextProvider);
@@ -22,6 +25,7 @@ export const useModalContext = () => {
 export const ModalProvider = ({ children }: iChildren) => {
   const [open, setOpen] = useState(false);
   const [openAddress, setOpenAddress] = useState(false);
+  const [openUpdateUser, setOpenUpdateUser] = useState(false);
   const [openEditAnnouncement, setOpenEditAnnouncement] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -30,6 +34,8 @@ export const ModalProvider = ({ children }: iChildren) => {
   const handleCloseAddress = () => setOpenAddress(false);
   const handleOpenEditAnnouncement = () => setOpenEditAnnouncement(true);
   const handleCloseEditAnnouncement = () => setOpenEditAnnouncement(false);
+  const handleOpenUpdateUser = () => setOpenUpdateUser(true)
+  const handleCloseUpdateUser = () => setOpenUpdateUser(false)
 
   return (
     <ModalContext.Provider
@@ -43,6 +49,9 @@ export const ModalProvider = ({ children }: iChildren) => {
         openEditAnnouncement,
         handleCloseEditAnnouncement,
         handleOpenEditAnnouncement,
+        openUpdateUser,
+        handleOpenUpdateUser,
+        handleCloseUpdateUser
       }}
     >
       {children}

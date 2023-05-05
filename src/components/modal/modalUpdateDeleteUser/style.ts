@@ -1,9 +1,55 @@
 import styled from "styled-components";
 
+export const Box = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  /* height: 80vh; */
+  border-radius: 2px;
+  background: var(--whitefixed);
+  padding: 16px 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  overflow-y: auto;
+
+  z-index: 9999;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  /* Fundo da barra de rolagem */
+  ::-webkit-scrollbar-track-piece {
+    border: none;
+  }
+
+  /* Cor do indicador de rolagem */
+  ::-webkit-scrollbar-thumb:vertical,
+  ::-webkit-scrollbar-thumb:horizontal {
+    background-color: var(--grey4);
+    border-radius: 5px;
+  }
+
+  /* Cor do indicador de rolagem - ao passar o mouse */
+  ::-webkit-scrollbar-thumb:vertical:hover,
+  ::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: var(--grey5);
+  }
+
+  @media (max-width: 1024px) {
+    max-width: 100vw;
+    margin-top: calc(40vh - 120px);
+  }`
+
 export const Container = styled.section`
-    width: 100%;
+    width: 100%;/* 
     height: 70vh;
-    padding: 16px 24px;
+    padding: 16px 24px; */
     /* overflow-y: auto; */
 
     svg {
