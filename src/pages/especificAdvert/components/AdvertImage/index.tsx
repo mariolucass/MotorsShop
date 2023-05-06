@@ -1,4 +1,4 @@
-import { StyledImg } from "./style";
+import { StyledImg, ListImageEmpty } from "./style";
 import { iImage, iListImage } from "../../../../interfaces";
 import {
   Typography,
@@ -14,6 +14,7 @@ import {
   animateShownItens,
   animateTransitionItens,
 } from "../../../../libs";
+import { useLoadingContext } from "../../../../context";
 
 interface iProps {
   src: iImage | undefined;
@@ -40,6 +41,8 @@ const AdvertImage = ({ src }: iProps) => {
 };
 
 const AdvertImageList = ({ src }: iPropsList) => {
+  const { isLoading } = useLoadingContext();
+
   return (
     <Box
       className="AdvertCard"
@@ -59,18 +62,24 @@ const AdvertImageList = ({ src }: iPropsList) => {
           Fotos
         </Typography>
 
-        <ImageList sx={{ width: "100%" }}>
-          {src ? (
-            src!.map((iten, index) => (
-              <ImageListItem key={index}>
-                <img src={iten?.image?.url} alt="" />
-              </ImageListItem>
-            ))
-          ) : (
+        <ImageList sx={{ width: "100%", height: "100%" }} id="image_list">
+          {isLoading ? (
             <>
               <Skeleton height={128} sx={{ mx: 0 }} />
               <Skeleton height={128} sx={{ mx: 0 }} />
             </>
+          ) : (
+            src && Array.isArray(src) && src.length > 0 ? (
+              src.map((item, index) => (
+                <ImageListItem key={index}>
+                  <img src={item?.image?.url} alt="" />
+                </ImageListItem>
+              ))
+            ) : (
+              <ListImageEmpty>
+                <span>Não há outras imagens do produto...</span>
+              </ListImageEmpty>
+            )
           )}
         </ImageList>
       </Stack>
