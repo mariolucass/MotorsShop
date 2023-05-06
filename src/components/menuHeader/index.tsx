@@ -11,7 +11,7 @@ interface IProps {
 export const MenuHeader = ({ isOpen }: IProps) => {
   const { userData, logoutUser } = useUserContext();
   const navigate = useNavigate();
-  const { handleOpen, handleOpenAddress } = useModalContext();
+  const { handleOpen, handleOpenAddress, handleOpenUpdateUser } = useModalContext();
 
   return (
     <>
@@ -26,7 +26,7 @@ export const MenuHeader = ({ isOpen }: IProps) => {
           <motion.li
             animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
             onClick={() => {
-              handleOpen();
+              handleOpenUpdateUser();
             }}
           >
             Editar Perfil

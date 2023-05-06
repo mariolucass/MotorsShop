@@ -5,6 +5,12 @@ import { useUserContext } from "../../context";
 import { iRegisterUseForm } from "../../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container, Form, Title, SubTitle, Division } from "./style";
+import {
+  handleBirthdate,
+  handleCep,
+  handleCpf,
+  handlePhone,
+} from "../../utils";
 
 export const Register = () => {
   const { registerUser } = useUserContext();
@@ -64,6 +70,7 @@ export const Register = () => {
             type="text"
             id="cpf"
             placeholder="000.000.000-00"
+            onKeyUp={handleCpf}
             {...register("cpf")}
           />
           {errors.cpf && (
@@ -76,7 +83,8 @@ export const Register = () => {
           <input
             type="text"
             id="phone"
-            placeholder="(DDD) 90000-0000"
+            placeholder="(00) 00000-0000"
+            onKeyUp={handlePhone}
             {...register("phone")}
           />
           {errors.phone && (
@@ -89,7 +97,8 @@ export const Register = () => {
           <input
             type="text"
             id="birthdate"
-            placeholder="00/00/00"
+            placeholder="DD/MM/AAAA"
+            onKeyUp={handleBirthdate}
             {...register("birthdate")}
           />
           {errors.birthdate && (
@@ -110,7 +119,8 @@ export const Register = () => {
           <input
             type="text"
             id="zip_code"
-            placeholder="00000.000"
+            placeholder="00000-000"
+            onKeyUp={handleCep}
             {...register("address.zip_code")}
           />
           {errors.address && errors.address.zip_code && (

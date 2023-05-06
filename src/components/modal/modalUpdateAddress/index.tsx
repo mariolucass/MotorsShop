@@ -9,6 +9,7 @@ import { Alert, Backdrop, Fade, Modal } from "@mui/material";
 import { IUpdateAddress, IUpdateAddressUseForm } from "../../../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateAddressSchema } from "../../../schemas/updateAddressSchema";
+import { handleCep } from "../../../utils";
 
 export const ModalUpdateAddress = () => {
   const { userData, updateAddress } = useUserContext();
@@ -68,7 +69,8 @@ export const ModalUpdateAddress = () => {
                 label="CEP"
                 name="zip_code"
                 width="100%"
-                placeholder="00.000-000"
+                placeholder="00000-000"
+                onKeyUp={handleCep}
                 register={register}
               />
               {errors.zip_code && (
