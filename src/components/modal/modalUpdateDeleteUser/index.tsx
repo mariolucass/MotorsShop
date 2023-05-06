@@ -4,25 +4,30 @@ import { Container, Form, DivisionTypes, Buttons, Box } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { useEffect } from "react";
 import { useUserContext, useModalContext } from "../../../context";
-import Button from "@mui/material/Button";
 import { IUpdateUser, IUpdateUserUseForm } from "../../../interfaces";
 import { updateUserSchema } from "../../../schemas/updateUserSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { Alert, Backdrop, Fade, Modal } from "@mui/material";
+import { Alert, Backdrop, Fade, Modal, Button } from "@mui/material";
+import { handleCpf, handlePhone, handleBirthdate } from "../../../utils";
 
 export const ModalUpdateDeleteUser = () => {
   const { userData, destroyUser, updateUser } = useUserContext();
-  const { register, handleSubmit, setValue, formState: {errors} } = useForm<IUpdateUserUseForm>( {resolver: zodResolver(updateUserSchema)});
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IUpdateUserUseForm>({ resolver: zodResolver(updateUserSchema) });
   const { handleCloseUpdateUser, openUpdateUser } = useModalContext();
 
   const onSubmit = async (data: IUpdateUser) => {
     /* console.log(data.role) */
     try {
-      updateUser({...data, role: data.role || "BUYER"}, userData!.id)
+      updateUser({ ...data, role: data.role || "BUYER" }, userData!.id);
       handleCloseUpdateUser();
     } catch (error) {
-      toast.error("Erro ao atualizar os dados")
+      toast.error("Erro ao atualizar os dados");
     }
   };
 
@@ -94,6 +99,7 @@ export const ModalUpdateDeleteUser = () => {
                 name="cpf"
                 width="100%"
                 placeholder="000.000.000-00"
+                onKeyUp={handleCpf}
                 register={register}
               />
               {errors.cpf && (
@@ -106,6 +112,7 @@ export const ModalUpdateDeleteUser = () => {
                 name="phone"
                 width="100%"
                 placeholder="(00) 00000-0000"
+                onKeyUp={handlePhone}
                 register={register}
               />
               {errors.phone && (
@@ -118,6 +125,7 @@ export const ModalUpdateDeleteUser = () => {
                 name="birthdate"
                 width="100%"
                 placeholder="DD/MM/AAAA"
+                onKeyUp={handleBirthdate}
                 register={register}
               />
               {errors.birthdate && (
@@ -125,8 +133,10 @@ export const ModalUpdateDeleteUser = () => {
                   {errors.birthdate!.message}
                 </Alert>
               )}
-              <textarea placeholder="Descrição..." {...register("description")}>
-              </textarea>
+              <textarea
+                placeholder="Descrição..."
+                {...register("description")}
+              ></textarea>
               <span>Tipo de conta</span>
               <DivisionTypes>
                 <label className="radio">
@@ -139,11 +149,11 @@ export const ModalUpdateDeleteUser = () => {
                   <span>Comprador</span>
                 </label>
                 <label className="radio">
-                  <input 
-                  type="radio" 
-                  value={"SELLER"} 
-                  {...register("role")} 
-                  defaultChecked={userData?.role === "SELLER"}
+                  <input
+                    type="radio"
+                    value={"SELLER"}
+                    {...register("role")}
+                    defaultChecked={userData?.role === "SELLER"}
                   />
                   <span>Anunciante</span>
                 </label>
@@ -175,7 +185,7 @@ export const ModalUpdateDeleteUser = () => {
               </Buttons>
             </Form>
           </Container>
-          </Box>
+        </Box>
       </Fade>
     </Modal>
   );

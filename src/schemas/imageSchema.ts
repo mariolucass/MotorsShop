@@ -12,11 +12,13 @@ export const ACCEPTED_IMAGE_TYPES = [
 export const imageSchema = z
   .instanceof(FileList)
   .transform((list) => list.item(0)!)
-  .refine(
-    (file) => file.size <= MAX_FILE_SIZE,
-    "A imagem precisa ter no máximo 2Mb"
-  )
-  .refine(
-    (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
-    "Somente esses tipos de imagens são permitidos .jpg, .jpeg, .png e .webp"
-  );
+  .refine((file) => {
+    try {
+      return file.size <= MAX_FILE_SIZE;
+    } catch {}
+  }, "A imagem precisa ter no máximo 2Mb")
+  .refine((file) => {
+    try {
+      return ACCEPTED_IMAGE_TYPES.includes(file.type);
+    } catch {}
+  }, "Somente esses tipos de imagens são permitidos .jpg, .jpeg, .png e .webp");
