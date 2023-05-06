@@ -30,13 +30,25 @@ const AdvertPageSize = () => {
   const { advertId } = useParams();
 
   useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
     (async () => {
+      const response = await getAnnouncementById(advertId!);
+      if (isMounted) {
+        setSpecificAdvertData(response);
+        setIsLoading(false);
+      }
+    })();
+    return () => {
+      isMounted = false;
+    };
+    /* (async () => {
       const response = await getAnnouncementById(advertId!);
       setSpecificAdvertData(response);
       setIsLoading(false);
-    })();
+    })(); */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setIsLoading, advertId]);
 
   if (matches700) {
     return (
