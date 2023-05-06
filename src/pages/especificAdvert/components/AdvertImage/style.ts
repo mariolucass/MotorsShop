@@ -13,3 +13,18 @@ export const StyledImg = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const ListImageEmpty = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200%;
+  height: 120px;
+  margin-bottom: 20px;
+
+  span {
+    text-align: center;
+    width: 50%;
+    color: var(--grey4);
+  }
+`
