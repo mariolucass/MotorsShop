@@ -59,7 +59,7 @@ export const ButtonDiv = styled(motion.div)`
   bottom: 25%;
 `;
 
-export const AutoCompletes = styled(motion.button)`
+export const AutoCompleterComment = styled(motion.button)`
   font-family: "Inter";
   color: var(--grey3);
   border: none;

@@ -1,6 +1,12 @@
-import { iAnnouncement, iAnnouncementRequest, iChildren } from "../interfaces";
+import {
+  iAnnouncement,
+  iAnnouncementRequest,
+  iChildren,
+  iComment,
+} from "../interfaces";
 import { createContext, useContext, useState } from "react";
 import {
+  deleteAnnouncement,
   patchAnnouncement,
   postAnnouncement,
   postImageAnnouncement,
@@ -17,6 +23,12 @@ interface iContextProvider {
   userAdverts: iAnnouncement[];
   setUserAdverts: React.Dispatch<React.SetStateAction<iAnnouncement[]>>;
   editAnnouncement: (id: string, formData: any) => Promise<void>;
+  announcementToEdit: iAnnouncement;
+  setAnnouncementToEdit: React.Dispatch<React.SetStateAction<iAnnouncement>>;
+  excludeAnnouncement: (id: string) => Promise<void>;
+
+  commentToEdit: iComment;
+  setCommentToEdit: React.Dispatch<React.SetStateAction<iComment>>;
 }
 
 const AnnouncementContext = createContext({} as iContextProvider);
@@ -29,6 +41,10 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
   const [announcementsProfile, setannouncementsProfile] = useState<
     iAnnouncement[]
   >([]);
+  const [announcementToEdit, setAnnouncementToEdit] = useState<iAnnouncement>(
+    {} as iAnnouncement
+  );
+  const [commentToEdit, setCommentToEdit] = useState<iComment>({} as iComment);
 
   const [userAdverts, setUserAdverts] = useState<iAnnouncement[]>([]);
 
@@ -46,6 +62,8 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
           await postImageAnnouncement(data, announcement.id);
         });
       }
+
+      setannouncementsProfile((prevState) => [...prevState, announcement]);
       toast.success(
         "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
       );
@@ -75,6 +93,21 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
     }
   };
 
+  const excludeAnnouncement = async (id: string) => {
+    try {
+      await deleteAnnouncement(id);
+
+      setannouncementsProfile(
+        announcementsProfile.filter((elem) => elem.id !== id)
+      );
+
+      toast.success("Anuncio excluido com sucesso.");
+    } catch (error) {
+      console.log(error);
+      toast.error("A exclusão do anúncio falhou, tente novamente mais tarde.");
+    }
+  };
+
   return (
     <AnnouncementContext.Provider
       value={{
@@ -84,6 +117,11 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
         userAdverts,
         setUserAdverts,
         editAnnouncement,
+        announcementToEdit,
+        setAnnouncementToEdit,
+        excludeAnnouncement,
+        commentToEdit,
+        setCommentToEdit,
       }}
     >
       {children}

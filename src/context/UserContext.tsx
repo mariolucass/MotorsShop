@@ -1,4 +1,8 @@
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useLoadingContext } from "./LoadingContext";
+import { useAnnouncementContext } from "./AnnouncementContext";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   iLogin,
   iRegister,
@@ -7,7 +11,6 @@ import {
   IUpdateUser,
   IUpdateAddress,
 } from "../interfaces";
-import { createContext, useContext, useEffect, useState } from "react";
 import {
   deleteUser,
   getUserProfile,
@@ -16,9 +19,6 @@ import {
   postUser,
   postUserCreate,
 } from "../services";
-import { toast } from "react-toastify";
-import { useAnnouncementContext } from "./AnnouncementContext";
-import { useLoadingContext } from "./LoadingContext";
 
 interface iContextProvider {
   userData: iUser | null;

@@ -46,7 +46,8 @@ const Profile = () => {
                   />
                   <div>
                     <span>{userData?.name}</span>
-                    <div>Anunciante</div>
+
+                    {userData?.role === "SELLER" && <div>Anunciante</div>}
                   </div>
                 </div>
                 <p>{userData?.description}</p>
@@ -61,7 +62,7 @@ const Profile = () => {
                       fontFamily: "Inter",
                     }}
                   >
-                    Criar anuncio
+                    Criar anúncio
                   </Button>
                 </div>
               </motion.section>

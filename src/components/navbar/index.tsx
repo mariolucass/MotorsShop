@@ -85,7 +85,11 @@ export const NavBar = () => {
       ) : (
         false
       )}
-      <FilterBox title="Marca" options={marcas} to={setMarca} />
+      <FilterBox
+        title="Marca"
+        options={marcas.map((e) => e.name)}
+        to={setMarca}
+      />
       <FilterBox title="Modelo" options={modelos} to={setModelo} />
       <FilterBox title="Cor" options={cores} to={setCor} />
       <FilterBox title="Ano" options={ano} to={setAno} />

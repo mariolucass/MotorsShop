@@ -1,10 +1,10 @@
 import { ListStyled } from "./style";
-import { ProductCard } from "../productCard";
-import { iAdvertsProps, iAnnouncement } from "../../interfaces";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAnnouncementContext, useDataContext } from "../../context";
-import { AnimatePresence } from "framer-motion";
 import { EmptyList } from "../emptyList";
+import { ProductCard } from "../productCard";
+import { AnimatePresence } from "framer-motion";
+import { useNavigate, useParams } from "react-router-dom";
+import { iAdvertsProps, iAnnouncement } from "../../interfaces";
+import { useAnnouncementContext, useDataContext } from "../../context";
 
 export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.6, -0.05, 0.01, 0.99] }}
       >
-        {listToPick.length == 0 ? <EmptyList></EmptyList> : list}
+        {listToPick.length === 0 ? <EmptyList /> : list}
       </ListStyled>
     </AnimatePresence>
   );

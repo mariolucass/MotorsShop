@@ -1,28 +1,28 @@
-import { useForm } from "react-hook-form";
-import { Input } from "../../inputs";
-import { Container, Form, DivisionTypes, Buttons, Box } from "./style";
-import { AiOutlineClose } from "react-icons/ai";
 import { useEffect } from "react";
-import { useUserContext, useModalContext } from "../../../context";
-import { IUpdateUser, IUpdateUserUseForm } from "../../../interfaces";
-import { updateUserSchema } from "../../../schemas/updateUserSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "../../inputs";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { AiOutlineClose } from "react-icons/ai";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useUserContext, useModalContext } from "../../../context";
+import { updateUserSchema } from "../../../schemas/updateUserSchema";
 import { Alert, Backdrop, Fade, Modal, Button } from "@mui/material";
+import { IUpdateUser, IUpdateUserUseForm } from "../../../interfaces";
+import { Container, Form, DivisionTypes, Buttons, Box } from "./style";
 import { handleCpf, handlePhone, handleBirthdate } from "../../../utils";
 
 export const ModalUpdateDeleteUser = () => {
-  const { userData, destroyUser, updateUser } = useUserContext();
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm<IUpdateUserUseForm>({ resolver: zodResolver(updateUserSchema) });
+
+  const { userData, destroyUser, updateUser } = useUserContext();
   const { handleCloseUpdateUser, openUpdateUser } = useModalContext();
 
   const onSubmit = async (data: IUpdateUser) => {
-    /* console.log(data.role) */
     try {
       updateUser({ ...data, role: data.role || "BUYER" }, userData!.id);
       handleCloseUpdateUser();
@@ -41,6 +41,7 @@ export const ModalUpdateDeleteUser = () => {
       setValue("description", userData ? userData.description : "");
       setValue("role", userData!.role);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
   return (

@@ -1,4 +1,6 @@
+import { motion } from "framer-motion";
 import { StyledImg, ListImageEmpty } from "./style";
+import { useLoadingContext } from "../../../../context";
 import { iImage, iListImage } from "../../../../interfaces";
 import {
   Typography,
@@ -8,13 +10,11 @@ import {
   Skeleton,
   Box,
 } from "@mui/material";
-import { motion } from "framer-motion";
 import {
   animateHiddenItens,
   animateShownItens,
   animateTransitionItens,
 } from "../../../../libs";
-import { useLoadingContext } from "../../../../context";
 
 interface iProps {
   src: iImage | undefined;
@@ -24,18 +24,21 @@ interface iPropsList {
 }
 
 const AdvertImage = ({ src }: iProps) => {
+  console.log(src);
+  const cardSx = {
+    objectFit: "contain",
+    width: "70%",
+    height: "100%",
+    padding: 2,
+  };
+
   return (
     <StyledImg>
-      <Box
-        component={"img"}
-        src={src?.url}
-        sx={{
-          objectFit: "contain",
-          width: "70%",
-          height: "100%",
-          padding: 2,
-        }}
-      />
+      {src ? (
+        <Box component={"img"} src={src?.url} sx={cardSx} />
+      ) : (
+        <Skeleton sx={cardSx} />
+      )}
     </StyledImg>
   );
 };
@@ -46,7 +49,7 @@ const AdvertImageList = ({ src }: iPropsList) => {
   return (
     <Box
       className="AdvertCard"
-      sx={{ p: 2, borderRadius: 1 }}
+      sx={{ p: 2, borderRadius: 1, minHeight: 350 }}
       component={motion.div}
       initial={animateHiddenItens}
       animate={animateShownItens}
@@ -68,18 +71,16 @@ const AdvertImageList = ({ src }: iPropsList) => {
               <Skeleton height={128} sx={{ mx: 0 }} />
               <Skeleton height={128} sx={{ mx: 0 }} />
             </>
+          ) : src && Array.isArray(src) && src.length > 0 ? (
+            src.map((item, index) => (
+              <ImageListItem key={index}>
+                <img src={item?.image?.url} alt="" />
+              </ImageListItem>
+            ))
           ) : (
-            src && Array.isArray(src) && src.length > 0 ? (
-              src.map((item, index) => (
-                <ImageListItem key={index}>
-                  <img src={item?.image?.url} alt="" />
-                </ImageListItem>
-              ))
-            ) : (
-              <ListImageEmpty>
-                <span>Não há outras imagens do produto...</span>
-              </ListImageEmpty>
-            )
+            <ListImageEmpty>
+              <span>Não há outras imagens do produto...</span>
+            </ListImageEmpty>
           )}
         </ImageList>
       </Stack>

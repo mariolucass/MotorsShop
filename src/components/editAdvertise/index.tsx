@@ -1,94 +1,72 @@
 import { Input } from "../inputs";
-import { marcas } from "../../data";
-import { useFieldArray, useForm } from "react-hook-form";
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useAnnouncementContext, useModalContext } from "../../context";
+import { AutoCompletes } from "../autoCompletes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getModelsByBrandFipe } from "../../services/apiFipe";
-import { Autocomplete, Button, TextField } from "@mui/material";
+import { getModelsByBrandFipe } from "../../services";
+import { editAnnouncementSchema } from "../../schemas";
+import { useFieldArray, useForm } from "react-hook-form";
+import { FieldImages } from "../createAdvertise/fieldImages";
+import { ContainerStyled, LabelStyled } from "../inputs/style";
+import { useAnnouncementContext, useModalContext } from "../../context";
+import { capitalizeString, getFuelType, monetizeString } from "../../utils";
 import {
   iAnnouncementRequest,
   iCreateAnnouncement,
   iModelApi,
 } from "../../interfaces";
-import { createAnnouncementSchema } from "../../schemas/announcementSchema";
-import { capitalizeString, convertToNumber, monetizeString } from "../../utils";
 import {
-  AutoCompleteDiv,
   ButtonDiv,
-  DivButtonsImage,
   DivFieldImages,
   DivStyled,
   FormStyled,
   InputSplitDiv,
 } from "./style";
-import { ContainerStyled, InputStyled, LabelStyled } from "../inputs/style";
-import { deleteAnnouncement, getAnnouncementById } from "../../services";
-import { toast } from "react-toastify";
 
-interface IProps {
-  id: string;
-}
+export const EditAdvertise = () => {
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [models, setModels] = useState<iModelApi[]>([]);
 
-export const EditAdvertise = ({ id }: IProps) => {
   const { handleCloseEditAnnouncement } = useModalContext();
-  const { editAnnouncement } = useAnnouncementContext();
+  const { editAnnouncement, excludeAnnouncement, announcementToEdit } =
+    useAnnouncementContext();
+
   const {
+    reset,
     register,
     handleSubmit,
     setValue,
     formState: { errors },
     control,
   } = useForm<iCreateAnnouncement>({
-    resolver: zodResolver(createAnnouncementSchema),
+    resolver: zodResolver(editAnnouncementSchema),
   });
-
-  const excludeAnnouncement = async () => {
-    try {
-      const response = await deleteAnnouncement(id);
-      console.log(response);
-      handleCloseEditAnnouncement();
-      toast.success("Anuncio excluido com sucesso.");
-    } catch (error) {
-      console.log(error);
-      handleCloseEditAnnouncement();
-      toast.error("A exclusão do anúncio falhou, tente novamente mais tarde.");
-    }
-  };
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "images",
   } as never);
 
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [models, setModels] = useState<iModelApi[]>([]);
-  const [year, setYear] = useState("");
-  const [fuel, setFuel] = useState("");
-  const [price, setPrice] = useState("");
-  const [valueFipe, setValueFipe] = useState("");
-  console.log(id);
-
   useEffect(() => {
-    const getFieldsValueOfAnnouncement = async () => {
-      const advertiseData = await getAnnouncementById(id);
-
-      if (advertiseData) {
-        setBrand(advertiseData ? advertiseData.brand : "");
-        setModel(advertiseData ? advertiseData.model : "");
-        setYear(advertiseData ? advertiseData.manufacture_year : "");
-        setFuel(advertiseData ? advertiseData.fuel : "");
-        setValueFipe(advertiseData ? advertiseData.price_fipe : " ");
-        setValue("mileage", advertiseData ? String(advertiseData.mileage) : "");
-        setValue("price", advertiseData ? String(advertiseData.price) : "");
-        setValue("description", advertiseData ? advertiseData.description : "");
-      }
-    };
-
-    getFieldsValueOfAnnouncement();
+    (async () => {
+      reset({
+        ...announcementToEdit,
+        mileage: String(announcementToEdit.mileage),
+      });
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const listFieldImages = fields.map((field, index) => (
+    <FieldImages
+      key={index}
+      index={index}
+      errors={errors}
+      register={register}
+      remove={remove}
+    />
+  ));
 
   useEffect(() => {
     if (brand.length) {
@@ -100,14 +78,13 @@ export const EditAdvertise = ({ id }: IProps) => {
     if (model.length) {
       const getYearAndFuel = async () => {
         const modelFind = models.find((elem) => elem.name === model);
-
         if (modelFind) {
-          setYear(modelFind.year);
           const valueMonetized = monetizeString(modelFind.value);
-          setValueFipe(valueMonetized);
-          const fuelTypes = ["Flex", "Hibrido", "Eletrico"];
-          const fuelType = fuelTypes[modelFind.fuel - 1];
-          setFuel(fuelType);
+          const fuelType = getFuelType(modelFind.fuel);
+
+          setValue("manufacture_year", modelFind.year);
+          setValue("fuel", fuelType);
+          setValue("price_fipe", valueMonetized);
         }
       };
       getYearAndFuel();
@@ -115,65 +92,33 @@ export const EditAdvertise = ({ id }: IProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model]);
 
-  const brandsToSelect = marcas.map((elem) => capitalizeString(elem));
-  const modelsToSelect = models.map((elem: iModelApi) =>
-    capitalizeString(elem.name)
-  );
-
-  const handleBrandChange = (event: any) => {
-    setBrand(event.target.textContent.toLowerCase());
-  };
-
-  const handleModelChange = (event: any) => {
-    setModel(event.target.textContent.toLowerCase());
-  };
-
   return (
     <DivStyled>
       <FormStyled
-        onSubmit={handleSubmit((formData) => {
-          let data: iAnnouncementRequest;
-          data = {
-            ...formData,
+        onSubmit={handleSubmit((formelement) => {
+          console.log(formelement);
+          let elementData: iAnnouncementRequest;
+          elementData = {
+            ...formelement,
+            mileage: +formelement.mileage,
             brand: capitalizeString(brand),
             model: capitalizeString(model),
-            price_fipe: convertToNumber(valueFipe),
-            price: convertToNumber(formData.price),
-            manufacture_year: year,
-            fuel,
-            mileage: +formData.mileage,
           };
-          editAnnouncement(id, data);
+
+          editAnnouncement(announcementToEdit.id, elementData);
           handleCloseEditAnnouncement();
         })}
       >
         <h1>Criar anúncio </h1>
         <h3>Informações do veículo </h3>
-        <AutoCompleteDiv>
-          <label htmlFor="brandSelect"> Marca</label>
 
-          <Autocomplete
-            id="brandSelect"
-            className="autoComplete"
-            options={brandsToSelect}
-            onChange={handleBrandChange}
-            renderInput={(params) => (
-              <TextField {...params} placeholder="Mercedes Benz" />
-            )}
-          />
-        </AutoCompleteDiv>
-        <AutoCompleteDiv>
-          <label htmlFor="modelSelect"> Modelo</label>
-          <Autocomplete
-            id="modelSelect"
-            className="autoComplete"
-            options={modelsToSelect}
-            onChange={handleModelChange}
-            renderInput={(params) => (
-              <TextField {...params} placeholder="A 200 CGI ADVANCE SEDAN" />
-            )}
-          />
-        </AutoCompleteDiv>
+        <AutoCompletes
+          setBrand={setBrand}
+          setModel={setModel}
+          models={models}
+          values={[announcementToEdit.brand, announcementToEdit.model]}
+        />
+
         <InputSplitDiv>
           <Input
             name={"manufacture_year"}
@@ -181,21 +126,18 @@ export const EditAdvertise = ({ id }: IProps) => {
             register={register}
             label={"Ano"}
             placeholder={"2018"}
-            value={year}
             width={"50"}
-            isFipe={true}
           />
 
           <Input
             name={"fuel"}
             register={register}
             label={"Combustível"}
-            value={fuel}
             placeholder={"Gasolina / Etanol"}
             width={"50"}
-            isFipe={true}
           />
         </InputSplitDiv>
+
         <InputSplitDiv>
           <Input
             name={"mileage"}
@@ -215,6 +157,7 @@ export const EditAdvertise = ({ id }: IProps) => {
             width={"50"}
           />
         </InputSplitDiv>
+
         <InputSplitDiv>
           <Input
             type="number"
@@ -223,8 +166,6 @@ export const EditAdvertise = ({ id }: IProps) => {
             label={"Preço tabela FIPE"}
             placeholder={"R$ 40.000,00"}
             width={"50"}
-            value={valueFipe}
-            isFipe={true}
           />
           <Input
             type="number"
@@ -232,12 +173,11 @@ export const EditAdvertise = ({ id }: IProps) => {
             register={register}
             error={errors.price}
             label={"Preço"}
-            value={price}
-            handlerChange={(event: any) => setPrice(event.target.value)}
             placeholder={"R$ 50.000,00"}
             width={"50"}
           />
         </InputSplitDiv>
+
         <Input
           name={"description"}
           register={register}
@@ -272,55 +212,20 @@ export const EditAdvertise = ({ id }: IProps) => {
             Imagens
             <Button
               size="small"
-              onClick={() => {
-                fields.length < 6 && append({});
-              }}
+              onClick={() => fields.length < 6 && append({})}
             >
               Adicionar
             </Button>
           </LabelStyled>
-          <DivFieldImages>
-            {fields.map((field, index) => {
-              return (
-                <>
-                  <LabelStyled>Imagem {index + 1}</LabelStyled>
-                  <DivButtonsImage>
-                    <Button
-                      variant="contained"
-                      component="label"
-                      className="button_as_input image_fields"
-                      sx={{ width: "75%" }}
-                    >
-                      Enviar
-                      <InputStyled
-                        id={`fileImage${index}`}
-                        type="file"
-                        accept="images/*"
-                        {...register(`images.${index}`)}
-                        placeholder="Coloque a imagem aqui"
-                        className={
-                          errors.images && errors.images[index] && "errorInput"
-                        }
-                      />
-                    </Button>
 
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        remove(index);
-                      }}
-                    >
-                      Remover
-                    </Button>
-                  </DivButtonsImage>
-                </>
-              );
-            })}
-          </DivFieldImages>
+          <DivFieldImages>{listFieldImages}</DivFieldImages>
         </ContainerStyled>
 
         <ButtonDiv>
-          <Button className="buttonForms" onClick={excludeAnnouncement}>
+          <Button
+            className="buttonForms"
+            onClick={() => excludeAnnouncement(announcementToEdit.id)}
+          >
             Excluir
           </Button>
 
