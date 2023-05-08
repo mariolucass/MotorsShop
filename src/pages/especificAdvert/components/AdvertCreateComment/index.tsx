@@ -1,8 +1,14 @@
-import { iCommentRequest } from "../../../../interfaces";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import { Avatar, Box, Stack } from "@mui/material";
 import { usernameLimiter } from "../../../../utils";
-import { useDataContext, useUserContext } from "../../../../context";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { iCommentRequest } from "../../../../interfaces";
+import { createCommentSchema } from "../../../../schemas";
+import { useDataContext, useUserContext } from "../../../../context";
 import { getAnnouncementById, postComment } from "../../../../services";
+import { FormContainer, TextareaAutosizeElement } from "react-hook-form-mui";
 import {
   animateHiddenItens,
   animateShownItens,
@@ -10,13 +16,12 @@ import {
   hoverButton,
   tapButton,
 } from "../../../../libs";
-import { Avatar, Box, Stack } from "@mui/material";
-import { createCommentSchema } from "../../../../schemas";
-import { AutoCompletes, ButtonDiv, ButtonSubmit, DivStyled } from "./style";
-import { FormContainer, TextareaAutosizeElement } from "react-hook-form-mui";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { toast } from "react-toastify";
+import {
+  AutoCompleterComment,
+  ButtonDiv,
+  ButtonSubmit,
+  DivStyled,
+} from "./style";
 
 interface iAdvertCreateCommentProps {
   id?: string;
@@ -50,14 +55,14 @@ export const AdvertCreateComment = ({ id }: iAdvertCreateCommentProps) => {
   ];
 
   const renderCompleteButtons = defaultTexts.map((elem, index) => (
-    <AutoCompletes
+    <AutoCompleterComment
       key={index}
       onClick={handleButtonComplete}
       whileHover={hoverButton}
       whileTap={tapButton}
     >
       {elem}
-    </AutoCompletes>
+    </AutoCompleterComment>
   ));
 
   return (

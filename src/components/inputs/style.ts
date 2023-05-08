@@ -12,7 +12,6 @@ const fileInput = css`
 `;
 
 export const ContainerStyled = styled.div<Props>`
-  height: 5em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

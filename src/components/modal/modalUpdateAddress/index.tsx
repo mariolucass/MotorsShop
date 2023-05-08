@@ -1,18 +1,17 @@
-import { useForm } from "react-hook-form";
-import { Input } from "../../inputs";
-import { Container, Form, Buttons, Box, Section } from "./style";
-import { AiOutlineClose } from "react-icons/ai";
 import { useEffect } from "react";
-import { useUserContext, useModalContext } from "../../../context";
+import { Input } from "../../inputs";
 import Button from "@mui/material/Button";
-import { Alert, Backdrop, Fade, Modal } from "@mui/material";
-import { IUpdateAddress, IUpdateAddressUseForm } from "../../../interfaces";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { updateAddressSchema } from "../../../schemas/updateAddressSchema";
+import { useForm } from "react-hook-form";
 import { handleCep } from "../../../utils";
+import { AiOutlineClose } from "react-icons/ai";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert, Backdrop, Fade, Modal } from "@mui/material";
+import { Container, Form, Buttons, Box, Section } from "./style";
+import { useUserContext, useModalContext } from "../../../context";
+import { updateAddressSchema } from "../../../schemas/updateAddressSchema";
+import { IUpdateAddress, IUpdateAddressUseForm } from "../../../interfaces";
 
 export const ModalUpdateAddress = () => {
-  const { userData, updateAddress } = useUserContext();
   const {
     register,
     handleSubmit,
@@ -21,6 +20,8 @@ export const ModalUpdateAddress = () => {
   } = useForm<IUpdateAddressUseForm>({
     resolver: zodResolver(updateAddressSchema),
   });
+
+  const { userData, updateAddress } = useUserContext();
   const { handleCloseAddress, openAddress } = useModalContext();
 
   const onSubmit = async (data: IUpdateAddress) => {
@@ -37,6 +38,7 @@ export const ModalUpdateAddress = () => {
       setValue("number", userData ? userData.address.number : "");
       setValue("complement", userData?.address?.complement ?? "");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
   return (

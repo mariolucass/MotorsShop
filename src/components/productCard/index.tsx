@@ -2,6 +2,7 @@ import { StyledChip } from "../chip";
 import { IPropsProductCard } from "../../interfaces";
 import { monetizeString, usernameLimiter } from "../../utils";
 import {
+  useAnnouncementContext,
   useMediaContext,
   useModalContext,
   useUserContext,
@@ -34,6 +35,7 @@ export const ProductCard = ({
     handleCloseEditAnnouncement,
     handleOpenEditAnnouncement,
   } = useModalContext();
+  const { setAnnouncementToEdit } = useAnnouncementContext();
 
   const { matches500, matches700, matches1200, matches900, minMatches1500 } =
     useMediaContext();
@@ -71,10 +73,10 @@ export const ProductCard = ({
       <Card
         variant="outlined"
         sx={cardSize}
-        onClick={onClick}
+        onClick={!isProfile ? onClick : () => {}}
         component={motion.div}
-        whileHover={{ scale: 0.95 }}
-        whileTap={{ scale: 0.75 }}
+        whileHover={!isProfile ? { scale: 0.95 } : {}}
+        whileTap={!isProfile ? { scale: 0.75 } : {}}
       >
         <CardMedia
           component={"img"}
@@ -165,6 +167,7 @@ export const ProductCard = ({
                     fontFamily: "Inter",
                   }}
                   onClick={() => {
+                    setAnnouncementToEdit(element);
                     handleOpenEditAnnouncement();
                   }}
                 >
@@ -173,6 +176,7 @@ export const ProductCard = ({
                 <Button
                   variant="outlined"
                   color="secondary"
+                  onClick={isProfile ? onClick : () => {}}
                   sx={{
                     fontWeight: 600,
                     textTransform: "unset",
@@ -203,7 +207,7 @@ export const ProductCard = ({
       >
         <Fade in={openEditAnnouncement}>
           <Box>
-            <EditAdvertise id={element.id} />
+            <EditAdvertise />
           </Box>
         </Fade>
       </Modal>

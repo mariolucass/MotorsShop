@@ -1,6 +1,7 @@
 import { DivAdvert } from "./style";
 import { AdvertPageSize } from "./windowSize";
 import { Footer, Header, TransitionAnimation } from "../../components";
+import { ModalUpdateComment } from "../../components/modal/modalUpdateComment";
 
 const AdvertPage = () => (
   <TransitionAnimation>
@@ -12,6 +13,8 @@ const AdvertPage = () => (
       </DivAdvert>
 
       <Footer />
+
+      <ModalUpdateComment />
     </div>
   </TransitionAnimation>
 );

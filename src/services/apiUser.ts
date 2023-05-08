@@ -1,6 +1,6 @@
+import { iUser } from "../interfaces";
 import { FieldValues } from "react-hook-form";
 import { apiUsingNow, apiUsingNowWithToken } from "./api";
-import { iUser } from "../interfaces";
 
 export interface ipostUser {
   token: string;

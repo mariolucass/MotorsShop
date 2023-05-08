@@ -2,19 +2,18 @@ import { StyledHero } from "./style";
 import { motion } from "framer-motion";
 import { iUser } from "../../interfaces";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { getUserById } from "../../services";
 import { Avatar, Container } from "@mui/material";
+import { redirect, useParams } from "react-router-dom";
+import { animateTransitionPresence } from "../../libs/framer";
+import { Adverts, Footer, Header, TransitionAnimation } from "../../components";
 import {
   useAnnouncementContext,
   useLoadingContext,
   useUserContext,
 } from "../../context";
-import { animateTransitionPresence } from "../../libs/framer";
-import { Adverts, Footer, Header, TransitionAnimation } from "../../components";
 
 export const EspecificUser = () => {
-  const navigate = useNavigate();
   const { setUserAdverts } = useAnnouncementContext();
   const { setIsLoading } = useLoadingContext();
 
@@ -26,7 +25,7 @@ export const EspecificUser = () => {
   useEffect(() => {
     (async () => {
       if (userData) {
-        userId === userData!.id && navigate("/profile");
+        userId === userData!.id && redirect("/profile");
       }
 
       const response = await getUserById(userId!);

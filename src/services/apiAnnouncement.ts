@@ -1,6 +1,6 @@
 import { FieldValues } from "react-hook-form";
-import { apiUsingNow, apiUsingNowWithToken } from "./api";
 import { iAnnouncement } from "../interfaces";
+import { apiUsingNow, apiUsingNowWithToken } from "./api";
 
 export async function postAnnouncement(
   data: FieldValues
@@ -45,6 +45,14 @@ export async function patchAnnouncement(id: string, data: any) {
   const { data: response } = await apiUsingNow.patch<iAnnouncement>(
     `announcements/${id}`,
     data
+  );
+
+  return response;
+}
+
+export async function getCountAnnouncements(): Promise<number> {
+  const { data: response } = await apiUsingNow.get<number>(
+    `announcements/count`
   );
 
   return response;

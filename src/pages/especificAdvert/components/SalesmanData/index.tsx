@@ -1,8 +1,8 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { iUser } from "../../../../interfaces";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Typography, Stack, Box } from "@mui/material";
-import { motion } from "framer-motion";
 import {
   animateHiddenItens,
   animateShownItens,
