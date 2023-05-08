@@ -28,7 +28,8 @@ export const useDataContext = () => {
 
 export const DataPrivider = ({ children }: iChildren) => {
   const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+
   const [specificAdvertData, setSpecificAdvertData] = useState<iAnnouncement>();
   const {
     Marca,
@@ -41,7 +42,9 @@ export const DataPrivider = ({ children }: iChildren) => {
     MaxPrice,
     MinPrice,
   } = useFilterContext();
+
   const queryArray = [
+    page,
     Marca,
     Ano,
     Combustivel,
@@ -103,10 +106,8 @@ export const DataPrivider = ({ children }: iChildren) => {
 
   const pagination =
     page !== 0
-      ? `${mileageMaxQuery}page=${page}${countQueryArray !== 0 ? "&" : ""}`
+      ? `${mileageMaxQuery}page=${page - 1}${countQueryArray !== 0 ? "&" : ""}`
       : mileageMaxQuery;
-
-  console.log(page, pagination);
 
   useEffect(() => {
     try {
