@@ -11,6 +11,9 @@ interface iDataProps {
   setSpecificAdvertData: React.Dispatch<
     React.SetStateAction<iAnnouncement | undefined>
   >;
+
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface IImageRequest {
@@ -25,7 +28,7 @@ export const useDataContext = () => {
 
 export const DataPrivider = ({ children }: iChildren) => {
   const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
-
+  const [page, setPage] = useState<number>(0);
   const [specificAdvertData, setSpecificAdvertData] = useState<iAnnouncement>();
   const {
     Marca,
@@ -97,16 +100,24 @@ export const DataPrivider = ({ children }: iChildren) => {
   const mileageMaxQuery = MaxKm
     ? `${mileageMinQuery}mileageMax=${MaxKm}${countQueryArray !== 0 ? "&" : ""}`
     : mileageMinQuery;
+
+  const pagination =
+    page !== 0
+      ? `${mileageMaxQuery}page=${page}${countQueryArray !== 0 ? "&" : ""}`
+      : mileageMaxQuery;
+
+  console.log(page, pagination);
+
   useEffect(() => {
     try {
       apiUsingNow
-        .get(`/${mileageMaxQuery}`)
+        .get(`/${pagination}`)
         .then((res) => setAdvertsData(res.data))
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
-  }, [mileageMaxQuery]);
+  }, [pagination]);
 
   return (
     <DataContext.Provider
@@ -115,6 +126,8 @@ export const DataPrivider = ({ children }: iChildren) => {
         setAdvertsData,
         specificAdvertData,
         setSpecificAdvertData,
+        page,
+        setPage,
       }}
     >
       {children}

@@ -215,6 +215,14 @@ body {
   color: var(--brand1) !important;
 }
 
+.css-1mtig89-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: var(--brand1) !important;
+}
+
+.css-1mtig89-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
+  background-color: var(--brand2) !important;
+}
+
 @media (min-width: 400px) {
   .advertImg {
     height: 80%;
