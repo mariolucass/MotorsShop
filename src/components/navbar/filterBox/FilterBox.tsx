@@ -11,7 +11,7 @@ interface iProps {
 const FilterBox = ({ title, options, to }: iProps) => {
   const [Active, setActive] = useState(false);
   const { matches900 } = useMediaContext();
-  console.log(Active);
+
   return (
     <Box>
       <h6 className={matches900 ? "heading6-600" : "heading4-600"}>{title}</h6>

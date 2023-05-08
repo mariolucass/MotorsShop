@@ -9,6 +9,7 @@ import {
   NavBar,
   TransitionAnimation,
 } from "../../components";
+import MyPagination from "../../components/pagination";
 
 const Home = () => {
   const { matches700 } = useMediaContext();
@@ -24,6 +25,7 @@ const Home = () => {
           <NavBar />
           <Adverts isHome />
         </AdvertsMenu>
+        <MyPagination />
 
         {matches700 && (
           <Box sx={{ width: "95%", m: 1, mt: 5, mb: 5 }}>
