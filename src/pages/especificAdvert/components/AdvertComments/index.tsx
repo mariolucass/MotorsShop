@@ -1,12 +1,19 @@
 import moment from "moment";
 import "moment/locale/pt-br";
-import { CommentsList, LiStyled, NoComments } from "./style";
-import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
-import { iComment } from "../../../../interfaces";
-import { useDataContext, useUserContext } from "../../../../context";
-import { deleteComment, getAnnouncementById } from "../../../../services";
-import { FaCommentSlash } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { FaCommentSlash } from "react-icons/fa";
+import { iComment } from "../../../../interfaces";
+import { usernameLimiter } from "../../../../utils";
+import { useNavigate, useParams } from "react-router-dom";
+import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
+import { CommentsList, DivButtons, LiStyled, NoComments } from "./style";
+import { deleteComment, getAnnouncementById } from "../../../../services";
+import {
+  useAnnouncementContext,
+  useDataContext,
+  useModalContext,
+  useUserContext,
+} from "../../../../context";
 import {
   animateHiddenItens,
   animateShownItens,
@@ -14,8 +21,6 @@ import {
   liVariants,
   ulVariants,
 } from "../../../../libs";
-import { usernameLimiter } from "../../../../utils";
-import { useNavigate, useParams } from "react-router-dom";
 
 interface iAdvertCommentsProps {
   comments?: Array<iComment>;
@@ -24,8 +29,10 @@ interface iAdvertCommentsProps {
 export const AdvertComments = ({ comments }: iAdvertCommentsProps) => {
   const navigate = useNavigate();
   const { userData } = useUserContext();
-  const { setSpecificAdvertData } = useDataContext();
   const { advertId } = useParams();
+  const { setSpecificAdvertData } = useDataContext();
+  const { setCommentToEdit } = useAnnouncementContext();
+  const { handleOpenEditComment } = useModalContext();
 
   const commentsLiRender =
     comments &&
@@ -64,15 +71,26 @@ export const AdvertComments = ({ comments }: iAdvertCommentsProps) => {
 
           <p>{elem.comment}</p>
           {userData?.id === elem.user.id && (
-            <Button
-              onClick={async () => {
-                await deleteComment(elem.id);
-                const response = await getAnnouncementById(advertId!);
-                setSpecificAdvertData(response);
-              }}
-            >
-              Excluir
-            </Button>
+            <DivButtons>
+              <Button
+                onClick={async () => {
+                  await deleteComment(elem.id);
+                  const response = await getAnnouncementById(advertId!);
+                  setSpecificAdvertData(response);
+                }}
+              >
+                Excluir
+              </Button>
+
+              <Button
+                onClick={async () => {
+                  setCommentToEdit(elem);
+                  handleOpenEditComment();
+                }}
+              >
+                Editar
+              </Button>
+            </DivButtons>
           )}
         </LiStyled>
       );

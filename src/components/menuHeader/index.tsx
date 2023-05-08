@@ -9,9 +9,9 @@ interface IProps {
 }
 
 export const MenuHeader = ({ isOpen }: IProps) => {
-  const { userData, logoutUser } = useUserContext();
   const navigate = useNavigate();
-  const { handleOpen, handleOpenAddress, handleOpenUpdateUser } = useModalContext();
+  const { userData, logoutUser } = useUserContext();
+  const { handleOpenAddress, handleOpenUpdateUser } = useModalContext();
 
   return (
     <>
@@ -23,6 +23,13 @@ export const MenuHeader = ({ isOpen }: IProps) => {
             clipPath: "inset(10% 50% 90% 50% round 10px)",
           }}
         >
+          <motion.li
+            onClick={() => navigate("/dashboard")}
+            animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
+          >
+            Dashboard
+          </motion.li>
+
           <motion.li
             animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
             onClick={() => {
@@ -38,7 +45,7 @@ export const MenuHeader = ({ isOpen }: IProps) => {
               handleOpenAddress();
             }}
           >
-            Editar endereco
+            Editar Endereço
           </motion.li>
 
           {userData?.role === "SELLER" && (

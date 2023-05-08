@@ -59,3 +59,14 @@ export const NoComments = styled(motion.div)`
     margin-left: 12px;
   }
 `;
+
+export const DivButtons = styled(motion.div)`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
+  button {
+    width: 20%;
+    /* background-color: var(--brand1); */
+  }
+`;

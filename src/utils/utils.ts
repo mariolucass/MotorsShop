@@ -18,8 +18,6 @@ export const convertToNumber = (price: string) => {
   return String(numericValue);
 };
 
-export const modelFind = () => {};
-
 export const usernameLimiter = (name: string) => {
   const username = name ? name.split(" ") : "User";
   return username.length > 1 ? username[0] + " " + username[1] : username[0];
@@ -53,4 +51,9 @@ export const handleCep = (e: FormEvent<HTMLInputElement>) => {
   value = value.replace(/\D/g, "");
   value = value.replace(/^(\d{5})(\d)/, "$1-$2");
   e.currentTarget.value = value;
+};
+
+export const getFuelType = (fuel: number) => {
+  const fuelTypes = ["Flex", "Hibrido", "Eletrico"];
+  return fuelTypes[fuel - 1];
 };
