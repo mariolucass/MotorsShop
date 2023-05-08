@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Avatar } from "@mui/material";
-import { HeaderStyled, HomeButton } from "./style";
 import { Link } from "react-router-dom";
 import { MenuHeader } from "../menuHeader";
 import { usernameLimiter } from "../../utils";
 import Logo from "../../assets/logoColored.svg";
+import { HeaderStyled, HomeButton } from "./style";
 import { useMediaContext, useUserContext } from "../../context";
-import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
 import { ModalUpdateAddress } from "../modal/modalUpdateAddress";
+import { ModalUpdateDeleteUser } from "../modal/modalUpdateDeleteUser";
 
 export const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -18,6 +18,7 @@ export const Header = () => {
     <>
       <ModalUpdateDeleteUser />
       <ModalUpdateAddress />
+
       <HeaderStyled>
         <HomeButton whileHover={{ scale: 0.85 }} whileTap={{ scale: 0.75 }}>
           <Link to={"/"}>

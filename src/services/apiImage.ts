@@ -1,6 +1,6 @@
-import { FieldValues } from "react-hook-form";
 import { apiUsingNow } from "./api";
 import { iImage } from "../interfaces";
+import { FieldValues } from "react-hook-form";
 
 export async function postImageUser(
   data: FieldValues,

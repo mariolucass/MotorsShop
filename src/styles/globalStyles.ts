@@ -39,6 +39,11 @@ export const GlobalStyles = createGlobalStyle`
   --random10: #6100ff;
   --random11: #5700e3;
   --random12: #30007d;
+
+  --swiper-navigation-color: var(--brand2);
+  --swiper-navigation-size: 32px;
+  --swiper-navigation-top-offset: 50%;
+  --swiper-navigation-sides-offset: 0px;
 }
 
 .heading1-700 {
@@ -90,10 +95,16 @@ export const GlobalStyles = createGlobalStyle`
   font-weight: 500;
 }
 
+
+
 body {
     width: 100%;
     height: 100%;
 } 
+body::after {
+  display: block;
+  height: 140px; 
+}
 
 *{
     ::-webkit-scrollbar {

@@ -94,6 +94,7 @@ const AdvertPageSize = () => {
           initial={animateHiddenItens}
           animate={animateShownItens}
           transition={animateTransitionItens}
+          sx={{ minHeight: 350 }}
         >
           <AdvertImage src={specificAdvertData?.cover} />
         </Grid>
