@@ -29,6 +29,7 @@ export const useDataContext = () => {
 export const DataPrivider = ({ children }: iChildren) => {
   const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
   const [page, setPage] = useState<number>(1);
+
   const [specificAdvertData, setSpecificAdvertData] = useState<iAnnouncement>();
   const {
     Marca,
