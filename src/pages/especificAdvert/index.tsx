@@ -12,10 +12,9 @@ const AdvertPage = () => (
         <AdvertPageSize />
       </DivAdvert>
 
-      <Footer />
-
       <ModalUpdateComment />
     </div>
+    <Footer />
   </TransitionAnimation>
 );
 

@@ -73,9 +73,8 @@ export const EspecificUser = () => {
             <Adverts isProfile />
           </Container>
         </>
-
-        <Footer />
       </motion.div>
+      <Footer />
     </TransitionAnimation>
   );
 };

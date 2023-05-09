@@ -105,6 +105,7 @@ body {
 }
 
 .advertBody {
+  min-height: 100vh;
   width: 100%;
   height: 100%;
   background: linear-gradient(180deg, var(--brand2) 25%, var(--brand4) 25%);
