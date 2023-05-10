@@ -14,6 +14,12 @@ interface iDataProps {
 
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  image: string | undefined;
+  setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export interface IImageRequest {
@@ -27,6 +33,8 @@ export const useDataContext = () => {
 };
 
 export const DataPrivider = ({ children }: iChildren) => {
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState<string>();
   const [AdvertsData, setAdvertsData] = useState<iAnnouncement[]>([]);
   const [page, setPage] = useState<number>(1);
 
@@ -129,6 +137,10 @@ export const DataPrivider = ({ children }: iChildren) => {
         setSpecificAdvertData,
         page,
         setPage,
+        open,
+        setOpen,
+        image,
+        setImage,
       }}
     >
       {children}

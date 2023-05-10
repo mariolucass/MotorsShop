@@ -7,7 +7,11 @@ import { getAnnouncementById } from "../../services";
 import AdvertDesc from "./components/AdvertDescription";
 import { AdvertComments } from "./components/AdvertComments";
 import { AdvertCreateComment } from "./components/AdvertCreateComment";
-import { AdvertImage, AdvertImageList } from "./components/AdvertImage";
+import {
+  AdvertImage,
+  AdvertImageList,
+  AdvertImageModal,
+} from "./components/AdvertImage";
 import {
   useDataContext,
   useLoadingContext,
@@ -81,6 +85,8 @@ const AdvertPageSize = () => {
         </Grid>
 
         <AdvertComments comments={specificAdvertData?.listComment} />
+
+        <AdvertImageModal />
       </Container>
     );
   }
@@ -130,6 +136,7 @@ const AdvertPageSize = () => {
           <SalesmanData data={specificAdvertData?.user} />
         </Grid>
       </Grid>
+      <AdvertImageModal />
     </Container>
   );
 };

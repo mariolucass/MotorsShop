@@ -30,6 +30,7 @@ const AdvertData = ({ name, price, km, year }: iProps) => {
     <CardContent
       className="AdvertCard"
       sx={{
+        maxHeight: 300,
         display: "flex",
         flexDirection: "column",
         gap: 3,

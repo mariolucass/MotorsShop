@@ -98,7 +98,7 @@ export const ProductCard = ({
             variant="h6"
             gutterBottom
             className="card--title"
-            sx={{ fontFamily: "Lexend" }}
+            sx={{ fontFamily: "Lexend", minHeight: 60 }}
           >
             {element.model}
           </Typography>
@@ -106,7 +106,7 @@ export const ProductCard = ({
           <Typography
             className="card--description"
             variant="body2"
-            sx={{ overflowX: "auto" }}
+            sx={{ overflowX: "auto", minHeight: 60 }}
           >
             {element.description}
           </Typography>
