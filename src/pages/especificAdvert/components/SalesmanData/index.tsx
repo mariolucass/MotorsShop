@@ -20,7 +20,7 @@ const SalesmanData = ({ data }: iProps) => {
   return (
     <Box
       className="AdvertCard"
-      sx={{ p: 2, borderRadius: 1 }}
+      sx={{ p: 2, borderRadius: 1, maxHeight: 500 }}
       component={motion.div}
       initial={animateHiddenItens}
       animate={animateShownItens}

@@ -14,7 +14,7 @@ interface iProps {
 const AdvertDesc = ({ desc }: iProps) => (
   <Box
     className="AdvertCard"
-    sx={{ p: 6, borderRadius: 1 }}
+    sx={{ p: 6, borderRadius: 1, maxHeight: 400 }}
     component={motion.div}
     initial={animateHiddenItens}
     animate={animateShownItens}
