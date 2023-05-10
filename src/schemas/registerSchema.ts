@@ -10,16 +10,21 @@ const addressSchema = z.object({
   complement: z.string().optional(),
 });
 
-export const registerSchema = z.object({
-  name: z.string().nonempty("Usuário obrigatório"),
-  email: z.string().nonempty("Email obrigatório"),
-  cpf: z.string().nonempty("CPF obrigatório"),
-  phone: z.string().nonempty("Celular obrigatório"),
-  birthdate: z.string().nonempty("Data de nascimento obrigatória"),
-  description: z.string(),
-  role: z.enum(["BUYER", "SELLER"]),
-  password: z.string().nonempty("Senha obrigatória"),
-  confirm_password: z.string().nonempty("Confirmação de senha obrigatória"),
-  address: addressSchema,
-  image: imageSchema,
-});
+export const registerSchema = z
+  .object({
+    name: z.string().nonempty("Usuário obrigatório"),
+    email: z.string().nonempty("Email obrigatório"),
+    cpf: z.string().nonempty("CPF obrigatório"),
+    phone: z.string().nonempty("Celular obrigatório"),
+    birthdate: z.string().nonempty("Data de nascimento obrigatória"),
+    description: z.string(),
+    role: z.enum(["BUYER", "SELLER"]),
+    password: z.string().nonempty("Senha obrigatória"),
+    confirm_password: z.string().nonempty("Confirmação de senha obrigatória"),
+    address: addressSchema,
+    image: imageSchema,
+  })
+  .refine((fields) => fields.password === fields.confirm_password, {
+    path: ["confirm_password"],
+    message: "As senhas precisam ser iguais",
+  });
