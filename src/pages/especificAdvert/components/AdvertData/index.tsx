@@ -2,6 +2,7 @@ import Stack from "@mui/material/Stack";
 import { StyledChip } from "../../../../components";
 import { monetizeString } from "../../../../utils";
 import { Button, CardActions, CardContent, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { motion } from "framer-motion";
 import {
   animateHiddenItens,
@@ -10,15 +11,13 @@ import {
 } from "../../../../libs";
 import { useUserContext } from "../../../../context";
 import { useNavigate } from "react-router-dom";
+import { iAnnouncement } from "../../../../interfaces";
 
 interface iProps {
-  name: string | undefined;
-  price: string | undefined;
-  year: string | undefined;
-  km: number | undefined;
+  element: iAnnouncement | undefined;
 }
 
-const AdvertData = ({ name, price, km, year }: iProps) => {
+const AdvertData = ({ element }: iProps) => {
   const { userData } = useUserContext();
   const navigate = useNavigate();
 
@@ -26,10 +25,16 @@ const AdvertData = ({ name, price, km, year }: iProps) => {
     navigate("/login");
   };
 
+  const whatsappURL = `https://api.whatsapp.com/send/?phone=55${element?.user
+    ?.phone!}&text=Olá gostaria de comprar o seu carro: ${
+    element?.model
+  } da marca ${element?.brand}`;
+
   return (
     <CardContent
       className="AdvertCard"
       sx={{
+        maxHeight: 300,
         display: "flex",
         flexDirection: "column",
         gap: 3,
@@ -48,7 +53,7 @@ const AdvertData = ({ name, price, km, year }: iProps) => {
         className="card--title"
         sx={{ mb: 2, fontFamily: "Lexend" }}
       >
-        {name}
+        {element ? element?.model : "Loading..."}
       </Typography>
 
       <Stack
@@ -63,28 +68,35 @@ const AdvertData = ({ name, price, km, year }: iProps) => {
           alignItems="flex-start"
           spacing={2}
         >
-          <StyledChip label={year!} />
-          <StyledChip label={`${km!} KM`} />
+          <StyledChip
+            label={element ? element?.manufacture_year! : "Loading..."}
+          />
+          <StyledChip
+            label={element?.mileage ? `${element?.mileage!} KM` : "Loading..."}
+          />
         </Stack>
-        <span className="card--price">{monetizeString(+price!)}</span>
+        <span className="card--price">
+          {element?.price ? monetizeString(+element?.price!) : "Loading..."}
+        </span>
       </Stack>
       <CardActions sx={{ p: 0 }}>
         {userData ? (
           <Button
             variant="contained"
             className="buttonBrand"
-            onClick={() => {}}
+            component={motion.a}
+            target="_blank"
+            href={whatsappURL}
           >
-            Comprar
+            {element ? "Comprar" : "Loading..."}
           </Button>
         ) : (
           <Button
             variant="contained"
             className="buttonBrand"
-            disabled
             onClick={handleNavigateLogin}
           >
-            Comprar
+            {element ? "Comprar" : "Loading..."}
           </Button>
         )}
       </CardActions>

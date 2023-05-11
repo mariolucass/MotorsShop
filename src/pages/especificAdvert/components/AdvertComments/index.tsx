@@ -21,6 +21,7 @@ import {
   liVariants,
   ulVariants,
 } from "../../../../libs";
+import { toast } from "react-toastify";
 
 interface iAdvertCommentsProps {
   comments?: Array<iComment>;
@@ -73,16 +74,21 @@ export const AdvertComments = ({ comments }: iAdvertCommentsProps) => {
           {userData?.id === elem.user.id && (
             <DivButtons>
               <Button
+                variant="contained"
+                className="buttonBrand"
                 onClick={async () => {
                   await deleteComment(elem.id);
                   const response = await getAnnouncementById(advertId!);
                   setSpecificAdvertData(response);
+                  toast.success("Comentário excluído com sucesso!");
                 }}
               >
                 Excluir
               </Button>
 
               <Button
+                variant="contained"
+                className="buttonBrand"
                 onClick={async () => {
                   setCommentToEdit(elem);
                   handleOpenEditComment();

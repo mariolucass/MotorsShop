@@ -78,6 +78,7 @@ export const EditAdvertise = () => {
     if (model.length) {
       const getYearAndFuel = async () => {
         const modelFind = models.find((elem) => elem.name === model);
+
         if (modelFind) {
           const valueMonetized = monetizeString(modelFind.value);
           const fuelType = getFuelType(modelFind.fuel);
@@ -96,7 +97,6 @@ export const EditAdvertise = () => {
     <DivStyled>
       <FormStyled
         onSubmit={handleSubmit((formelement) => {
-          console.log(formelement);
           let elementData: iAnnouncementRequest;
           elementData = {
             ...formelement,
@@ -113,6 +113,7 @@ export const EditAdvertise = () => {
         <h3>Informações do veículo </h3>
 
         <AutoCompletes
+          brand={brand}
           setBrand={setBrand}
           setModel={setModel}
           models={models}
@@ -224,13 +225,16 @@ export const EditAdvertise = () => {
         <ButtonDiv>
           <Button
             className="buttonForms"
-            onClick={() => excludeAnnouncement(announcementToEdit.id)}
+            onClick={() => {
+              excludeAnnouncement(announcementToEdit.id);
+              handleCloseEditAnnouncement();
+            }}
           >
-            Excluir
+            Excluir Anúncio
           </Button>
 
           <Button className="buttonForms" type="submit">
-            Editar Anúncio
+            Salvar Alteracões
           </Button>
         </ButtonDiv>
       </FormStyled>

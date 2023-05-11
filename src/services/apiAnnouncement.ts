@@ -16,16 +16,18 @@ export async function getAnnouncement(): Promise<iAnnouncement[]> {
   const { data: response } = await apiUsingNow.get<iAnnouncement[]>(
     "announcements"
   );
+
   return response;
 }
 
 export async function getAnnouncementWithQuery(
-  brand: string
+  query: any
 ): Promise<iAnnouncement[]> {
   const { data: response } = await apiUsingNow.get<iAnnouncement[]>(
     "announcements",
-    { params: { brand } }
+    { params: query }
   );
+
   return response;
 }
 
@@ -36,6 +38,16 @@ export async function getAnnouncementById(id: string): Promise<iAnnouncement> {
 
   return response;
 }
+
+export const getFilteredAnnouncements = async (
+  pagination: string
+): Promise<iAnnouncement[]> => {
+  const { data: response } = await apiUsingNow.get(
+    `announcements/${pagination}`
+  );
+
+  return response;
+};
 
 export async function deleteAnnouncement(id: string) {
   await apiUsingNowWithToken.delete<iAnnouncement>(`announcements/${id}`);

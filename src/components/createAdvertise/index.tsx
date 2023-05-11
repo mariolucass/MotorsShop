@@ -22,6 +22,7 @@ import {
   FormStyled,
   InputSplitDiv,
 } from "./style";
+import { getUserProfile } from "../../services";
 
 export const CreateAdvertise = () => {
   const [brand, setBrand] = useState("");
@@ -29,7 +30,8 @@ export const CreateAdvertise = () => {
   const [models, setModels] = useState<iModelApi[]>([]);
 
   const { handleClose } = useModalContext();
-  const { createAnnouncement } = useAnnouncementContext();
+  const { createAnnouncement, setannouncementsProfile } =
+    useAnnouncementContext();
 
   const {
     register,
@@ -85,7 +87,7 @@ export const CreateAdvertise = () => {
   return (
     <DivStyled>
       <FormStyled
-        onSubmit={handleSubmit((formData) => {
+        onSubmit={handleSubmit(async (formData) => {
           let data: iAnnouncementRequest;
           data = {
             ...formData,
@@ -93,14 +95,26 @@ export const CreateAdvertise = () => {
             brand: capitalizeString(brand),
             model: capitalizeString(model),
           };
-          createAnnouncement(data);
-          handleClose();
+          try {
+            const announcement = await createAnnouncement(data);
+
+            if (announcement) {
+              const token = localStorage.getItem("@MotorsShop:token");
+              const response = await getUserProfile(token!);
+              setannouncementsProfile(response.announcements);
+            }
+
+            handleClose();
+          } catch (err) {
+            console.log(err);
+          }
         })}
       >
         <h1>Criar anúncio </h1>
         <h3>Informações do veículo </h3>
 
         <AutoCompletes
+          brand={brand}
           models={models}
           setBrand={setBrand}
           setModel={setModel}

@@ -71,8 +71,8 @@ const Profile = () => {
             <Container>
               <Adverts isProfile />
             </Container>
-            <Footer />
           </motion.div>
+          <Footer />
 
           <ModalGeneral>
             <CreateAdvertise />

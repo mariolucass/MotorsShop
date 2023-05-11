@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { StyledImg, ListImageEmpty } from "./style";
-import { useLoadingContext } from "../../../../context";
+import { useDataContext, useLoadingContext } from "../../../../context";
 import { iImage, iListImage } from "../../../../interfaces";
 import {
   Typography,
@@ -9,6 +9,8 @@ import {
   ImageListItem,
   Skeleton,
   Box,
+  Modal,
+  Button,
 } from "@mui/material";
 import {
   animateHiddenItens,
@@ -24,12 +26,12 @@ interface iPropsList {
 }
 
 const AdvertImage = ({ src }: iProps) => {
-  console.log(src);
   const cardSx = {
     objectFit: "contain",
     width: "70%",
     height: "100%",
     padding: 2,
+    maxHeight: 350,
   };
 
   return (
@@ -45,11 +47,13 @@ const AdvertImage = ({ src }: iProps) => {
 
 const AdvertImageList = ({ src }: iPropsList) => {
   const { isLoading } = useLoadingContext();
+  const { open, setOpen, setImage } = useDataContext();
+  const showModal = () => setOpen(!open);
 
   return (
     <Box
       className="AdvertCard"
-      sx={{ p: 2, borderRadius: 1, minHeight: 350 }}
+      sx={{ p: 2, borderRadius: 1, maxHeight: 370, height: "100%" }}
       component={motion.div}
       initial={animateHiddenItens}
       animate={animateShownItens}
@@ -73,7 +77,14 @@ const AdvertImageList = ({ src }: iPropsList) => {
             </>
           ) : src && Array.isArray(src) && src.length > 0 ? (
             src.map((item, index) => (
-              <ImageListItem key={index}>
+              <ImageListItem
+                key={index}
+                onClick={() => {
+                  setImage(item?.image?.url);
+                  showModal();
+                }}
+                sx={{ cursor: "pointer" }}
+              >
                 <img src={item?.image?.url} alt="" />
               </ImageListItem>
             ))
@@ -88,4 +99,52 @@ const AdvertImageList = ({ src }: iPropsList) => {
   );
 };
 
-export { AdvertImage, AdvertImageList };
+const AdvertImageModal = () => {
+  const { open, setOpen, image } = useDataContext();
+  const showModal = () => setOpen(!open);
+
+  return (
+    <Modal open={open} onClose={showModal}>
+      <Box
+        sx={{
+          backgroundColor: "#fff",
+          width: 500,
+          height: 500,
+          p: 2,
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+        }}
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
+        >
+          <Typography className="card--title">Imagem Do Veiculo</Typography>
+
+          <Button
+            sx={{ width: "5%" }}
+            className="buttonGrey-2"
+            onClick={showModal}
+          >
+            X
+          </Button>
+        </Stack>
+        <Box
+          sx={{ objectFit: "contain", width: "100%" }}
+          component={"img"}
+          src={image}
+          alt="imagem do carro"
+        />
+      </Box>
+    </Modal>
+  );
+};
+
+export { AdvertImage, AdvertImageList, AdvertImageModal };

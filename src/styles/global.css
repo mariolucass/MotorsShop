@@ -105,6 +105,7 @@ body {
 }
 
 .advertBody {
+  min-height: 100vh;
   width: 100%;
   height: 100%;
   background: linear-gradient(180deg, var(--brand2) 25%, var(--brand4) 25%);
@@ -213,6 +214,14 @@ body {
 
 .css-vqmohf-MuiButtonBase-root-MuiRadio-root {
   color: var(--brand1) !important;
+}
+
+.css-1mtig89-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: var(--brand1) !important;
+}
+
+.css-1mtig89-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:hover {
+  background-color: var(--brand2) !important;
 }
 
 @media (min-width: 400px) {

@@ -19,7 +19,9 @@ interface iContextProvider {
   setannouncementsProfile: React.Dispatch<
     React.SetStateAction<iAnnouncement[]>
   >;
-  createAnnouncement: (formData: iAnnouncementRequest) => Promise<void>;
+  createAnnouncement: (
+    formData: iAnnouncementRequest
+  ) => Promise<iAnnouncement | undefined>;
   userAdverts: iAnnouncement[];
   setUserAdverts: React.Dispatch<React.SetStateAction<iAnnouncement[]>>;
   editAnnouncement: (id: string, formData: any) => Promise<void>;
@@ -55,7 +57,7 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
       data.append("image", formData.imageCover);
       await postImageAnnouncementCover(data, announcement.id);
 
-      if (!!formData.images.length) {
+      if (!!formData.images.length && announcement) {
         formData.images.forEach(async (el) => {
           const data = new FormData();
           data.append("image", el);
@@ -63,10 +65,11 @@ export const AnnouncementProvider = ({ children }: iChildren) => {
         });
       }
 
-      setannouncementsProfile((prevState) => [...prevState, announcement]);
       toast.success(
         "Anúncio criado com sucesso, obrigado por usar nossa plataforma"
       );
+
+      return announcement;
     } catch (error) {
       console.log(error);
       toast.error(
