@@ -2,25 +2,27 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { usernameLimiter } from "../../../utils";
-import { patchComment } from "../../../services";
+import { getAnnouncementById, patchComment } from "../../../services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { iCommentRequest } from "../../../interfaces";
 import { hoverButton, tapButton } from "../../../libs";
 import { createCommentSchema } from "../../../schemas";
-import { ButtonDiv } from "../../createAdvertise/style";
-import { Backdrop, Fade, Modal, Avatar } from "@mui/material";
-import { Container, Box, ButtonSubmit, AutoCompleterComment } from "./style";
+import { Backdrop, Fade, Modal, Avatar, Button } from "@mui/material";
+import { Container, Box, AutoCompleterComment, DivButtonSubmit } from "./style";
 import { FormContainer, TextareaAutosizeElement } from "react-hook-form-mui";
 import {
   useAnnouncementContext,
+  useDataContext,
   useModalContext,
   useUserContext,
 } from "../../../context";
+import { ButtonDiv } from "../../../pages/especificAdvert/components/AdvertCreateComment/style";
 
 export const ModalUpdateComment = () => {
   const { userData } = useUserContext();
   const { commentToEdit } = useAnnouncementContext();
   const { handleCloseEditComment, openEditComment } = useModalContext();
+  const { setSpecificAdvertData } = useDataContext();
 
   const [values, setValues] = useState<iCommentRequest>();
 
@@ -29,8 +31,12 @@ export const ModalUpdateComment = () => {
   };
 
   const editComment = async (data: iCommentRequest) => {
-    await patchComment(data, commentToEdit.id);
-    toast.success("Comentário criado com sucesso.");
+    const response = await patchComment(data, commentToEdit.id);
+    const responseAdvert = await getAnnouncementById(response.announcement_id!);
+    setSpecificAdvertData(responseAdvert);
+
+    toast.success("Comentário editado com sucesso.");
+    handleCloseEditComment();
   };
 
   const formContext = useForm<{ comment: string }>({
@@ -97,15 +103,17 @@ export const ModalUpdateComment = () => {
                 placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
               />
 
-              <ButtonSubmit
-                type="submit"
-                whileHover={hoverButton}
-                whileTap={tapButton}
-              >
-                Editar Comentário
-              </ButtonSubmit>
-
               <ButtonDiv>{renderCompleteButtons}</ButtonDiv>
+
+              <DivButtonSubmit>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  className="buttonBrand"
+                >
+                  Editar Comentário
+                </Button>
+              </DivButtonSubmit>
             </FormContainer>
           </Container>
         </Box>

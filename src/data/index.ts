@@ -1,4 +1,4 @@
-export const marcas = [
+export const marcasMocked = [
   {
     name: "Chevrolet",
     img: "https://http2.mlstatic.com/D_Q_NP_866482-MLA43685504227_102020-G.webp",

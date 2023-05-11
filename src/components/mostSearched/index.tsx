@@ -9,7 +9,7 @@ import { useDataContext, useMediaContext } from "../../context";
 
 export const LastPromotionAdverts = () => {
   const navigate = useNavigate();
-  const { setSpecificAdvertData, AdvertsData } = useDataContext();
+  const { setSpecificAdvertData, announcementsDash } = useDataContext();
   const { matches500 } = useMediaContext();
 
   const advertData = (id: string) => {
@@ -17,8 +17,8 @@ export const LastPromotionAdverts = () => {
     navigate(`/advert/${id}`);
   };
 
-  const list = AdvertsData.map((element) => (
-    <SwiperSlide key={element.model}>
+  const list = announcementsDash.map((element) => (
+    <SwiperSlide key={element.id}>
       <CardDiv>
         <LastPromotionsCard
           element={element}

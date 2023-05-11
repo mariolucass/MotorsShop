@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { IPropsProductCard } from "../../interfaces";
 import { Typography, CardContent, CardMedia, Card } from "@mui/material";
+import { monetizeString } from "../../utils";
 
 export const LastPromotionsCard = ({ element, onClick }: IPropsProductCard) => (
   <Card
@@ -37,6 +38,15 @@ export const LastPromotionsCard = ({ element, onClick }: IPropsProductCard) => (
         sx={{ fontFamily: "Lexend", minHeight: 64 }}
       >
         {element.model}
+      </Typography>
+
+      <Typography
+        component="div"
+        variant="h6"
+        gutterBottom
+        sx={{ fontFamily: "Lexend", minHeight: 64, color: "#4529e6" }}
+      >
+        {monetizeString(+element.price)}
       </Typography>
     </CardContent>
   </Card>

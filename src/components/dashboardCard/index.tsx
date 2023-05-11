@@ -2,19 +2,33 @@ import { Avatar } from "@mui/material";
 import { AnimatePresence } from "framer-motion";
 import { animateTransitionItens } from "../../libs";
 import { CardDashStyled, DivImageCards, ListCardsDashStyled } from "./style";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   list: Array<any>;
 }
 
 export const DashboardCards = ({ list }: IProps) => {
+  const navigate = useNavigate();
   const listToRender = list.slice(0, 8);
+
+  const handleClick = (name: string) => {
+    let data = {
+      page: "0",
+      brand: name,
+    };
+
+    localStorage.setItem("@MotorsShop:filter", JSON.stringify(data));
+
+    navigate(`/?brand=${name}&page=0`);
+  };
 
   const listCards = listToRender.map((elem) => (
     <CardDashStyled
       key={elem.img}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.87 }}
+      onClick={() => handleClick(elem.name)}
     >
       <DivImageCards>
         <Avatar

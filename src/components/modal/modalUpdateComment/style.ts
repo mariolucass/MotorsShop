@@ -1,29 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const ButtonSubmit = styled(motion.button)`
-  box-sizing: border-box;
-  position: relative;
-  bottom: 5%;
-  left: 80%;
-  width: 112px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 20px;
-  gap: 10px;
-
-  color: var(--whitefixed);
-
-  background: #4529e6;
-
-  border: 1.5px solid #4529e6;
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
 export const Box = styled.div`
   position: absolute;
   top: 50%;
@@ -120,4 +97,17 @@ export const AutoCompleterComment = styled(motion.button)`
 
   background: #e9ecef;
   border-radius: 24px;
+`;
+
+export const DivButtonSubmit = styled(motion.div)`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 5%;
+  font-weight: 750;
+
+  button {
+    font-family: "Lexend";
+  }
 `;

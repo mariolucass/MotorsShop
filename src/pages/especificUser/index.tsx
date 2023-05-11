@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { iUser } from "../../interfaces";
 import { useEffect, useState } from "react";
 import { getUserById } from "../../services";
-import { Avatar, Container } from "@mui/material";
+import { Avatar, Container, Skeleton } from "@mui/material";
 import { redirect, useParams } from "react-router-dom";
 import { animateTransitionPresence } from "../../libs/framer";
 import { Adverts, Footer, Header, TransitionAnimation } from "../../components";
@@ -37,8 +37,6 @@ export const EspecificUser = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(userSpecific);
-
   return (
     <TransitionAnimation>
       <motion.div className="advertBody">
@@ -52,20 +50,32 @@ export const EspecificUser = () => {
               transition={animateTransitionPresence}
             >
               <div>
-                <Avatar
-                  sx={{ width: 80, height: 80 }}
-                  src={
-                    userSpecific.profile
-                      ? userSpecific.profile.url
-                      : "https://www.example.com/example.png"
-                  }
-                />
+                {userSpecific.profile ? (
+                  <Avatar
+                    sx={{ width: 80, height: 80 }}
+                    src={userSpecific.profile.url}
+                  />
+                ) : (
+                  <Skeleton
+                    variant="circular"
+                    width={80}
+                    height={80}
+                    animation="wave"
+                  />
+                )}
                 <div>
-                  <span>{userSpecific?.name}</span>
-                  <div>Anunciante</div>
+                  <span>
+                    {userSpecific.name ? userSpecific?.name : "Loading..."}
+                  </span>
+
+                  {userSpecific?.role === "SELLER" && <div>Anunciante</div>}
                 </div>
               </div>
-              <p>{userSpecific?.description}</p>
+              <p>
+                {userSpecific.description
+                  ? userSpecific?.description
+                  : "Loading..."}
+              </p>
             </motion.section>
           </StyledHero>
 

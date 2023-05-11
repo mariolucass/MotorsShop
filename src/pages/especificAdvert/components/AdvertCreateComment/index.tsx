@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import { Avatar, Box, Stack } from "@mui/material";
+import { Avatar, Box, Stack, Button } from "@mui/material";
 import { usernameLimiter } from "../../../../utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { iCommentRequest } from "../../../../interfaces";
@@ -19,7 +19,7 @@ import {
 import {
   AutoCompleterComment,
   ButtonDiv,
-  ButtonSubmit,
+  DivButtonSubmit,
   DivStyled,
 } from "./style";
 
@@ -99,13 +99,11 @@ export const AdvertCreateComment = ({ id }: iAdvertCreateCommentProps) => {
               placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
             />
 
-            <ButtonSubmit
-              type="submit"
-              whileHover={hoverButton}
-              whileTap={tapButton}
-            >
-              Comentar
-            </ButtonSubmit>
+            <DivButtonSubmit>
+              <Button type="submit" variant="contained" className="buttonBrand">
+                Comentar
+              </Button>
+            </DivButtonSubmit>
           </FormContainer>
 
           <ButtonDiv>{renderCompleteButtons}</ButtonDiv>

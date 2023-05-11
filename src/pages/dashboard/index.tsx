@@ -1,4 +1,4 @@
-import { marcas } from "../../data";
+import { marcasMocked } from "../../data";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
@@ -15,6 +15,7 @@ import { Footer, Header, TransitionAnimation } from "../../components";
 import {
   getAnnouncementWithQuery,
   getCountAnnouncements,
+  getFilteredAnnouncements,
 } from "../../services";
 import {
   animateHiddenItens,
@@ -35,26 +36,53 @@ export const Dashboard = () => {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [models, setModels] = useState<iAnnouncement[]>([]);
-  const [count, setCount] = useState(0);
-  const { AdvertsData } = useDataContext();
+  const { announcementsDash, setAnnouncementsDash, setCount, count } =
+    useDataContext();
 
   useEffect(() => {
     if (brand.length) {
       (async () =>
-        setModels(await getAnnouncementWithQuery(capitalizeString(brand))))();
+        setModels(
+          await getAnnouncementWithQuery({ brand: capitalizeString(brand) })
+        ))();
     }
   }, [brand]);
+
+  useEffect(() => {
+    (async () => {})();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     (async () => {
       const countAnnouncements = await getCountAnnouncements();
       setCount(countAnnouncements);
+
+      const pagination = "?page=0&";
+      const announcements = await getFilteredAnnouncements(pagination);
+
+      setAnnouncementsDash(announcements);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSearchChange = () => {
+  const handleSearchChange = async () => {
     if (brand && model) {
-      navigate(`/home/${brand}/${model}`);
+      const brandFormatted = capitalizeString(brand);
+      const modelFormatted = capitalizeString(model).split(" ")[0];
+
+      const data = {
+        page: "0",
+        brand: brandFormatted,
+        model: modelFormatted,
+      };
+
+      localStorage.setItem("@MotorsShop:filter", JSON.stringify(data));
+
+      navigate(`/?brand=${brandFormatted}&model=${modelFormatted}&page=0`);
+    } else {
+      localStorage.removeItem("@MotorsShop:filter");
+      navigate(`/`);
     }
   };
 
@@ -88,12 +116,17 @@ export const Dashboard = () => {
           transition={animateTransitionItens}
         >
           <AutoCompletes
+            brand={brand}
             setBrand={setBrand}
             setModel={setModel}
             modelsDash={models}
           />
 
-          <Button onClick={handleSearchChange} className="filterButton">
+          <Button
+            variant="contained"
+            className="buttonBrand"
+            onClick={handleSearchChange}
+          >
             Ver ofertas ({count})
           </Button>
         </DivSearch>
@@ -106,13 +139,13 @@ export const Dashboard = () => {
           <DivContainersShow>
             <h2>Montadoras</h2>
 
-            <DashboardCards list={marcas} />
+            <DashboardCards list={marcasMocked} />
           </DivContainersShow>
 
           <DivContainersShow>
             <h2>Últimas Ofertas</h2>
 
-            {AdvertsData.length === 0 ? (
+            {!announcementsDash.length ? (
               <DivLoadingInDash>
                 <PulseLoader size={64} color={"#4529e6"} />
               </DivLoadingInDash>

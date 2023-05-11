@@ -1,4 +1,4 @@
-import { marcas } from "../../data";
+import { marcasMocked } from "../../data";
 import { AutoCompleteDiv } from "./style";
 import { iModelApi } from "../../interfaces";
 import { capitalizeString } from "../../utils";
@@ -6,6 +6,7 @@ import { iAnnouncement } from "../../interfaces";
 import { Autocomplete, TextField } from "@mui/material";
 
 export interface IPropsAutoComplete {
+  brand: string;
   setBrand: React.Dispatch<React.SetStateAction<string>>;
   setModel: React.Dispatch<React.SetStateAction<string>>;
   models?: iModelApi[];
@@ -14,6 +15,7 @@ export interface IPropsAutoComplete {
 }
 
 export const AutoCompletes = ({
+  brand,
   setBrand,
   setModel,
   models,
@@ -21,8 +23,8 @@ export const AutoCompletes = ({
   values,
 }: IPropsAutoComplete) => {
   const brandsToSelect = modelsDash
-    ? marcas.map((elem) => capitalizeString(elem.name))
-    : marcas.map((elem) => capitalizeString(elem.name));
+    ? marcasMocked.map((elem) => capitalizeString(elem.name))
+    : marcasMocked.map((elem) => capitalizeString(elem.name));
 
   const modelsToSelect = modelsDash
     ? modelsDash.map((elem) => capitalizeString(elem.model))
@@ -63,6 +65,7 @@ export const AutoCompletes = ({
           className="autoComplete"
           options={modelsToSelect}
           onChange={handleModelChange}
+          loading={brand.length ? false : true}
           renderInput={(params) => (
             <TextField {...params} placeholder="A 200 CGI ADVANCE SEDAN" />
           )}

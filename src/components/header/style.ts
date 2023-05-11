@@ -52,6 +52,10 @@ export const HeaderStyled = styled.header`
       }
     }
   }
+
+  @media (max-width: 700px) {
+    padding: 0px 20px;
+  }
 `;
 
 export const HomeButton = styled(motion.div)``;
