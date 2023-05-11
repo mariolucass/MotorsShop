@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { StyledImg, ListImageEmpty } from "./style";
-import { useDataContext, useLoadingContext } from "../../../../context";
+import {
+  useDataContext,
+  useLoadingContext,
+  useMediaContext,
+} from "../../../../context";
 import { iImage, iListImage } from "../../../../interfaces";
 import {
   Typography,
@@ -100,26 +104,44 @@ const AdvertImageList = ({ src }: iPropsList) => {
 };
 
 const AdvertImageModal = () => {
+  const { matches500 } = useMediaContext();
   const { open, setOpen, image } = useDataContext();
   const showModal = () => setOpen(!open);
 
+  const size = () => {
+    if (matches500) {
+      return {
+        backgroundColor: "#fff",
+        width: "80%",
+        height: "40%",
+        p: 2,
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+      };
+    }
+    return {
+      backgroundColor: "#fff",
+      width: 500,
+      height: 500,
+      p: 2,
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-around",
+    };
+  };
+
   return (
     <Modal open={open} onClose={showModal}>
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          width: 500,
-          height: 500,
-          p: 2,
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-        }}
-      >
+      <Box sx={size}>
         <Stack
           direction="row"
           justifyContent="space-between"

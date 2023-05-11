@@ -9,7 +9,7 @@ import {
   animateShownItens,
   animateTransitionItens,
 } from "../../../../libs";
-import { useUserContext } from "../../../../context";
+import { useMediaContext, useUserContext } from "../../../../context";
 import { useNavigate } from "react-router-dom";
 import { iAnnouncement } from "../../../../interfaces";
 
@@ -18,8 +18,30 @@ interface iProps {
 }
 
 const AdvertData = ({ element }: iProps) => {
+  const { matches500 } = useMediaContext();
   const { userData } = useUserContext();
   const navigate = useNavigate();
+
+  const size = () => {
+    if (matches500) {
+      return {
+        maxHeight: 300,
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
+        borderRadius: 1,
+        p: 4,
+      };
+    }
+    return {
+      maxHeight: 300,
+      display: "flex",
+      flexDirection: "column",
+      gap: 3,
+      borderRadius: 1,
+      p: 6,
+    };
+  };
 
   const handleNavigateLogin = () => {
     navigate("/login");
@@ -33,14 +55,7 @@ const AdvertData = ({ element }: iProps) => {
   return (
     <CardContent
       className="AdvertCard"
-      sx={{
-        maxHeight: 300,
-        display: "flex",
-        flexDirection: "column",
-        gap: 3,
-        borderRadius: 1,
-        p: 6,
-      }}
+      sx={size}
       component={motion.div}
       initial={animateHiddenItens}
       animate={animateShownItens}
