@@ -30,7 +30,7 @@ const AdvertDesc = ({ desc }: iProps) => (
         Descrição
       </Typography>
       <Typography className="Advertdesc" sx={{ fontFamily: "Inter" }}>
-        {desc}
+        {desc ? desc : "Loading..."}
       </Typography>
     </Stack>
   </Box>

@@ -26,11 +26,10 @@ import {
 } from "../../libs";
 
 const AdvertPageSize = () => {
-  const { matches500, matches700, matches900 } = useMediaContext();
   const { userData } = useUserContext();
-  const { specificAdvertData, setSpecificAdvertData } = useDataContext();
+  const { matches700 } = useMediaContext();
   const { setIsLoading } = useLoadingContext();
-
+  const { specificAdvertData, setSpecificAdvertData } = useDataContext();
   const { advertId } = useParams();
 
   useEffect(() => {
@@ -46,56 +45,59 @@ const AdvertPageSize = () => {
     return () => {
       isMounted = false;
     };
-    /* (async () => {
-      const response = await getAnnouncementById(advertId!);
-      setSpecificAdvertData(response);
-      setIsLoading(false);
-    })(); */
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setIsLoading, advertId]);
 
   if (matches700) {
     return (
       <Container sx={{ mt: 2 }}>
-        <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
-          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+        <Grid container spacing={2} direction={"column"}>
+          <Grid item xs={5}>
             <AdvertImage src={specificAdvertData?.cover} />
           </Grid>
-          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-            <AdvertData
-              name={specificAdvertData?.model}
-              price={specificAdvertData?.price}
-              km={specificAdvertData?.mileage}
-              year={specificAdvertData?.manufacture_year}
-            />
+
+          <Grid item xs={5}>
+            <AdvertData element={specificAdvertData} />
           </Grid>
-          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+
+          <Grid item xs={5}>
             <AdvertDesc desc={specificAdvertData?.description} />
           </Grid>
-          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
+
+          <Grid item xs={5}>
             <AdvertImageList src={specificAdvertData?.listImage} />
           </Grid>
-          <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
+
+          <Grid item xs={5}>
             <SalesmanData data={specificAdvertData?.user} />
           </Grid>
+
+          <Grid item xs={5}>
+            <AdvertDesc desc={specificAdvertData?.description} />
+          </Grid>
+
+          <Grid item xs={5}>
+            <AdvertComments comments={specificAdvertData?.listComment} />
+          </Grid>
+
+          {userData && (
+            <Grid item xs={5}>
+              <AdvertCreateComment id={specificAdvertData?.id} />
+            </Grid>
+          )}
         </Grid>
-
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}>
-          <AdvertDesc desc={specificAdvertData?.description} />
-        </Grid>
-
-        <AdvertComments comments={specificAdvertData?.listComment} />
-
         <AdvertImageModal />
       </Container>
     );
   }
+
   return (
     <Container sx={{ mt: 2 }}>
-      <Grid container spacing={2} direction={matches700 ? "column" : "row"}>
+      <Grid container spacing={2} direction={"row"}>
         <Grid
           item
-          xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}
+          xs={8}
           component={motion.div}
           initial={animateHiddenItens}
           animate={animateShownItens}
@@ -106,7 +108,7 @@ const AdvertPageSize = () => {
         </Grid>
         <Grid
           item
-          xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}
+          xs={4}
           component={motion.div}
           initial={animateHiddenItens}
           animate={animateShownItens}
@@ -116,15 +118,10 @@ const AdvertPageSize = () => {
         </Grid>
         <Grid
           item
-          xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 8 : 8}
+          xs={8}
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
-          <AdvertData
-            name={specificAdvertData?.model}
-            price={specificAdvertData?.price}
-            km={specificAdvertData?.mileage}
-            year={specificAdvertData?.manufacture_year}
-          />
+          <AdvertData element={specificAdvertData} />
 
           <AdvertDesc desc={specificAdvertData?.description} />
 
@@ -132,7 +129,8 @@ const AdvertPageSize = () => {
 
           {userData && <AdvertCreateComment id={specificAdvertData?.id} />}
         </Grid>
-        <Grid item xs={matches500 ? 0 : matches700 ? 5 : matches900 ? 4 : 4}>
+
+        <Grid item xs={4}>
           <SalesmanData data={specificAdvertData?.user} />
         </Grid>
       </Grid>

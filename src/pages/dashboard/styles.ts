@@ -30,14 +30,6 @@ export const DivSearch = styled(motion.div)`
 
   background-color: var(--whitefixed);
 
-  .filterButton {
-    width: 280px;
-    height: 56px;
-    background-color: var(--brand1);
-    color: var(--whitefixed);
-    font-weight: 650;
-  }
-
   .gVNNVS .autoComplete {
     width: 100%;
   }

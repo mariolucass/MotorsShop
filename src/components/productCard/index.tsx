@@ -41,7 +41,7 @@ export const ProductCard = ({
     useMediaContext();
 
   if (isProfile) {
-    isProfile = element.user.id === userData?.id;
+    isProfile = element?.user?.id === userData?.id;
   }
 
   const cardSize = () => {
@@ -69,148 +69,160 @@ export const ProductCard = ({
   };
 
   return (
-    <>
-      <Card
-        variant="outlined"
-        sx={cardSize}
-        onClick={!isProfile ? onClick : () => {}}
-        component={motion.div}
-        whileHover={!isProfile ? { scale: 0.95 } : {}}
-        whileTap={!isProfile ? { scale: 0.75 } : {}}
-      >
-        <CardMedia
-          component={"img"}
-          height={"175"}
-          image={element.cover.url}
-          alt={element.model}
-        />
-
-        <CardContent
-          sx={{
-            gap: 2,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
+    element && (
+      <>
+        <Card
+          variant="outlined"
+          sx={cardSize}
+          onClick={!isProfile ? onClick : () => {}}
+          component={motion.div}
+          whileHover={!isProfile ? { scale: 0.95 } : {}}
+          whileTap={!isProfile ? { scale: 0.75 } : {}}
         >
-          <Typography
-            component="div"
-            variant="h6"
-            gutterBottom
-            className="card--title"
-            sx={{ fontFamily: "Lexend", minHeight: 60 }}
+          <CardMedia
+            component={"img"}
+            height={"175"}
+            image={element.cover ? element.cover.url : "example@example.com"}
+            alt={element?.model}
+          />
+
+          <CardContent
+            sx={{
+              gap: 2,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
           >
-            {element.model}
-          </Typography>
-
-          <Typography
-            className="card--description"
-            variant="body2"
-            sx={{ overflowX: "auto", minHeight: 60 }}
-          >
-            {element.description}
-          </Typography>
-
-          <>
-            {!isProfile && (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Avatar
-                  alt={element.user.name}
-                  src={element.user.profile.url}
-                />
-
-                <span className="card--user">
-                  {usernameLimiter(element.user.name)}
-                </span>
-              </Stack>
-            )}
-          </>
-
-          <Stack
-            direction={matches1200 ? "column" : "row"}
-            justifyContent="space-between"
-            alignItems={matches1200 ? "flex-start" : "center"}
-            spacing={2}
-            sx={{ width: "100%" }}
-          >
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={0.5}
+            <Typography
+              component="div"
+              variant="h6"
+              gutterBottom
+              className="card--title"
+              sx={{ fontFamily: "Lexend", minHeight: 60 }}
             >
-              <StyledChip label={`${element.mileage} KM`} />
+              {element.model ? element.model : "Loading..."}
+            </Typography>
 
-              <StyledChip label={element.manufacture_year} />
-            </Stack>
+            <Typography
+              className="card--description"
+              variant="body2"
+              sx={{ overflowX: "auto", minHeight: 60 }}
+            >
+              {element.description ? element.description : "Loading..."}
+            </Typography>
 
-            <span className="card--price">
-              {monetizeString(+element.price)}
-            </span>
-          </Stack>
+            <>
+              {!isProfile && (
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <Avatar
+                    alt={element?.user?.name}
+                    src={element?.user?.profile?.url}
+                  />
 
-          <>
-            {isProfile && (
+                  <span className="card--user">
+                    {usernameLimiter(
+                      element.user ? element.user.name : "Loading..."
+                    )}
+                  </span>
+                </Stack>
+              )}
+            </>
+
+            <Stack
+              direction={matches1200 ? "column" : "row"}
+              justifyContent="space-between"
+              alignItems={matches1200 ? "flex-start" : "center"}
+              spacing={2}
+              sx={{ width: "100%" }}
+            >
               <Stack
                 direction="row"
-                justifyContent="flex-start"
+                justifyContent="space-between"
                 alignItems="center"
-                spacing={1.5}
+                spacing={0.5}
               >
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  sx={{
-                    fontWeight: 600,
-                    textTransform: "unset",
-                    fontSize: 12,
-                    fontFamily: "Inter",
-                  }}
-                  onClick={() => {
-                    setAnnouncementToEdit(element);
-                    handleOpenEditAnnouncement();
-                  }}
-                >
-                  Editar
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={isProfile ? onClick : () => {}}
-                  sx={{
-                    fontWeight: 600,
-                    textTransform: "unset",
-                    fontSize: 12,
-                    fontFamily: "Inter",
-                  }}
-                >
-                  Ver detalhes
-                </Button>
-              </Stack>
-            )}
-          </>
-        </CardContent>
-      </Card>
+                <StyledChip
+                  label={element ? `${element.mileage} KM` : "Loading..."}
+                />
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={openEditAnnouncement}
-        onClose={handleCloseEditAnnouncement}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
-      >
-        <Fade in={openEditAnnouncement}>
-          <Box>
-            <EditAdvertise />
-          </Box>
-        </Fade>
-      </Modal>
-    </>
+                <StyledChip
+                  label={
+                    element.manufacture_year
+                      ? element.manufacture_year
+                      : "Loading..."
+                  }
+                />
+              </Stack>
+
+              <span className="card--price">
+                {element.price ? monetizeString(+element.price) : "Loading..."}
+              </span>
+            </Stack>
+
+            <>
+              {isProfile && (
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1.5}
+                >
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    sx={{
+                      fontWeight: 600,
+                      textTransform: "unset",
+                      fontSize: 12,
+                      fontFamily: "Inter",
+                    }}
+                    onClick={() => {
+                      setAnnouncementToEdit(element && element);
+                      handleOpenEditAnnouncement();
+                    }}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={isProfile ? onClick : () => {}}
+                    sx={{
+                      fontWeight: 600,
+                      textTransform: "unset",
+                      fontSize: 12,
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    Ver detalhes
+                  </Button>
+                </Stack>
+              )}
+            </>
+          </CardContent>
+        </Card>
+
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={openEditAnnouncement}
+          onClose={handleCloseEditAnnouncement}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={openEditAnnouncement}>
+            <Box>
+              <EditAdvertise />
+            </Box>
+          </Fade>
+        </Modal>
+      </>
+    )
   );
 };

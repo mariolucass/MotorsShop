@@ -10,8 +10,8 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
   const navigate = useNavigate();
 
   const { AdvertsData } = useDataContext();
-  const { userAdverts, announcementsProfile } = useAnnouncementContext();
   const { setSpecificAdvertData } = useDataContext();
+  const { userAdverts, announcementsProfile } = useAnnouncementContext();
 
   const advertData = (id: string) => {
     setSpecificAdvertData({} as iAnnouncement);
@@ -28,10 +28,10 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
 
   const list = listToPick.map((element) => (
     <ProductCard
-      key={element.id}
+      key={element ? element.id : ""}
       isProfile={isProfile}
       element={element}
-      onClick={() => advertData(element.id)}
+      onClick={() => advertData(element ? element.id : "")}
     />
   ));
 
@@ -42,7 +42,7 @@ export const Adverts = ({ isProfile, isHome }: iAdvertsProps) => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.6, -0.05, 0.01, 0.99] }}
       >
-        {listToPick.length === 0 ? <EmptyList /> : list}
+        {!listToPick.length ? <EmptyList /> : list}
       </ListStyled>
     </AnimatePresence>
   );

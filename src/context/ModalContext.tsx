@@ -6,6 +6,11 @@ interface iContextProvider {
   handleOpen: () => void;
   handleClose: () => void;
 
+  openMenu: boolean;
+  toggleMenu: () => void;
+  handleOpenMenu: () => void;
+  handleCloseMenu: () => void;
+
   openAddress: boolean;
   handleOpenAddress: () => void;
   handleCloseAddress: () => void;
@@ -31,17 +36,18 @@ export const useModalContext = () => {
 
 export const ModalProvider = ({ children }: iChildren) => {
   const [open, setOpen] = useState(false);
-
+  const [openMenu, setOpenMenu] = useState(false);
   const [openAddress, setOpenAddress] = useState(false);
-
   const [openUpdateUser, setOpenUpdateUser] = useState(false);
-
   const [openEditComment, setOpenEditComment] = useState(false);
-
   const [openEditAnnouncement, setOpenEditAnnouncement] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const toggleMenu = () => setOpenMenu(!openMenu);
+  const handleOpenMenu = () => setOpenMenu(true);
+  const handleCloseMenu = () => setOpenMenu(false);
 
   const handleOpenAddress = () => setOpenAddress(true);
   const handleCloseAddress = () => setOpenAddress(false);
@@ -61,15 +67,24 @@ export const ModalProvider = ({ children }: iChildren) => {
         open,
         handleOpen,
         handleClose,
+
+        openMenu,
+        toggleMenu,
+        handleOpenMenu,
+        handleCloseMenu,
+
         openAddress,
         handleOpenAddress,
         handleCloseAddress,
+
         openEditAnnouncement,
-        handleCloseEditAnnouncement,
         handleOpenEditAnnouncement,
+        handleCloseEditAnnouncement,
+
         openUpdateUser,
         handleOpenUpdateUser,
         handleCloseUpdateUser,
+
         openEditComment,
         handleOpenEditComment,
         handleCloseEditComment,

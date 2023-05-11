@@ -4,67 +4,53 @@ import * as framer from "../../libs/framer";
 import { useNavigate } from "react-router-dom";
 import { useModalContext, useUserContext } from "../../context";
 
-interface IProps {
-  isOpen: boolean;
-}
-
-export const MenuHeader = ({ isOpen }: IProps) => {
+export const MenuHeader = () => {
   const navigate = useNavigate();
   const { userData, logoutUser } = useUserContext();
-  const { handleOpenAddress, handleOpenUpdateUser } = useModalContext();
+  const { handleOpenAddress, handleOpenUpdateUser, openMenu } =
+    useModalContext();
+
+  const animateIfMenuIsOpen = openMenu
+    ? framer.animateShownUl
+    : framer.animateHiddenUl;
 
   return (
-    <>
-      <motion.nav className="menu">
-        <ListMenuStyled
-          animate={isOpen ? framer.animateShownUl : framer.animateHiddenUl}
-          style={{
-            pointerEvents: isOpen ? "auto" : "none",
-            clipPath: "inset(10% 50% 90% 50% round 10px)",
-          }}
+    <motion.nav className="menu">
+      <ListMenuStyled
+        animate={animateIfMenuIsOpen}
+        style={{
+          pointerEvents: openMenu ? "auto" : "none",
+          clipPath: "inset(10% 50% 90% 50% round 10px)",
+        }}
+      >
+        <motion.li
+          animate={animateIfMenuIsOpen}
+          onClick={() => navigate("/dashboard")}
         >
-          <motion.li
-            onClick={() => navigate("/dashboard")}
-            animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
-          >
-            Dashboard
-          </motion.li>
+          Dashboard
+        </motion.li>
 
-          <motion.li
-            animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
-            onClick={() => {
-              handleOpenUpdateUser();
-            }}
-          >
-            Editar Perfil
-          </motion.li>
+        <motion.li animate={animateIfMenuIsOpen} onClick={handleOpenUpdateUser}>
+          Editar Perfil
+        </motion.li>
 
-          <motion.li
-            animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
-            onClick={() => {
-              handleOpenAddress();
-            }}
-          >
-            Editar Endereço
-          </motion.li>
+        <motion.li animate={animateIfMenuIsOpen} onClick={handleOpenAddress}>
+          Editar Endereço
+        </motion.li>
 
-          {userData?.role === "SELLER" && (
-            <motion.li
-              onClick={() => navigate("/profile")}
-              animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
-            >
-              Meus Anúncios
-            </motion.li>
-          )}
-
+        {userData?.role === "SELLER" && (
           <motion.li
-            onClick={logoutUser}
-            animate={isOpen ? framer.animateShownLi : framer.animateHiddenLi}
+            animate={animateIfMenuIsOpen}
+            onClick={() => navigate("/profile")}
           >
-            Sair
+            Meus Anúncios
           </motion.li>
-        </ListMenuStyled>
-      </motion.nav>
-    </>
+        )}
+
+        <motion.li animate={animateIfMenuIsOpen} onClick={logoutUser}>
+          Sair
+        </motion.li>
+      </ListMenuStyled>
+    </motion.nav>
   );
 };

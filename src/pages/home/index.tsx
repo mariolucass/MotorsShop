@@ -1,6 +1,12 @@
+import { useEffect } from "react";
 import { AdvertsMenu } from "./style";
 import { Box, Button, Container } from "@mui/material";
-import { useFilterContext, useMediaContext } from "../../context";
+import MyPagination from "../../components/pagination";
+import {
+  useDataContext,
+  useFilterContext,
+  useMediaContext,
+} from "../../context";
 import {
   Adverts,
   Footer,
@@ -9,11 +15,23 @@ import {
   NavBar,
   TransitionAnimation,
 } from "../../components";
-import MyPagination from "../../components/pagination";
 
 const Home = () => {
   const { matches700 } = useMediaContext();
+  const { searchParams } = useDataContext();
   const { setShowFilter, showFilter } = useFilterContext();
+
+  useEffect(() => {
+    const data = Array.from(searchParams.keys());
+    const keys = data.reduce(
+      (elem, v) => ({ ...elem, [v]: searchParams.get(v) }),
+      {}
+    );
+
+    if (data.length) {
+      localStorage.setItem("@MotorsShop:filter", JSON.stringify(keys));
+    }
+  }, [searchParams]);
 
   return (
     <TransitionAnimation>

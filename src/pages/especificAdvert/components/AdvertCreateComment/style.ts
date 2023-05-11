@@ -22,41 +22,18 @@ export const DivStyled = styled.div`
 
   .textArea {
     font-family: "Inter";
-    width: 95%;
-    min-height: 129px;
+    width: 100%;
+    /* min-height: 129px; */
     /* border: 10px solid var(--brand); */
     border-radius: 8px;
-    padding: 1em;
   }
-`;
-
-export const ButtonSubmit = styled(motion.button)`
-  box-sizing: border-box;
-  position: relative;
-  bottom: 30%;
-  left: 80%;
-  width: 112px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 20px;
-  gap: 10px;
-
-  color: var(--whitefixed);
-
-  background: #4529e6;
-
-  border: 1.5px solid #4529e6;
-  border-radius: 4px;
 `;
 
 export const ButtonDiv = styled(motion.div)`
   display: flex;
   gap: 4px;
   position: relative;
-  bottom: 25%;
+  /* bottom: 25%; */
 `;
 
 export const AutoCompleterComment = styled(motion.button)`
@@ -70,8 +47,21 @@ export const AutoCompleterComment = styled(motion.button)`
   padding: 0px 12px;
   gap: 10px;
 
-  height: 24px;
+  height: 32px;
 
   background: #e9ecef;
   border-radius: 24px;
+`;
+
+export const DivButtonSubmit = styled(motion.div)`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 5%;
+  font-weight: 750;
+
+  button {
+    font-family: "Lexend";
+  }
 `;

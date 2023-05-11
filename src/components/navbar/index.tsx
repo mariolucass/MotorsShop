@@ -2,35 +2,99 @@ import { GrFormClose } from "react-icons/gr";
 import FilterBox from "./filterBox/FilterBox";
 import FilterBoxInput from "./filterBox/FilterBoxInput";
 import { Stack, Typography, Button, Box } from "@mui/material";
-import { useMediaContext, useFilterContext } from "../../context";
-import { ano, combustivel, cores, marcas, modelos } from "../../data";
+import {
+  useMediaContext,
+  useFilterContext,
+  useDataContext,
+} from "../../context";
+import { marcasMocked } from "../../data";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  getAnnouncementWithQuery,
+  getFilteredAnnouncements,
+} from "../../services";
+import { capitalizeString } from "../../utils";
 
 export const NavBar = () => {
-  const { matches700 } = useMediaContext();
+  const { matches700, minMatches1500 } = useMediaContext();
+  const setSearchParams = useSearchParams()[1];
   const {
+    anos,
+    combustiveis,
+    cores,
+    modelos,
+    setAnos,
+    setCores,
+    setModelos,
+    setResetRadio,
+    setAdvertsData,
+    setCombustiveis,
+    setFilterBoxOptions,
+  } = useDataContext();
+
+  const {
+    Marca,
     showFilter,
-    setShowFilter,
     setMarca,
     setAno,
-    setCombustivel,
     setCor,
     setModelo,
     setMaxKm,
-    setMaxPrice,
     setMinKm,
+    setMaxPrice,
     setMinPrice,
+    setShowFilter,
+    setCombustivel,
   } = useFilterContext();
 
+  useEffect(() => {
+    if (Marca) {
+      setAnos([]);
+      setCores([]);
+      setModelos([]);
+      setCombustiveis([]);
+      localStorage.removeItem("@MotorsShop:filter");
+
+      (async () => {
+        const announcements = await getAnnouncementWithQuery({
+          brand: capitalizeString(Marca!),
+        });
+
+        if (announcements.length) {
+          setFilterBoxOptions(announcements);
+        }
+      })();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [Marca]);
+
+  const emptyListToken = async () => {
+    const pagination = "?page=0&";
+    const announcements = await getFilteredAnnouncements(pagination);
+    setAdvertsData(announcements);
+    setFilterBoxOptions(announcements);
+  };
+
   const emptyFilter = () => {
-    setMarca(undefined);
-    setAno(undefined);
-    setCombustivel(undefined);
-    setCor(undefined);
-    setModelo(undefined);
-    setMaxKm(undefined);
-    setMaxPrice(undefined);
-    setMinKm(undefined);
-    setMinPrice(undefined);
+    if (modelos.length) {
+      emptyListToken();
+    } else {
+      setMarca(undefined);
+      setAno(undefined);
+      setCombustivel(undefined);
+      setCor(undefined);
+      setModelo(undefined);
+      setMaxKm(undefined);
+      setMaxPrice(undefined);
+      setMinKm(undefined);
+      setMinPrice(undefined);
+    }
+
+    setResetRadio(true);
+
+    const pagination = "?page=0&";
+    setSearchParams(pagination);
   };
 
   const size = () => {
@@ -61,7 +125,7 @@ export const NavBar = () => {
   return (
     <Box
       className={matches700 && showFilter === false ? "ocult" : "navbar"}
-      sx={size}
+      sx={minMatches1500 ? { ...size, maxWidth: 300 } : size}
     >
       {showFilter ? (
         <Stack
@@ -87,15 +151,15 @@ export const NavBar = () => {
       )}
       <FilterBox
         title="Marca"
-        options={marcas.map((e) => e.name)}
+        options={marcasMocked.map((e) => e.name)}
         to={setMarca}
       />
       <FilterBox title="Modelo" options={modelos} to={setModelo} />
       <FilterBox title="Cor" options={cores} to={setCor} />
-      <FilterBox title="Ano" options={ano} to={setAno} />
+      <FilterBox title="Ano" options={anos} to={setAno} />
       <FilterBox
         title="Combustivel"
-        options={combustivel}
+        options={combustiveis}
         to={setCombustivel}
       />
       <FilterBoxInput title="Km" max={setMaxKm} min={setMinKm} />

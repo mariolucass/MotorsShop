@@ -17,7 +17,6 @@ import {
   animateShownItens,
   animateTransitionItens,
 } from "../../../../libs";
-import { useState } from "react";
 
 interface iProps {
   src: iImage | undefined;
@@ -27,7 +26,6 @@ interface iPropsList {
 }
 
 const AdvertImage = ({ src }: iProps) => {
-  console.log(src);
   const cardSx = {
     objectFit: "contain",
     width: "70%",
@@ -85,6 +83,7 @@ const AdvertImageList = ({ src }: iPropsList) => {
                   setImage(item?.image?.url);
                   showModal();
                 }}
+                sx={{ cursor: "pointer" }}
               >
                 <img src={item?.image?.url} alt="" />
               </ImageListItem>

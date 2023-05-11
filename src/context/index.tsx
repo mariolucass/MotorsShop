@@ -1,16 +1,16 @@
 import { iChildren } from "../interfaces";
+import { UserProvider } from "./UserContext";
+import { DataProvider } from "./DataContext";
 import { MediaProvider } from "./MediaContext";
 import { ModalProvider } from "./ModalContext";
-import { UserProvider } from "./UserContext";
 import { FilterProvider } from "./FilterContext";
-import { AnnouncementProvider } from "./AnnouncementContext";
-import { DataPrivider } from "./DataContext";
 import { LoadingProvider } from "./LoadingContext";
+import { AnnouncementProvider } from "./AnnouncementContext";
 
 const Providers = ({ children }: iChildren) => (
   <FilterProvider>
     <MediaProvider>
-      <DataPrivider>
+      <DataProvider>
         <AnnouncementProvider>
           <LoadingProvider>
             <UserProvider>
@@ -18,7 +18,7 @@ const Providers = ({ children }: iChildren) => (
             </UserProvider>
           </LoadingProvider>
         </AnnouncementProvider>
-      </DataPrivider>
+      </DataProvider>
     </MediaProvider>
   </FilterProvider>
 );
