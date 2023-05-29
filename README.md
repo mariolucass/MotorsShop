@@ -1,6 +1,7 @@
 # MotorsShop
 
-Projeto de um site para venda de veiculos automotivos, com suporte a usuários compradores e anunciantes. 
+Projeto de um E-commerce de venda de carros, uma plataforma online que permite aos usuários pesquisar, comparar e comprar veículos de forma conveniente e segura. 
+Nosso objetivo é fornecer uma experiência de compra excepcional, conectando compradores e vendedores de carros em um ambiente confiável.
 
 ## Features
 
